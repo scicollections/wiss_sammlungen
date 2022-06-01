@@ -1,0 +1,13 @@
+de:
+  i18n:
+    # ActiveSupport::Inflector.transliterate Regeln
+    transliterate:
+      rule:
+        Ü: Ue
+        Ö: Oe
+        Ä: Ae
+        ä: ae
+        ö: oe
+        ü: ue
+        ß: ss
+        ẞ: Ss

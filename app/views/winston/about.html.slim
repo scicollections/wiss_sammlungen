@@ -1,0 +1,27 @@
+.container
+  h1 Kennzahlen zu wissenschaftlichen Sammlungen an deutschen Universitäten
+  = render partial: "winston_navigation", locals: {show_date: true}
+  h2 Erläuterungen
+
+  h3 Datengrundlage
+  p Die den Kennzahlen zugrunde liegenden Daten unterliegen einem ständigen Wandel, die vorliegende Präsentation erhebt daher <b>keinen Anspruch auf Vollständigkeit</b>.
+  p Die <b>Daten</b> der Kennzahlen sind dem Portal #{link_to "Wissenschaftliche Sammlungen", production_url, title: "Wissenschaftliche Sammlungen"} entnommen. Sie werden sowohl vom Team der Koordinierungsstelle laufend recherchiert und aktualisiert, als auch aus dem #{link_to "Netzwerk Universitätssammlungen", "http://wissenschaftliche-sammlungen.de/de/netzwerk/netzwerk-universitaetssammlungen/", title: "Netzwerk · Koordinierungsstelle wissenschaftliche Sammlungen", target: "_blank"} übermittelt. Hierfür haben wir zuletzt im Jahr 2019 eine Umfrage unter allen Ansprechpartnerinnen und Ansprechpartnern der Sammlungen durchgeführt. Für die rege Beteiligung bedanken wir uns herzlich!
+
+  h3 Erläuterung zu den Indikatoren
+  ul
+    li <b>Sammlungskoordination</b>: Darunter wird hier im weiteren Sinne eine Struktur verstanden, die die Kommunikation an einer Universität zwischen den Sammlungen ermöglicht bzw. fördert. Dazu zählen wir zentrale Sammlungsbeauftragte und Zentralstellen ebenso wie Arbeitskreise. Wichtigstes Merkmal ist das Vorhandensein einer Ansprechperson für die Belange aller bzw. eines Großteils der Sammlungen einer Universität.
+    li <b>Sammlungsordnung</b>: Sie ist das Bekenntnis der Universität zu ihren Sammlungen und ein verlässliches Statut (amtliche Bekanntmachung) für die gesamtuniversitären Rahmenbedingungen der Sammlungsarbeit.
+    li <b>Sammlungsportal</b>: Darunter wird die Präsentation aller bzw. eines Großteils der Sammlungen einer Universität im Rahmen einer gemeinsamen Webpräsenz verstanden.
+    li <b>Objektportal</b>: Darunter wird die Präsentation von Objekten der Sammlungen einer Universität im Rahmen einer gemeinsamen Webpräsenz verstanden.
+
+  h3 Sonstiges
+  p Alle für die Kennzahlen verwendeten Grafiken wurden (soweit nicht anders angegeben) mithilfe einer unveränderten Version von #{link_to "Highcharts.js", "http://www.highcharts.com/products/highcharts"} erstellt (#{link_to "CC BY-NC 3.0", "https://shop.highsoft.com/highcharts#non-com"}).
+
+  h3 Kontakt
+  p Wir freuen uns über Ihre Mitarbeit!
+  p Feedback, Aktualisierungen, Korrekturen, Ergänzungen: #{mail_to "support@wissenschaftliche-sammlungen.de", "support@wissenschaftliche-sammlungen.de", encode: "hex"}
+
+  p
+    br
+    | &nbsp;
+  = render(partial: "winston_navigation")

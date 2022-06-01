@@ -1,0 +1,32 @@
+/ Full and alphabetically sorted list of all subjects with respective
+/ amounts of digital collection data.
+/ Is embedded in a Modal view on /kennzahlen/digitale-sammlungen
+#subjects-modal.modal.fade[
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+]
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header
+        button.close[
+          type="button"
+          data-dismiss="modal"
+          aria-hidden="true"
+        ]
+          | ×
+        h4.modal-title
+          | Digitalisierungsgrad nach Fachgebiet – alle Fachgebiete
+      .modal-body
+        ul class="nav nav-tabs" role="tablist"
+          li.active role="presentation"
+            a href="#all-relative-tab" aria-controls="all-relative-tab" role="tab" data-toggle="tab" Relativ
+          li role="presentation"
+            a href="#all-absolute-tab" aria-controls="all-absolute-tab" role="tab" data-toggle="tab" Absolut
+          
+        .tab-content
+          div.tab-pane#all-relative-tab.active role="tabpanel"
+            = chart_digital_collections_anteile_fachgebiet_full @dc_anteile_fachgebiet_full
+          div.tab-pane#all-absolute-tab role="tabpanel"
+            = chart_digital_collections_anteile_fachgebiet_full @dc_anteile_fachgebiet_full_abs, false

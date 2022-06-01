@@ -1,0 +1,29 @@
+- if @search.has_results
+  - @search.results.each do |r|
+    .row.item id="hit_#{r[:num]}"
+      a href="/#{r[:klass]}/#{r[:id]}"
+        .col-md-1.col-sm-1.col-xs-1
+          - if r[:scope].include? "public"
+            = image_tag "icons/eye_cc-ashlain.svg", alt: "Seite öffentlich sichtbar", title: "Seite öffentlich sichtbar", class: "visibility visibility-public"
+
+          - elsif r[:scope].include? "member"
+            = image_tag "icons/eye-closed_cc-ashlain.svg", alt: "Seite nur für registrierte Benutzer sichtbar", title: "Seite nur für registrierte Benutzer sichtbar", class: "visibility visibility-member"
+
+          - else
+            = image_tag "icons/eye-closed-red_cc-ashlain.svg", alt: "Seite nur intern sichtbar", title: "Seite nur intern sichtbar", class: "visibility visibility-manager"
+
+        .col-md-9.col-sm-9.col-xs-11
+          .search-label= r[:quicksearch]
+        .col-md-2.col-sm-2.col-xs-11.col-xs-offset-1.col-sm-offset-0
+          .search-klass= t r[:klass]
+
+  - if @search.has_more
+    .search_nav
+      a.btn.btn-default href="#{internal_search_url @search}?q=#{@search.q}&p=#{@search.from + @search.results.size}"  Mehr Ergebnisse
+- else
+  .row.item
+    - if @search.query.length < 2
+      .subtitle Zu kurzer Suchstring, bitte mindestens 2 Zeichen eingeben.
+
+    - else
+      .subtitle Keine Ergebnisse

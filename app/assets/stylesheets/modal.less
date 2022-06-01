@@ -1,0 +1,55 @@
+@import "twitter/bootstrap/variables";
+@import "custom_bootstrap/variables.less";
+
+// MODAL
+// general settings – valid for all modals (new modal, edit modal, invite modal)
+
+.modal.wide {
+  .modal-dialog {
+    width: 900px;
+
+    // if xs-view then nearly fullwidth modal
+    @media only screen and (max-width: 767px){
+      width: 95%;
+      margin: auto;
+    }
+    // smaller modal for sm- and md-views
+    @media only screen and (max-width: 991px){
+      width: 765px;
+    }
+  }
+}
+
+// background-appearance of complete window when modal is displayed
+.modal-backdrop {
+  background-color: #ffffff;
+}
+
+.modal-header {
+  padding: 10px 15px 8px 20px;
+
+  // defines the position of close 'x'
+  button {
+    position: relative;
+    top: 2px;
+  }
+}
+
+.modal-body {
+  min-height: 150px;
+  padding: 10px 20px;
+}
+
+.modal-footer {
+  margin-top: 10px;
+  // defines warnings and other messages displayed next to button
+  .revision-message {
+    text-align: left;
+    position: absolute;
+    margin-right: 140px;
+  }
+}
+
+.modal-content {
+  border-radius: 4px;
+}

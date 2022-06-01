@@ -1,0 +1,22 @@
+- curatorship = individual.curator_value.select{|cs| cs.curator_value.id == person.id}.first
+- local_term = curatorship.local_term_value
+- manager = curatorship.manager_value 
+- multiple_collections = person.curated_collection.length > 1
+  
+- if manager
+  i.fas.fa-crown title="Sammlungsleitung"
+  | &nbsp;
+- else
+  span.glyphicon.glyphicon-education.disabled
+|   
+= local_term if local_term
+br
+- inviter = campaign.get_user_inviter(person.user)
+span.glyphicon.glyphicon-play class=(inviter ? "":"disabled") title="Einladende_r Manager_in"
+- if inviter
+  = " von #{inviter.person.label}" 
+br
+span.glyphicon.glyphicon-th class=(multiple_collections ? "":"disabled") title="Ansprechpartner_in für mehrere Sammlungen"
+- if person.curated_collection.length > 1
+  |  Mehrere Sammlungen
+br

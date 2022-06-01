@@ -1,0 +1,78 @@
+@import "twitter/bootstrap/variables";
+@import "custom_bootstrap/variables.less";
+
+
+.quicksearch-box{
+  padding: 5px;
+
+  .twitter-typeahead {
+    vertical-align: middle;
+    width: 300px; // defines width of quicksearch-box
+    color: black;
+
+    input {
+      border-radius: 0;
+      width: 100%;
+    }
+
+    .tt-menu {
+      top: 100%;
+      max-height: 450px;
+      overflow-y: auto;
+      border-bottom: 1px solid #ccc;
+      // display on top of aside.search-actions, unfortunately direct styling of the
+      // search box is unhandy and requires javascript, see http://stackoverflow.com/questions/6762174/jquery-uis-autocomplete-not-display-well-z-index-issue
+      // so inline style is simply overridden with !important
+      z-index: 1100 !important;
+
+      .tt-dataset {
+        background-color: white;
+        min-width: 300px;
+        display: block;
+        box-shadow: 2px 1px 5px #ccc;
+        border: 1px solid #ccc;
+      }
+
+      .tt-cursor {
+        background-color: #f4f4f4;
+      }
+
+      .tt-suggestion {
+        a {
+          padding: 6px;
+          height: 100%;
+          width: 100%;
+        }
+        a:hover {
+          background-color: #f4f4f4;
+        }
+      }
+
+      .tt-footer{
+        background-color: white;
+        border-top: 1px solid #dde0e5;
+        box-shadow: inset 0 1px 0 #f4f4f4;
+        a{
+          color:#337ab7;
+          padding: 6px;
+          height: 100%;
+          width: 100%;
+        }
+      }
+      .tt-footer:hover{
+        background-color: #f4f4f4;
+      }
+    }
+  }
+}
+
+// definitions for xs-view
+@media only screen and (max-width: 720px){
+  .quicksearch-box {
+      width: 100%;
+      padding: 5px 10px 5px 0px;
+    .twitter-typeahead {
+      width: 100%;
+    }
+  }
+}

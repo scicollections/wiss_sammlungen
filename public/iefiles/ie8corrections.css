@@ -1,0 +1,23 @@
+.start {
+    background-image: url("logo-1-2-ie.png");
+}
+
+a#simple-menu.menu-btn {
+  background-image: url("menu-04-ie.png");
+}
+
+a#responsive-menu-button {
+  background-image: url("menu-04-ie2.png");
+}
+
+.wrapper-standard2#left {
+  background-image: none;
+}
+
+.wrapper-standard2#right {
+  background-image: none;
+}
+
+.wrapper-standard2#mitte {
+  background-image: url("logo-1-1-ie.png");
+}

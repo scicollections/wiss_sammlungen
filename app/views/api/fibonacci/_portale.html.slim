@@ -1,0 +1,6 @@
+- @portals.each do |portal|
+  p
+    = portal[:name]
+    br
+    a.externlink href=portal[:url] target="_blank"
+      =  portal[:url]

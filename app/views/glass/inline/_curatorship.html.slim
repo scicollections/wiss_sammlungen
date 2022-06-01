@@ -1,0 +1,15 @@
+span.individual-label= individual.class_display
+- if (subject.is_a?(Person) && (individual.safe_value("curated_collection", false)))
+  = link_to(individual.curated_collection.value.inline_label,
+    controller: 'individual', action: 'show', individual: "SciCollection",
+    id: individual.curated_collection.value.id)
+
+- elsif individual.safe_value("curator", false)
+  = link_to(individual.safe_value("curator"), controller: 'individual',
+    action: 'show', individual: "Person", id: individual.curator.value.id)
+
+- if (individual.safe_value("local_term", false))
+  |  (#{individual.safe_value("local_term")})
+
+- if (individual.safe_value("ocurred_at", false))
+  = individual.safe_value("ocurred_at")

@@ -1,0 +1,52 @@
+css:
+  .maya-funding-programs {
+    padding: 0px !important;
+  }
+
+  .maya-funding-program {
+    margin-left: 30px !important;
+    margin-bottom: 15px !important;
+    padding-left: 15px !important;
+    line-height: 1.429 !important;
+    list-style-type: disc !important;
+  }
+
+  .maya-deadline {
+    font-weight: bold !important;
+    color: red !important;
+  }
+
+- @orgs_by_state.each do |state, orgs|
+  p
+    h3 = state.present? ? state : "Bundesweit"
+    div
+      - orgs.each do |org|
+        - fps = @fps_by_org[org]
+        - next unless fps.present? # Should never happen (present? also means not empty for Arrays)
+        p
+          h4=org.label
+          ul.maya-funding-programs
+            - fps.each do |fp|
+              li.maya-funding-program
+                
+                a.externlink href=(production_url+fp.path) target="_blank": b = fp.label
+
+                - if fp.ocurred_at
+                  br
+                  | Laufzeit:
+                  =< fp.ocurred_at.value
+
+                - if fp.procedures_and_rules_value
+                  br
+                  | Ausschreibungsmodalitäten:
+                  =< fp.procedures_and_rules_value
+
+                - if fp.funding_area_value.any?
+                  br
+                  | Förderschwerpunkt:
+                  =< fp.funding_area_value.map(&:to_s).join(", ")
+
+                - if (deadline = fp.current_deadline_value) && !deadline.past?
+                  br
+                  Aktuelle Deadline:
+                  span.maya-deadline< = deadline.to_s(:ger_date)

@@ -1,0 +1,61 @@
+- if individual.type_of(predicate) == :objekt
+  ruby:
+    range = individual.range_of(predicate)
+    range = [range] unless range.is_a?(Array)
+    range_klass = range[0].constantize rescue Individual
+
+    # Hole die Nachkommen der in der Range angegebenen Klassen
+    descendants = range
+      .map { |x| x.constantize.descendants rescue [] }
+      .flatten
+      .reject { |x| x.weak? }
+
+    illegals = individual.illegal_objekt_ids_with_reasons(predicate)
+
+    # Kann die Kandidaten hier erst laden (nicht schon im Controller), da es
+    # sein kann, dass es mehrere Ranges gibt.
+    candidates = Individual.where(type: range + descendants).includes(:info_text)
+      .order(:inline_label)
+    # Gibt es einen Rails-Helper dafür, so eine Aufzählung zu erstellen?
+    x = range.map { |x| t x }
+    x = [x.take(x.length - 1).join(", "), x.last].reject(&:blank?).join(" oder ")
+
+  form.form-horizontal.create-objekt-property[
+    class=("cardinality-one" if individual.cardinality_of(predicate) == 1)
+    data-predicate=predicate
+    data-individual-id=individual.id]
+
+    input.form-control.range-filter placeholder="#{x} suchen"
+
+    / Wir unterstützen die hierachische Darstellung nur bei homogenen Ranges.
+    - if range.length == 1 && range_klass.hierarchical?
+      div[role="tabpanel"]
+        // Nav tabs
+        ul.nav.nav-tabs[role="tablist"]
+          li.active[role="presentation"]
+            a[href="#alphabetical" aria-controls="alphabetical" role="tab" data-toggle="tab"]
+              | Alphabetisch
+          li[role="presentation"]
+            a[href="#hierarchical" aria-controls="hierarchical" role="tab" data-toggle="tab"]
+              | Hierachisch
+        // Tab panes
+        .tab-content
+          #alphabetical.tab-pane.active[role="tabpanel"]
+            = render("glass/range", candidates: candidates, illegals: illegals)
+          #hierarchical.tab-pane[role="tabpanel"]
+            = render("glass/range", illegals: illegals, hierarchical: true,
+                range_klass: range_klass)
+    - else
+      = render "glass/range", candidates: candidates, illegals: illegals
+
+- else
+  form.create-property[
+    data-predicate=predicate
+    data-individual-id=individual.id]
+
+    .input-wrapper
+      input.form-control[
+        maxlength="255"
+        placeholder="Hier neue #{@glass.humanize individual, predicate} eingeben und Enter drücken"]
+
+    button.btn.btn-primary[type="submit"] Hinzufügen

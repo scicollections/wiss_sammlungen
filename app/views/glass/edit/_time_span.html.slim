@@ -1,0 +1,10 @@
+.input-group.input-daterange
+  .date-from
+    = "#{t 'begin'}:"
+    = @glass.edit individual, "begin"
+  .date-to
+    = "#{t 'end'}:"
+    = @glass.edit individual, "end"
+= @glass.edit individual, "display_as_year"
+= "#{t 'time_span_label'}:"
+= @glass.edit individual, "time_span_label"

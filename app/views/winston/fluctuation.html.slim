@@ -1,0 +1,41 @@
+.container.winston-fluctuation
+  h1 Kennzahlen zu wissenschaftlichen Sammlungen an deutschen Universitäten
+  = render partial: "winston_navigation", locals: {show_date: true}
+  h2 Fluktuation
+  p Die drei folgenden Grafiken zeigen den Austausch von Ansprechpartner_innen innerhalb eines Jahres. Die untere Grafik gibt einen Überblick über die Anzahl der Ansprechpersonen pro Sammlung.
+  h3 Wechsel
+  .row style="border:1px solid black; border-radius:10px; min-height: 405px" 
+    .col-sm-5
+      p.fluctuation-number = @collections_wonandlost_curator
+      p 
+        big Sammlungen, die mindestens 1 Ansprechpartner_in gewonnen und mindestens 1 Ansprechpartner verloren haben in den letzten 12 Monaten
+      p Die Grafik zeigt den prozentualen Anteil der Sammlungen mit Wechsel von mindestens einer Ansprechperson. Im Regelfall handelt es sich dabei um die Übergabe der Verantwortlichkeit für die jeweilige Sammlung, da die Mehrzahl der Sammlungen (siehe untere Grafik) lediglich eine Ansprechperson haben. Beim Wechsel der Ansprechpersonen handelt es sich um eine Schnittmenge der Neuzugänge bzw. Abgänge einer Sammlung.
+    .col-sm-7
+      = pie_chart @collections_wonandlost_curator_chartdata, colors: ["#1f2e54","#d2daee"], height: "400px"
+
+
+  h3 Neuzugänge
+  .row style="border:1px solid black; border-radius:10px; min-height: 205px"
+    .col-sm-5
+      p.fluctuation-number = @collections_won_curator
+      p 
+        big Sammlungen, die mindestens 1 Ansprechpartner_in gewonnen haben in den letzten 12 Monaten
+      p Hierbei handelt es sich um alle Personen, die innerhalb eines Jahres mit einer Sammlung neu verbunden wurden.
+    .col-sm-7
+      = pie_chart @collections_won_curator_chartdata, colors: ["#1f2e54","#d2daee"]
+  h3 Abgänge
+  .row style="border:1px solid black; border-radius:10px; min-height: 205px"
+    .col-sm-5
+      p.fluctuation-number = @collections_lost_curator
+      p 
+        big Sammlungen, die mindestens 1 Ansprechpartner_in verloren haben in den letzten 12 Monaten
+      p Hierbei handelt es sich um alle Personen, die von einer Sammlung getrennt wurden. Gründe für Abgänge sind beispielsweise Vertragsende, Kündigung, Pensionierung.
+    .col-sm-7
+      = pie_chart @collections_lost_curator_chartdata, colors: ["#1f2e54","#d2daee"]
+  h3 Anzahl der Ansprechpartner_innen je Sammlung
+  .row style="border:1px solid black; border-radius:10px; min-height: 205px"
+    .col-sm-2
+      
+    .col-sm-10
+      = pie_chart @acc_curatorship_counting, colors: ["#1f2e54","#4566ba","#d2daee","3e5ca8"]
+  

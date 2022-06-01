@@ -1,0 +1,25 @@
+- if (controller.controller_name == "home")
+  - categories = "collection"
+- else
+  - categories = @search.cat_filter.map(&:to_s).join(",")
+
+div class=("row#{(controller.controller_name == "discover") ? " main-search" : ""}")
+  div class=("#{(controller.controller_name == "discover") ? "col-md-12 app-searchbox" : "col-md-12 start-searchbox"}")
+    form action="/discover/#{categories}/" method="GET"
+      .input-group
+        input.form-control id="" name="q" placeholder="Suche" type="search" value="#{@search.q}" /
+        - @search.facet_filter.keys.each do |k|
+          - @search.facet_filter[k].each do |v|
+            input name="f[#{k}][]" type="hidden" value=v /
+        input name="lq" type="hidden" value="#{@search.q}" /
+        span.input-group-btn
+          button.btn.btn-default type="submit"  Los!
+
+- if (controller.controller_name == "home")
+  div style="margin-top:10px"
+    a.button-coverpage href="/"  NEUER VORSCHLAG
+    - @random_individuals.each do |rnd|
+      p.suggestion
+        = t(rnd.class, default: rnd.class)
+        br/
+        a href="/#{rnd.class}/#{rnd.id}?hit=#{"random_startpage_entry"}" = shorten_label(rnd.inline_label, 200)

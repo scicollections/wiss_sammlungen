@@ -1,0 +1,92 @@
+@import "twitter/bootstrap/variables";
+@import "custom_bootstrap/variables.less";
+
+.container-internal-search {
+
+  .extended-search {
+      .col-md-1, .col-sm-1 {
+        width: 30px;
+        padding: 0;
+      }
+      @media only screen and (max-width: 767px){
+        .col-xs-offset-1{margin-left: 30px;}
+      }
+
+    .results {
+      min-height: 750px;
+
+      .item {
+        margin: 10px 0px 15px 0px;
+        display: block;
+
+        a {color: @darkblue;}
+        a:hover {
+          color: @standard-link-color;
+          text-decoration: none;
+        }
+
+        .search-label {font-size: 18px;}
+        .search-klass {color: #808080;}
+
+        img.visibility {
+          width: 22px;
+          margin-left: 10px;
+          margin-top: 1px;
+        }
+      }
+    }
+
+    .filter {
+      min-height: 550px;
+
+      @media only screen and (max-width: 767px){
+        min-height: 300px;
+        margin-bottom: 30px;
+      }
+
+      .int-search-heading {
+        font-size: 16px;
+        font-weight: bold;
+        color: @darkblue;
+        border-bottom: 1px solid #cccccc;
+        padding: 0px 0px 7px 4px;
+        margin-top: 11px;
+      }
+
+      .int-search-filter {
+        margin: 5px 0 8px 0;
+        padding: 2px 4px;
+        clear: both;
+
+        a, a:hover {
+          display: block;
+          color: @darkblue;
+          text-decoration: none;
+        }
+
+        img {
+          float: right;
+          height: 20px;
+          padding: 3px;
+          vertical-align: middle;
+        }
+      }
+
+      .int-search-filter:hover {background: #dde0e5;}
+
+      .active {background: #efefef;}
+
+      .int-filter-actions {margin-top: 20px;}
+
+      .delete-filters, .new-search {
+        margin: 5px;
+
+        a, a:hover {
+          font-weight: bold;
+          text-decoration: none;
+        }
+      }
+
+    }
+  }
+}

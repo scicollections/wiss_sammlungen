@@ -1,0 +1,15 @@
+= "#{t 'address_data'}:"
+
+= @glass.edit individual, "address_data",
+    locals: { textarea_style: "height: 200px" }
+
+= "#{t 'postal_code'}:"
+
+= @glass.edit individual, "postal_code"
+
+= "#{t 'location'}:"
+
+- if individual.location
+  = @glass.edit individual, "location"
+- else
+  = @glass.new individual, "location"

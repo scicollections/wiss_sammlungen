@@ -1,0 +1,65 @@
+.container.home
+  .row
+    .col-md-12.welcome-text
+      | Wissenschaftliche Sammlungen in Deutschland und ihre Digitalisierung: <br>
+      | Willkommen beim Portal #{t "maya_title"}<sup>beta</sup>
+
+  .row
+    .col-md-6.col-xs-12
+      // Suchen & Entdecken
+      #search-discover.home-search.home-tile
+        .home-tiles-title
+          a href="/discover" Suchen &amp; Entdecken
+        p
+          | <b>Suchen und finden</b> Sie
+          a< href="/discover/collection" wissenschaftliche Sammlungen
+          | ,
+          a< href="/discover/digital" digitale Sammlungen
+          | ,
+          a<> href="/discover/actor" Akteure
+          | oder
+          a< href="/discover/activity" sammlungsbezogene Aktivitäten
+        = render "discover/searchbox"
+
+    .col-md-6.col-xs-12
+      // Kennzahlen
+      #kennzahlen.home-tile
+        .home-tiles-title
+          a data-no-turbolink="" href="/kennzahlen"  Kennzahlen
+        .new-patch NEU
+        p
+          a<> data-no-turbolink="" href="/kennzahlen" Überblick über die infrastrukturelle Situation der universitären Sammlungen
+
+      // Wiki
+      #wiki.home-tile
+        .home-tiles-title
+          a href="wiki/Wiki_Digitalisierung"  Wiki
+        // .new-patch NEU
+        p
+          a href="wiki/Wiki_Digitalisierung"
+            | Wiki zur <b>Praxis</b> der <b>Erschließung und Digitalisierung</b> wissenschaftlicher Sammlungen
+
+  .row
+    #more-about.home-tile
+      .col-md-12
+        .home-tiles-title Mehr erfahren
+        .logos.pull-right.hidden-xs.hidden-sm
+          = link_to image_tag("logos/koord.svg", id: "logo"), "http://wissenschaftliche-sammlungen.de/", target: "_blank"
+          = link_to image_tag("logos/bmbf.svg", id: "logo"), "http://www.bmbf.de", target: "_blank"
+        p
+          a> href="http://wissenschaftliche-sammlungen.de/de/netzwerk/netzwerk-universitaetssammlungen/" target="_blank" title="Netzwerk • Koordinierungsstelle wissenschaftliche Sammlungen"
+            b Objektbasierte wissenschaftliche Sammlungen
+          | stellen in zahlreichen Disziplinen an nahezu allen Hochschulen eine unentbehrliche Grundlage für Lehre und Forschung dar. Sie sind oft einzigartige Zeugnisse der Wissens- und Wissenschaftsgeschichte sowie ein bedeutender Teil des kulturellen Erbes.
+        p
+          | Die
+          a<> href="http://wissenschaftliche-sammlungen.de/de" target="_blank" title="Koordinierungsstelle für wissenschaftliche Universitätssammlungen in Deutschland"
+            b Koordinierungsstelle für wissenschaftliche Universitätssammlungen in Deutschland
+          | fördert bundesweit die Sichtbarkeit und Nutzbarkeit dieser Sammlungen, mit dem Ziel, sie unter Beachtung von Vielfalt und lokaler Besonderheiten als dezentrale Infrastrukturen für Forschung, Lehre und Bildung weiter zu entwickeln und zu vernetzen.
+          a< href="http://wissenschaftliche-sammlungen.de/de" target="_blank" title="Koordinierungsstelle für wissenschaftliche Universitätssammlungen in Deutschland" ... zur Website der Koordinierungsstelle
+
+        / Das sollte nochmal überarbeitet werden
+        .logos-sm.visible-sm
+          = link_to image_tag("logos/koord.svg", id: "logo"), "http://wissenschaftliche-sammlungen.de/", {target:"_blank", class: "koord"}
+          = link_to image_tag("logos/bmbf.svg", id: "logo", class: "bmbf"), "http://www.bmbf.de", {target:"_blank"}
+        .logos-xs.visible-xs= link_to image_tag("logos/koord.svg", id: "logo"), "http://wissenschaftliche-sammlungen.de/",  target:"_blank", class: "koord"
+        .logos-xs.visible-xs= link_to image_tag("logos/bmbf.svg", id: "logo", class: "bmbf"), "http://www.bmbf.de",  target:"_blank"

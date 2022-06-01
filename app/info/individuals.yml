@@ -1,0 +1,27 @@
+# Info-Texte für Individuals und Individual-/Klassenspezifische Info-Texte für
+# Predicates eines Individuals können in dieser Datei festgelegt werden.
+# Für jede Individual-Klasse kann ein "info"-Text erstellt werden. Zusätzlich
+# können die allgemeinen "info"- & "edit"-Texte für Predicates hier
+# individualspezifisch überschrieben werden.
+#
+# Beispiel:
+#   ...
+#   SciCollection:
+#     info: |
+#       Hier könnten Infos zu wissenschaftlichen Sammlungen im Allgemeinen
+#       stehen. Eventuell sollte man die aber noch irgendwie verstecken und
+#       einblendbar machen.
+#     edit: |
+#       Dieser Text erscheint in Edit-Modals, in denen SciCollection ein
+#       möglicher Typ einer Range ist.
+#
+#     predicates:
+#       location:
+#         info: |
+#           Informationen zum Ort, speziell bei wissenschaftlichen Sammlungen
+#           oder soetwas Ähnlichem.
+#         edit: |
+#           Beim Bearbeiten des Ortes von Sammlungen muss besonderer Wert auf
+#           die pflegliche Behandlung der "Fenster schließen"-Schaltfläche
+#           gelegt werden.
+#

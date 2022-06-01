@@ -1,0 +1,61 @@
+# Info-Texte für Predicates im Allgemeinen können hier festgelegt werden.
+# Individual-/Klassenspezifische Texte können in individuals.yml festgelegt
+# werden.
+# Für jedes Predicate kann ein "info"- und ein "edit"-Text erstellt werden;
+# "info" wird in einem Tooltip über einem Predicate auf einer Individual-Seite
+# angezeigt, "edit" als Erklärungstext im Edit-Modal des entsprechenden
+# Predicates.
+#
+# Beispiel:
+#   ...
+#   location:
+#     info: Informationen allgemein zum Ort, oder so etwas Ähnlichem.
+#     edit: |
+#       Beim Hinzufügen eines Ortes beachten Sie bitte den Abstand zwischen
+#       Zug und Bahnsteigkante.
+#
+
+# has_collection_concept
+has_collection_concept:
+  survey_question: "Hat Ihre Sammlung ein schriftliches Sammlungskonzept?"
+  survey: "Ein Sammlungskonzept ist die Grundlage für die Arbeit mit der Sammlung. Es sollte mindestens eine Beschreibung der Sammlung und ihrer Bestände sowie Informationen zu Zweck, Ziel und Perspektiven der Sammlung beinhalten."
+  survey_additional_info_link: https://wissenschaftliche-sammlungen.de/files/8515/3485/0685/HR_Leitfaden-Sammlungskonzept-und-Leitbild_201808.pdf
+
+# has_usage_regulation
+has_usage_regulation:
+  survey_question: "Hat Ihre Sammlung eine Benutzungsordnung?"
+  survey: In der öffentlich zugänglichen Benutzungsordnung sind Regelungen zur Nutzung der Sammlungen (u.a. Öffnungszeiten, Zugang und Einschränkungen) festgehalten.
+
+# has_budget
+has_budget:
+  survey_question: "Gibt es für Ihre Sammlung ein Budget?"
+  survey: Für die Sammlung gibt es ein fest in den Haushalt eingeplantes Budget.
+  survey_visibility: internal
+
+# academic_teaching
+academic_teaching:
+  survey: "Die Sammlung wird regelmäßig (mindestens alle zwei Semester) in der akademischen Lehre eingesetzt:"
+
+# has_documented_history
+has_documented_history:
+  survey: "Die Herkunftsgeschichte der Sammlung ist dokumentiert:"
+
+# provenance_status
+provenance_status: 
+  survey: "In der Sammlung befinden sich, auch möglicherweise:"
+  survey_visibility: internal
+
+# has_holdinggroup
+has_holdinggroup:
+  survey_question: "Bestände: Objekte, Dokumentation, Digitalisierung"
+  survey: Zahlen zu Objekten, ihrer Dokumentation, Digitalisierung und Onlineverfügbarkeit werten wir gruppiert nach Objektgattungen aus. Sollten für Teile oder die gesamte Sammlung diese Zuordnung nicht möglich sein, dann wählen Sie bitte stattdessen die Gattung "Allgemein" aus. Nähere Informationen zur Gruppierung und zu den einzelnen Erfassungsmerkmalen unter "Mehr Informationen".
+  survey_additional_info_link: https://portal.wissenschaftliche-sammlungen.de/wiki/Bestände:_Objekte,_Dokumentation,_Digitalisierung
+
+# has_database_internal
+has_database_internal:
+  survey_question: "Objekte online: Datenbanken, Portale, Aggregatoren"
+  survey: Sollten Objekte der Sammlung online verfügbar sein (Erschließungsdaten und/oder Digitalisate), geben Sie bitte hier Namen und Webadressen (URLs) dieser Datenbanken, Fachportale, Verbundportale oder Aggregatoren wie Deutsche Digitale Bibliothek und Europeana etc. an.
+    
+# homepage
+homepage:
+  survey: Die Homepage ist die offizielle Einstiegsseite zur Sammlung im Web. 

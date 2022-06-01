@@ -1,0 +1,14 @@
+/ this partial is embedded in the edit-modal for DigitalCollection.reproduction
+/ (is weak!) display some properties for DigiRep of type Image only
+- if individual.reproduction_type_value.safe_value("type_label") == "Image"
+  = "#{t 'image_quality'}:"
+  - if individual.image_quality
+    = @glass.edit individual, "image_quality"
+  - else
+    = @glass.new individual, "image_quality"
+  - ["image_width", "image_height"].each do |predicate|
+    = "#{t predicate}:"
+    = @glass.edit individual, predicate
+/ end display only for Image
+= "#{t 'comment'}:"
+= @glass.edit individual, "comment", locals: { textarea_style: "height: 100px" }

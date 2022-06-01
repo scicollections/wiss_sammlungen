@@ -1,0 +1,100 @@
+- hp = I18n.t(property.predicate)
+- type = property.property_type
+- value = !property.value.nil? ? property.value : property.default_value
+/ id kann leer sein bei dummies
+- classes = ["inline-property"]
+- classes.push("expanded") if property.cardinality == 1 && !property.objekt?
+- classes.push("cardinality-one") if property.subject.cardinality_of(property.predicate) == 1
+- complex_prop = property.range.try(:constantize).try(:complex_property?)
+
+div.weak-table-cell[data-id=property.id
+    data-predicate=property.predicate
+    data-individual-id=property.subject_id
+    data-objekt-id=property.objekt_id]
+  - if complex_prop 
+    = @glass.edit property.subject, property.predicate
+  - else
+    div.js-data-holder[data-id=property.id
+    data-predicate=property.predicate
+    data-individual-id=property.subject_id
+    data-objekt-id=property.objekt_id]
+      - if type == :select_option
+        div.checkbox
+          label
+            input.select-option-checkbox type="checkbox" name=property.predicate value=property.data checked=property.persisted? data-id=property.id
+            = value.to_s
+      - elsif type == :objekt
+        ruby:
+          range = property.subject.range_of(property.predicate)
+          range = [range] unless range.is_a?(Array)
+          range_klass = range[0].constantize rescue Individual
+          candidate_items = range_klass.default_hierarchy.items
+          candidates = candidate_items.collect{|item| item.indi}
+      
+        - if candidates.size <= 12
+          select.form-control data-predicate=property.predicate data-id=property.id
+      
+            - candidates.each do |candidate|
+              option selected=((value == candidate) ? "selected":nil) data-id=candidate.id
+                = candidate.label
+        - else
+          button.btn.btn-default.collapse-button type="button" 
+            span.collapse-button-text data-originaltext="#{t(property.predicate)} wählen" = value ? value : "#{t(property.predicate)} wählen" 
+            span.glyphicon.glyphicon-chevron-down aria-hidden="true"
+          div.select-form.collapsible.collapse
+            input.search placeholder="Suche"
+            form.list data-predicate=property.predicate data-id=property.id id="#{property.predicate}#{property.id}"
+              - candidate_items.each do |item|
+                div.radio class="level#{item.level}"
+                  label
+                    - checked = ((value == item.indi) ? "checked":nil)
+                    input [
+                      type="radio" 
+                      name="#{property.predicate}#{property.id}"
+                      id="#{property.predicate}#{item.indi.id}" 
+                      value=item.indi.id 
+                      checked=checked 
+                      disabled=(!item.indi.selectable.value) ]
+                    span.candidateLabel class=(!item.indi.selectable.value ? "disabled":nil )
+                      = item.indi.label 
+        - if property.subject.cardinality_of(property.predicate) != 1
+          button type="button" class="btn btn-primary remove-property-btn" Entfernen
+
+      - else
+        - if type == :text
+          textarea.form-control[style=local_assigns[:textarea_style]
+            placeholder=hp
+            value=value
+            data-predicate = property.predicate
+            data-id = property.id
+            data-server-value=value]
+            = value
+
+        - elsif type == :bool
+          .checkbox
+            label
+              input[type="checkbox"
+                data-server-value=value
+                checked=value.present?]
+              = hp
+
+        - elsif type == :date
+          input.form-control.date[placeholder=hp
+            data-server-value=(value.strftime("%-d.%-m.%Y") if value)
+            value=(value.strftime("%-d.%-m.%Y") if value)]
+
+        - elsif property.options
+          - property.options.each do |option|
+            div.radio
+              label
+                input type="radio" name=property.predicate id=option value=option *{} checked=((value == option) ? "checked":nil)
+                = t option
+
+        - else
+          input.form-control[placeholder=hp
+            data-server-value=value
+            value=value
+            data-predicate = property.predicate
+            data-id = property.id
+            maxlength=PropertyString.validators_on(:data)[0].options[:maximum]] 
+

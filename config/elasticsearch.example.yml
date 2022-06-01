@@ -1,0 +1,21 @@
+# elasticsearch.yml
+# Connection-configuration for the Elasticsearch-cluster
+
+defaults: &DEFAULTS
+  host: "localhost"
+  port: 9200
+  prefix: "maya"
+  searchindex: "discover"
+
+development:
+  <<: *DEFAULTS
+
+acceptance:
+  <<: *DEFAULTS
+  prefix: "maya_acceptance"
+
+production:
+  <<: *DEFAULTS
+  host: "localhost"
+  port: 9200
+  prefix: "maya_prod"

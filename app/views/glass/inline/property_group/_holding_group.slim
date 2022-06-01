@@ -1,0 +1,17 @@
+table.table.table-holdings data-toggle="table"
+  thead
+    tr
+      th = t('genre')
+      th Objekte insgesamt
+      th Dokumentiert
+      th Digitalisiert
+      th Online verfügbar
+  - properties.each do |prop|
+    - obj = prop.objekt
+    tr
+      td = obj.safe_value("genre")
+      td = obj.safe_value("object_quantity")
+      td = obj.safe_value("indexed_quantity")
+      td = obj.safe_value("digitized_quantity")
+      td = obj.safe_value("online_available_quantity")
+      

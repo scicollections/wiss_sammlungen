@@ -1,0 +1,14 @@
+- className = individual.class.name.downcase
+- tableconfig = YAML.load_file('app/views/air/table/'+className+'.yml')
+
+- tableconfig[className].each do |table_predicate|
+  - if table_predicate.is_a?(Hash)
+    - opts = table_predicate.values.first.reduce({}, :merge)
+    - table_predicate = table_predicate.keys[0]
+  - else
+    - opts = {}
+  td 
+    = @glass.table_cell individual, table_predicate, locals: opts
+td 
+  button type="button" class="btn btn-danger delete-property-btn pull-right" 
+    span.glyphicon.glyphicon-trash

@@ -1,0 +1,15 @@
+.container.
+  .row
+    h2 Schnittstellen
+
+  div.row
+    h3 JSON API
+
+    p Um über unsere JSON-API auch auf Informationen zuzugreifen, die nur für Benutzer sichtbar sind, setzen sie diesen API-Key als Bearer Token.
+    input type="text" readonly=true value=current_user.api_key
+
+  div.row
+    h3 RSS & Atom
+    ul
+      li = link_to "rss-Feed", "/revisions/feed.rss?token=#{current_user.rss_token}"
+      li = link_to "atom-Feed", "/revisions/feed.atom?token=#{current_user.rss_token}"

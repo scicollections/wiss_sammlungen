@@ -1,0 +1,7 @@
+<%= t @action, scope: :actions %>
+<%= @record.label %>
+<%= @record.id %>
+Anfrage von:
+<%= @user.name %>, <%= @user.first_name %>
+<%= @user.email %>
+<%= (url_for_individual @record) + "?mode=edit#settings" %>

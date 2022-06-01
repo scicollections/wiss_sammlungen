@@ -1,0 +1,15 @@
+.user-revisions
+  - if @revisions.any?
+    .searchresults
+      .revisions-uncollapsable-head
+        - @revisions[0..4].each do |rev|
+          = render "revisions/revision", revision: rev
+      - if @revisions.size > 5
+        #revisions-collapsable-tail.revisions-collapsable-tail.collapse
+          - @revisions[5..-1].each do |rev|
+            = render "revisions/revision", revision: rev
+        a.js-collapse-user-revisions data-alt-text=("<span class='glyphicon glyphicon-chevron-up'></span> Änderungen einklappen") data-target="#revisions-collapsable-tail" data-toggle="collapse" style="cursor:pointer;" type="button"
+          span.glyphicon.glyphicon-chevron-down
+          |  Mehr Änderungen
+  - else
+    .subtitle Keine Ergebnisse

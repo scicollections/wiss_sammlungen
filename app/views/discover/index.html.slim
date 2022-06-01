@@ -1,0 +1,15 @@
+.container.container-discover
+  // Suche
+  = render "searchbox"
+  = render "facets_applied"
+  .row.extended-search
+    // Filter
+    = render "facets"
+    // Ergebnisse
+    div class=("#{@search.fallback ? "col-md-12 col-sm-12" : "col-md-9 col-sm-9"} col-xs-12 results")
+      // Typen
+      = render "categories"
+      // Items
+      .searchresults
+        = render "results"
+

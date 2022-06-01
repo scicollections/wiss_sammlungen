@@ -1,0 +1,19 @@
+.container
+  .row
+    .col-md-2
+      img.warning-sign[src="/caution.svg"]
+    .col-md-10
+      h1
+        = title.html_safe
+      p.error-body
+        = message.html_safe
+        br
+        | Für Rückfragen wenden Sie sich bitte an den Support:
+        =< support_mail
+      p.error-navigation
+        / redirect to previous page if referer is from own domain
+        => link_to "Vorherige Seite", :back, data: { no_turbolink: "" }
+        | •
+        =<> link_to "Startseite", "/", data: { no_turbolink: "" }
+        | •
+        =< link_to "Anmelden", new_user_session_path(redirect: request.original_fullpath), data: { no_turbolink: "" }

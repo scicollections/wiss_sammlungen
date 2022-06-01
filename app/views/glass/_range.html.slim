@@ -1,0 +1,48 @@
+- if local_assigns[:hierarchical]
+  .range
+    / range_klass needs to have a 'default_hierarchy_predicate "narrower"' line for this to work.
+    - range_klass.default_hierarchy.items.each do |item|
+      - indi = item.indi
+      - next unless current_user.can_view_individual?(indi)
+      - reasons = illegals[indi.id]
+      - if !indi.is_a?(range_klass)
+        - reasons += ["Dieser Wert ist kein möglicher Wert."] 
+      - elsif indi.try(:selectable) && !indi.selectable_value
+        - reasons += ["Dieser Wert ist kein möglicher Wert."]
+      button.existing-individual.js-range-filter-target.level [
+        type="button"
+        class="level#{item.level} #{indi.info_text_value.present? ? 'js-tooltip' : ''}"
+        disabled=reasons.any?
+        title=reasons.join(", ")
+        data-filter-text="#{indi} #{(item.ancestors + item.descendants).map(&:to_s).join(' ')}"
+        data-type="#{indi.type}"
+        data-objekt-id="#{indi.id}" ]
+
+        span.glyphicon.glyphicon-plus
+        = indi.inline_label
+      - if indi.info_text_value.present?
+        .tooltip-content style="display:none;"
+          = indi.info_text_value
+
+- else
+  .range
+    - candidates.includes(:properties).each do |candidate|
+      - next unless current_user.can_view_individual?(candidate)
+      - reasons = illegals[candidate.id]
+      - if candidate.try(:selectable) && !candidate.selectable_value
+        - reasons += ["Dieser Wert ist kein möglicher Wert."]
+      button.existing-individual.js-range-filter-target  [
+        type="button"
+        class="#{candidate.info_text_value.present? ? 'js-tooltip' : ''}"
+        disabled=reasons.any?
+        title=reasons.join(", ")
+        data-filter-text=candidate.inline_label
+        data-type=candidate.type
+        data-objekt-id=candidate.id ]
+
+        span.glyphicon.glyphicon-plus
+        = candidate.inline_label
+      - if candidate.info_text_value.present?
+        .tooltip-content style="display:none;"
+          = candidate.info_text_value
+

@@ -1,0 +1,32 @@
+- user = User.anonymous_user
+- emails = @col.sorted_visible_properties("email", user)
+- emails.each do |x|
+  a.ml href=raw(encode_str "mailto: #{x.value}")
+    = raw encode_str x.value
+  br
+- phones = @col.sorted_visible_properties("phone", user)
+- phones.each do |x|
+  | Telefon:
+  =< x.value
+  br
+
+ruby:
+  curatorships = @col.sorted_visible_properties("curator",
+    User.anonymous_user)
+    .map(&:value)
+
+- curatorships.each do |cur|
+  - if emails.any? || phones.any?
+    br
+  - person = cur.curator_value
+  = person.label
+  - unless cur.local_term_value.blank?
+    |  (#{cur.local_term_value})
+  br
+  - person.sorted_visible_properties("email", user).each do |x|
+    a.ml href=raw(encode_str "mailto: #{x.value}")
+      = raw encode_str x.value
+    br
+  - person.sorted_visible_properties("phone", user).each do |x|
+    | Telefon: #{x.value}
+    br

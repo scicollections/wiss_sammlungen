@@ -1,0 +1,7 @@
+.row.main-search
+  .col-md-12.app-searchbox
+    form#searchform action="#{internal_search_url @search}" method="GET"
+      .input-group
+        input#searchinput.form-control name="q" placeholder="Suche" type="search" value="#{@search.q}" /
+        span.input-group-btn
+          button.btn.btn-default type="submit"  Los!

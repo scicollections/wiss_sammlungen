@@ -1,0 +1,25 @@
+/ Dieses Partial wird von mehreren Stellen aus gerendert, wobei das aktuelle
+  Individual unterschiedlich benannt ist. Das Template wird in individual/show
+  und im UpdateController verwendet.
+- @record = individual unless @record
+
+ruby:
+  props = Property.where("subject_id = ?", @record.id).sort_by{|p| t p.predicate}
+  obj_props = PropertyObjekt.where("subject_id = ?", @record.id).sort_by{|p| t p.predicate}
+  data_props = props - obj_props
+
+- if data_props.any?
+
+  .relation-type Data Properties
+
+  - data_props.each do |prop|
+    .relation-row.row
+      span class="col-md-3" = t prop.predicate
+      span class="col-md-9" = @glass.inline_property prop
+
+- if obj_props.any?
+  .relation-type Objekt Properties
+  - obj_props.each do |prop|
+    .relation-row.row
+      span class="col-md-3" = t prop.predicate
+      span class="col-md-9" = @glass.inline_property prop

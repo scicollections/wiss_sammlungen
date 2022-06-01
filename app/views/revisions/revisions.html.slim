@@ -1,0 +1,18 @@
+.container.container-global-revisions
+  - if @search.indi
+    h2
+      | Änderungen für #{"gelöschtes " unless Individual.exists?(@search.indi)}Individual (Id: #{@search.indi})
+    a href="/revisions"  Zur globalen Revisionsliste
+  - else
+    h2 Änderungen
+
+  .row.global-revisions
+    - if @search.indi
+      .col-sm-12.col-xs-12.results
+        = render "revisions/revision_results"
+    - else
+      / Filter für Änderungen
+      = render "revisions/revision_facets"
+      / Ergebnisse für Änderungen
+      .col-sm-9.col-xs-12.results
+        = render "revisions/revision_results"

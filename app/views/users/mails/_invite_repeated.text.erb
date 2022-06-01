@@ -1,0 +1,49 @@
+<%= @individual.mail_salutation %>,
+
+vor einiger Zeit habe ich Sie im Namen der Koordinierungsstelle für wissenschaftliche Universitätssammlungen in Deutschland eingeladen, beim Portal "Wissenschaftliche Sammlungen" mitzuarbeiten und die Daten zu Ihnen und den von Ihnen betreuten bzw. verantworteten Sammlungen zu pflegen. An diese Einladung möchte ich Sie erinnern.
+
+Falls Sie der Einladung nicht folgen können oder möchten, so wäre ich über ein kurzes Feedback zu den Gründen sehr dankbar. Ansonsten: Im weiteren die originale Einladung:
+
+Die Koordinierungsstelle für wissenschaftliche Universitätssammlungen in Deutschland[1] fördert bundesweit die Sichtbarkeit und Nutzbarkeit wissenschaftlicher Sammlungen. Wir haben uns zum Ziel gesetzt, die Sammlungen unter Beachtung ihrer Vielfalt und ihrer lokalen Besonderheiten als dezentrale Infrastrukturen für Forschung, Lehre und Bildung weiter zu entwickeln und zu vernetzen.
+
+Wir laden Sie heute ein, uns und das Netzwerk der wissenschaftlichen Sammlungen zu unterstützen.
+
+Mit dem Portal "Wissenschaftliche Sammlungen"[2] dokumentieren wir Sammlungen, Ansprechpartner, Organisationen, Aktivitäten, Angebote und weitere sammlungsbezogene Daten. Es ist nicht leicht, alles laufend aktuell zu halten. Wir möchten Ihnen anbieten, die Pflege der Daten zu Ihrer Person und den von Ihnen betreuten bzw. verantworteten Sammlungen selbst zu übernehmen.
+
+Der erste Schritt hierfür ist das Erstellen eines Benutzer_innenaccounts über einen Klick auf diesen Link:
+
+<% if request.port == 80 %>
+<%= "<http://" + request.host + "/join/TOKEN>" %>
+<% elsif request.port == 443 %>
+<%= "<https://" + request.host + "/join/TOKEN>" %>
+<% else %>
+<%= "<http://" + request.host + ":" + request.port.to_s + "/join/TOKEN>" %>
+<% end %>
+
+Nach der Erstellung eines Accounts können Sie sich dann anmelden[3] und Daten des Portals aktualisieren. Über Ihre Mitarbeit wird sich das gesamte Team der Koordinierungsstelle sehr freuen. Und für Fragen und Unterstützung stehe ich Ihnen gerne per E-Mail oder Telefon zur Verfügung!
+
+Vielen Dank & herzliche Grüße,
+
+<%= current_user.to_s %>
+
+[1] <http://www.wissenschaftliche-sammlungen.de>
+[2] <<%= production_url %>>
+[3] <<%= production_url "/users/sign_in" %>>
+
+--
+<% if current_user.person.invite_mail_footer.present? %>
+<%= current_user.person.invite_mail_footer.value %>
+<% else %>
+
+Koordinierungsstelle für wissenschaftliche Universitätssammlungen in Deutschland
+
+Hermann von Helmholtz-Zentrum für Kulturtechnik
+Humboldt-Universität zu Berlin
+Unter den Linden 6
+10099 Berlin
+
+http://www.wissenschaftliche-sammlungen.de
+
+Wissenschaftliche Sammlungen
+<%= production_url %>
+<% end %>

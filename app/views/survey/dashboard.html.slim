@@ -1,0 +1,35 @@
+.container.container-survey-dashboard data-campaign_slug=@campaign.slug
+  h2 = "#{@campaign.name}"
+
+  div.row
+    div.col-sm-3.col-xs-12.dashboard-sidebar
+      div.remind-invite-filter
+        button.btn.btn-default.btn-block.multiaction-button#btn-col-all data-action="invite"
+          span.glyphicon.glyphicon.glyphicon-play aria-hidden="true"
+          | Markierte einladen
+        button.btn.btn-primary.btn-block.multiaction-button#btn-col-all data-action="remind"
+          span.glyphicon.glyphicon-repeat aria-hidden="true"
+          | Markierte erinnern
+
+      .survey-filter
+        .int-search-heading Status wählen:
+        - SurveyController::DASHBOARDFILTER.each do |key, val|
+          .int-search-filter class="#{(@filter.to_sym == key) ? 'active':''}"
+            a href="/survey/dashboard?group=#{@group}&filter=#{key}" =val
+
+      form.form-inline method="get" action="/survey/dashboard"    
+        span.text-input-wrapper
+          input type="text" name="searchterm" placeholder="Suche" value=@searchterm
+          a href="/survey/dashboard?group=#{@group}&filter=all" title="Löschen" class="pull-right" &times;
+        input name="filter" type="hidden" value=@filter
+        input name="group" type="hidden" value=@group
+        br
+        button.btn.btn-primary Suchen
+      br
+      br
+      = link_to "Statistiken (work in progress)", "/survey/stats"
+
+    .col-md-9.col-sm-9.col-xs-12.dashboard-list
+      - if @addressees.blank? && !@searchterm.blank?
+        p = "Für den Suchbegriff #{@searchterm} wurden keine Ergebnisse gefunden."
+      = render "addressee_list"

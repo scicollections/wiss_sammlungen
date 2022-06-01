@@ -1,0 +1,39 @@
+@import "twitter/bootstrap/variables";
+@import "custom_bootstrap/variables.less";
+@import "/info.less";
+
+// Infosystem for Modals
+.info-helper-modal {
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  border-radius: 10px;
+  background: image-url("icons/info.svg") center center no-repeat;
+  background-size: cover;
+  margin: 2px 5px 0 10px;
+  float: right;
+  cursor: pointer;
+}
+
+.info-helper-modal:hover {
+  background: image-url("icons/info-blue.svg") center center no-repeat;
+  background-size: cover;
+}
+
+.info-helper-modal:active {
+  box-shadow: 0px 0px 6px #3377c0;
+  -webkit-transition: all 0s ease-in-out;
+  -moz-transition: all 0s ease-in-out;
+  -ms-transition: all 0s ease-in-out;
+  -o-transition: all 0s ease-in-out;
+}
+
+.info-text-modal {
+  .info-text;
+  padding: 10px 20px;
+  margin: 0 0 10px 0;
+
+  p {
+    margin: 2px 0 0 0;
+  }
+}

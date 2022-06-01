@@ -1,0 +1,42 @@
+- unless @search.fallback
+  - search_url = url_for(controller: "discover", categories: @search.cat_filter.map(&:to_s).join(","), q: @search.q, lq: @search.q, f: @search.facet_filter)
+
+  .col-md-3.col-sm-3.col-xs-12.filter
+    - @search.facets.each do |k,v|
+      - next if @search.facets[k][:restrictions] && !(@search.cat_filter & @search.facets[k][:restrictions]).any?
+      .criteria id="toggleCriteria_#{k}"
+
+        span.facet data-key='#{k}' data-url='#{url_for(controller: "discover", action: "facets", categories: @search.cat_filter.map(&:to_s).join(","), key: k, q: @search.q, lq: @search.q, f: @search.facet_filter)}'
+          = v[:name]
+          = image_tag "icons/arrow-right.svg", alt: "Filter auswählen", class: "expand-facet"
+      .criteria-ext
+        .left-container
+          ul
+            - @search.facet_filter[k].nil? || @search.facet_filter[k].each do |f|
+              li
+                p= f
+                a href="#{search_url}&rfk=#{k}&rfv=#{u f}"
+                  = image_tag("icons/close.svg", alt: "Auswahl löschen")
+
+        .right-container id="moreCriteria_#{k}"
+          .filterbox-head Filtern
+          - if v[:terms].size == 0
+            .filterbox-range
+              p Keine weiteren Auswahlmöglichkeiten
+          - else
+            .filterbox-search
+              input.form-control.criteria-filter id="filterCriteria_#{k}" type="search"
+            .filterbox-range
+              ul
+                - v[:terms].each do |term, count|
+                  - missing = term == @search.MISSING_STRING
+                  li class=(missing ? "missing":"")
+                    a.criteria-item href="#{search_url}&afk=#{k}&afv=#{u term}"
+                      = "#{term} (#{count})"
+
+    .discover-filter-actions
+      span.delete-filters
+        = link_to("Filter löschen", {controller: "discover", categories: @search.cat_filter.map(&:to_s).join(","), q: @search.q})
+      | •
+      span.new-search
+        = link_to("Neue Suche", {controller: "discover", categories: @search.cat_filter.map(&:to_s).join(",")})

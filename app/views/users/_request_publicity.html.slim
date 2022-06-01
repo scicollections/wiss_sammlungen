@@ -1,0 +1,11 @@
+/  show button only if current user is member, and current record is not publicly visible
+- if (@record.visibility == :manager || @record.visibility == :member)
+  - requested = current_user.requested("publicity", @record)
+  .request-action.js-request-publicity data-request-action="publicity" style="display:none;"
+    / in case a request was recently made, display an infotext instead
+    - if current_user.role == :member && (requested.nil? || (Date.today - requested) > 3)
+      button.btn.btn-sm.btn-primary.request-action Seite zur Veröffentlichung vorschlagen
+
+    - elsif requested.present?
+      .label.label-warning.request-status-detail
+        | Diese Seite wurde am #{requested.to_formatted_s(:ger_datetime)} zur Veröffentlichung vorgeschlagen.

@@ -1,0 +1,40 @@
+.container.container-survey-dashboard data-campaign_slug=@campaign.slug
+  div.col-md-8.col-md-offset-2
+    div.row
+      h3 = "Statistiken - #{@campaign.name}"
+    div.row  
+        table.table.table-condensed
+          - psum = @numbers_by_status.values.sum
+          - csum = @cnumbers_by_status.values.sum
+          tr
+            th 
+            th Personen
+            th
+            th = I18n.t @campaign.targetclass.pluralize
+            th
+          - Campaign::STATUSES.each do |status|
+            tr
+              td = t("survey_status."+status.to_s)
+              td = @numbers_by_status[status]
+              td = "#{(@numbers_by_status[status].to_f / psum *100).round(2)}%"
+              td = @cnumbers_by_status[status]
+              td = "#{(@cnumbers_by_status[status].to_f / csum * 100).round(2)}%"
+          tr
+            th Gesamt
+            th = psum
+            th
+            th = csum
+            ht
+        
+    div.row
+      div.col-md-6
+        h5 Personen
+        = pie_chart @numbers_by_status 
+      div.col-md-6
+        h5 = I18n.t @campaign.targetclass.pluralize
+        = pie_chart @cnumbers_by_status
+      
+    div.row
+      h5 Eingeladene Personen nach Manager 
+      = bar_chart @manager_chart_data
+      

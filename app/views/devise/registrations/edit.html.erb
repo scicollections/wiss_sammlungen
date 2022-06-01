@@ -1,0 +1,84 @@
+<div class="container container-user">
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Anmeldedaten ändern</h2>
+      <br>
+      <div class="col-md-6">
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "js-edit-user" }) do |f| %>
+            <% if resource.errors.any? %>
+              <div id="error_explanation" class="alert alert-danger">
+                <b>Folgende Fehler traten auf:</b>
+                <ul>
+                  <% resource.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+
+            <div class="field log-in-fields" style="margin-bottom: 20px">
+              <%= f.label :email, "Anmeldename" %><br />
+              <% if current_user.person.present? %>
+              <%= f.email_field :email, class: "form-control js-tooltip" %>
+              <div class="tooltip-content" style="display:none;">
+                <div class="tooltip-title">
+                  <span class="glyphicon glyphicon-alert"></span>
+                  Anmeldedaten ändern
+                </div>
+                <div class="tooltip-text">
+                  Hier verändern Sie die E-Mail-Adresse mit der sie sich anmelden.
+                  Wenn Sie stattdessen die auf Ihrem Profil öffentlich sichtbare Kontakt-E-Mail-Adresse verändern möchten, dann tun Sie das auf <a href="<%= url_for_individual current_user.person %>">Ihrem Profil.</a>
+                </div>
+              </div>
+              <% else %>
+              <%= f.email_field :email, class: "form-control" %>
+              <% end %>
+            </div>
+
+            <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+              <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+            <% end %>
+
+            <div class="field log-in-fields optional">
+              <%= f.label :password, "Neues Passwort" %><br>
+              <i>(nur ausfüllen, wenn Sie Ihr Passwort ändern möchten)</i><br />
+              <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+
+              <div class="progress" style="margin-top: 7px">
+                <div class="length-note" style="padding-left: 4px">
+                  Bitte wählen Sie ein Passwort mit mindestens 6 Zeichen.
+                </div>
+                <div class="progress-bar" style="width: 0%; min-width: 17%; display: none">0%</div>
+              </div>
+            </div>
+
+            <div class="field log-in-fields">
+              <%= f.label :password_confirmation, "Neues Passwort: Bestätigung" %><br>
+              <i>(nur ausfüllen, wenn Sie Ihr Passwort ändern möchten)</i><br />
+              <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
+
+              <div class="progress" style="margin-top: 7px">
+                <div class="sameness-note" style="padding-left: 4px">
+                  Die Passwörter stimmen noch nicht überein.
+                </div>
+              </div>
+            </div>
+
+            <div class="field log-in-fields" style="margin-bottom: 20px">
+              <%= f.label :current_password, "Aktuelles Passwort" %><br>
+              <i>(bitte geben Sie hier in jedem Fall Ihr bisheriges Passwort an, um die Änderungen zu bestätigen)</i><br />
+              <%= f.password_field :current_password, autocomplete: "off", class: "form-control" %>
+            </div>
+
+            <div class="actions">
+              <%= f.submit "Speichern", class: "btn btn-primary" %>
+            </div>
+          <% end %>
+      </div>
+
+    </div>
+
+
+  </div>
+  <br>
+</div>

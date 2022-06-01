@@ -1,0 +1,16 @@
+.container.container-winston-university
+  h1 Kennzahlen zu wissenschaftlichen Sammlungen an deutschen Universitäten
+  = render partial: "winston_navigation", locals: {show_date: true}
+  h2
+    = @uni.name
+    - if @uni.indi && @uni.indi.public?
+      a.ref-portal.ref-head target="_blank" href=@uni.indi.path Seite im Portal
+  hr
+  = render "winston/university/address"
+  hr
+  = render "winston/university/data_container"
+  - if @uni.description.present?
+    = @uni.description
+  = render "winston/university/collections"
+  = render "winston/university/publications"
+  = render "winston_navigation"

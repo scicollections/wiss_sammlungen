@@ -1,0 +1,13 @@
+- if deref_data.is_a? Hash
+  - deref_data.fetch(:preferredName,{}).each do |lang,val|
+    p 
+      bold = "#{t 'preferredName'} [#{lang}]: "
+      = val
+  - deref_data.fetch(:description,{}).each do |lang,val|
+    p 
+      bold = "#{t 'description'} [#{lang}]: "
+      = val
+  - if deref_data[:lat] and deref_data[:lon]
+    div.leaflet-helper data-lon=deref_data[:lon] data-lat=deref_data[:lat] data-divname="derefleaflet" data-map_zoomlevel=property.map_zoomlevel
+      div#derefleaflet
+    /= map(:container_id => "leaflet-map" ,:center => {:latlng => [deref_data[:lat], deref_data[:lon]],:zoom => 13},:markers => [ {:latlng => [deref_data[:lat], deref_data[:lon]],:popup => "Hello!"}])

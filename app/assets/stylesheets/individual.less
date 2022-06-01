@@ -1,0 +1,306 @@
+@import "custom_bootstrap/variables.less";
+@import "twitter/bootstrap/variables";
+@import "twitter/bootstrap/mixins";
+@import "twitter/bootstrap/type";
+
+.glass-individual {
+
+  // Title / Name / Description of Individual
+  .individual-title {
+    line-height: 37px;
+    font-weight: 400;
+
+    .property-group {
+      display: inline;
+      margin-left: 0px;
+      padding-left: 0px;
+
+      .predicate { display: none; }
+
+      .properties {
+        display: inline;
+        float: none;
+        padding: 0px;
+
+        .property { 
+          display: inline; 
+        }
+      }
+    }
+
+    .individual-title-label {
+      font-size: 63%;
+      color: #808080;
+      margin: -4px 0 -8px 0;    
+    }
+
+    // das bezieht sich anscheinend auf die infosystem tooltips
+    // und nicht auf den tooltip fürs editing! --> unterscheidung klar machen!!
+    // tooltips are hidden when window is too small
+    @media (max-width: 1200px) {
+      .tooltip {
+        display: none !important;
+      }
+    }
+  }
+
+  // Subsection headings (e.g. 'Bestände' 'Informationsressource' etc.)
+  .sektion {
+    border-bottom: 1px solid #cccccc;
+    padding: 2px 2px 0 0;
+    margin: 2px;
+    line-height: 1.5em;
+    font-size: 16px;
+  }
+
+  .property-group.empty {
+    display: none;
+  }
+
+  .property-group.survey-highlighter {
+    display: block;
+    background-color: #dfd;
+  }
+  
+  .table-holdings {
+    width: 99% !important;
+    
+    thead th {
+      background-color: #4d576f;
+      color: white;
+    }
+    
+    tr:hover {
+      background-color: #cc006f;
+      color: white;
+    }
+    tbody tr td:nth-child(1n+2), tfoot tr th:nth-child(1n+2) {
+      text-align: right;
+    }
+  }
+
+  // A property-group consists of a predicate (e.g. 'Fachgebiet'),
+  // n property value(s) (e.g. 'Musikethnologie'), and the edit-icon (hidden)
+  .property-group {
+    padding: 2px 2px;
+    margin: 0px 2px;
+    border-top: 3px solid white;
+    border-bottom: 3px solid white;
+
+    .predicate {
+      font-size: 14px;
+      font-weight: 600;
+      padding-left: 2px;
+    }
+
+    .properties {
+      word-wrap: break-word;
+      .property {
+        margin-bottom: 2px;
+
+        .individual-label {
+          margin-right: 3px;
+          font-size: 80%;
+          color: #808080;
+        }
+
+        .individual-label.js-tooltip {
+          cursor: help;
+        }
+
+        .property-smaller {
+          margin-left: 10px;
+          font-size: 0.9em;
+        }
+         // defines the icon for external links
+        .linker {
+          display: inline-block;
+          top: 1px;
+          left: 4px;
+          margin-right: 5px;
+        }
+        // defines the comments under section 'Digitalisate'
+        .shadowed-text{
+          color: #8d8d8d;
+        }
+        .non-facet-link {
+          margin-left: 6px;
+          img {height: 20px; top: -5px;}
+        }
+        .leaflet-container {
+          min-height: 300px;
+        }
+        img.external-vocab-icon{
+          height: 1em;
+          padding-right: 0.5em;
+        }
+      }
+      .non-permanent {
+        font-style: italic;
+      }
+      
+      div.bootstrap-table * table {
+        thead tr th div {
+          white-space: normal;
+        }
+      }
+
+    }
+
+    .edit-icon {
+      position: absolute;
+      right: 21px;
+      display: none;
+    }
+
+    // nested property values when hierarchically sorted
+    @offset: 40px;
+
+    .level0 { padding-left: @offset * 0; }
+    .level1 { padding-left: @offset * 1; }
+    .level2 { padding-left: @offset * 2; }
+    .level3 { padding-left: @offset * 3; }
+    .level4 { padding-left: @offset * 4; }
+    .level5 { padding-left: @offset * 5; }
+  }
+
+  // minimized height for collapse after long property value lists
+  .property-group-collapsable-tail {
+    min-height: 20px;
+  }
+
+  // ????
+  // ConceptScheme-specific styles
+  .conceptscheme {
+    ul.nav {
+      li.active a {
+        background-color: #f4f4f4;
+        color: #337ab7;
+      }
+    }
+  }
+
+  // general settings for all individual menu tabs (default, revisions, relations, settings)
+  .individual-tab {
+    display: none;
+
+    // hide tooltips when window is too small
+    @media (max-width: 1200px) {
+      .tooltip {
+        display: none !important;
+      }
+    }
+  }
+
+  .default-tab { 
+    display: block;
+  }
+
+  .relations-tab {
+    .relation-type {
+      font-size: 16px;
+      border-bottom: 1px solid #cccccc;
+      padding: 2px 2px 0 0;
+      margin: 2px;
+      line-height: 1.5em;
+    }
+    .relation-row {
+      padding-top: 19px;
+      padding-left: 2px;
+    }
+    .individual-label {
+      margin-right: 3px;
+      font-size: 80%;
+      color: #808080;
+    }
+  }
+
+  .settings-tab {
+    .invite-user {
+      margin: -51px -1px 0 0; 
+      float: right;
+    }
+    .invite-user.disabled {
+      margin-top: -36px;
+    }
+    
+    @media (max-width: 648px) {
+      .invite-user {
+       margin: -36px -1px 0 0; 
+      }
+    }
+
+    // button to delete complete record
+    .delete {
+      margin-left: 4px;
+      color: #ffffff;
+    }
+  }
+  * div.weak-table {
+    display: none;
+  }
+  * .inline-predicate {
+    button, input, textarea {
+      
+    }
+  }
+  .survey-tab {
+    .person-record{
+      border: none;
+      padding: 0px;
+      div.col-sm-3 {
+        width: 100%;
+        display: block;
+      }
+      input.checkbox-remind, label.collecting-reminder {
+        display: none;
+      }
+      .additional-survey-infos{
+        display: none !important;
+      }
+    }
+  }
+}
+
+
+// settings for individual in edit mode
+.glass-individual.edit-mode {
+
+  // valid for individual-title
+  .individual-title {
+    .property-group.editable {
+      .edit-icon {
+        display: inline;
+        position: static;
+        padding-right: 4px;
+        margin: 0px 7px;
+      }
+    }
+  }
+  // valid for all other property-groups
+  .property-group.editable {
+    .edit-icon { display: block; }
+
+    // The linker used to be there to allow testing the link while still in edit mode.
+    // Now, it's just the "external link" icon. TODO Either rename the class, or re-establish
+    // the old behaviour.
+    .linker { display: none; }
+  }
+
+  .property-group.editable:hover {
+    background-color: #e7e7e7;
+    cursor: pointer;
+  }
+
+  a:hover {
+    text-decoration: none;
+  }
+
+  a:focus { outline: none; }
+
+  .property-group.empty { display: block; }
+  
+  * div.weak-table {
+    display: block;
+  }
+}

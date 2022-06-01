@@ -1,0 +1,17 @@
+.individual-tab.default-tab.conceptscheme
+  .sektion Eigenschaften
+  / Tab panes
+  .tab-content
+    / display extra alphabetical/hierarchical buttons for ConceptSchemes with property hierarchical: true
+    - if (@record.is_a? ConceptScheme) && (@record.safe_value("hierarchical") == "true")
+      .tab-pane role="tabpanel" id="hierarchical-property2" class="active"
+        = @glass.inline @record, "has_concept", locals: { hierarchical: true }
+
+      .tab-pane role="tabpanel" id="alphabetical-property2"
+        = @glass.inline @record, "has_concept", locals: { hierarchical: false }
+
+    - else
+      = @glass.inline @record, "has_concept", locals: { hierarchical: false }
+
+  = @glass.inline @record, "hierarchical"
+

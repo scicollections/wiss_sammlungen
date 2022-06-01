@@ -1,0 +1,26 @@
+/ double-condition in if clauses:
+/ @record is present when this template is rendered in individual.show,
+/ subject is present when this template is rendered in _property.html.erb via
+/ glass.edit_property
+
+/ this is displayed as a line on the DigitalCollection page
+- if @record.class == DigitalCollection || subject.class == DigitalCollection
+  span.individual-label
+    = individual.sci_collection.value.class_display
+
+  = link_to(individual.sci_collection.value.inline_label,
+    controller: 'individual', action: 'show', individual: "SciCollection",
+    id: individual.sci_collection.value.id)
+
+  - if individual.landing_page
+    div.property-smaller #{external_link(individual.landing_page.value, "Bestände der Sammlung")} bei #{individual.safe_value("digital_collection")}
+
+/ this is displayed as a line on the SciCollection page
+- elsif @record.class == SciCollection || subject.class == SciCollection
+  span.individual-label= individual.digital_collection.value.class_display
+  = link_to(individual.digital_collection.value.inline_label,
+      controller: 'individual', action: 'show', individual: "DigitalCollection",
+      id: individual.digital_collection.value.id)
+
+  - if individual.landing_page
+    div.property-smaller #{external_link(individual.landing_page.value, "Bestände der Sammlung")} bei #{individual.safe_value("digital_collection")}

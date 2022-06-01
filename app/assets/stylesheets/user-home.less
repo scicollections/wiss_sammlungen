@@ -1,0 +1,71 @@
+@import "twitter/bootstrap/variables";
+@import "custom_bootstrap/variables.less";
+
+// startpage for registred users after log in
+
+.container-user {
+
+  .welcome-user-message {
+    margin-bottom: 15px;
+    border: 1px solid #E8D600;
+    padding: 10px;
+    color: #333;
+  }
+  // general definitions for all content boxes on this site
+  .user-box {
+    margin-bottom: 30px;
+    h4 {font-size: 22px;}
+  }
+
+  // this content box lists every record that a member can edit
+  // only for members
+  #user-datasets {
+    .sektion{
+      padding: 2px 2px 0 2px;
+      margin: 15px 0 5px 0;
+      line-height: 1.5em;
+      font-size: 15px;
+      font-weight: 600;
+    }
+    .my-datasets{
+      -webkit-padding-start: 10px;
+      list-style: none;
+
+      li {margin-bottom: 5px;}
+
+      a {
+        margin-left: -8px;
+      }
+
+      a:hover {
+        color: @standard-link-color;
+        text-decoration: none;
+      }
+    }
+  }
+  // here members are shown their latest revisions
+  .user-revisions {
+    a {color: @darkblue;}
+
+    a:hover{
+        color: @standard-link-color;
+        text-decoration: none;
+    }
+  }
+
+  // managers can edit all records therefore they are only shown
+  // predefined links to their latest revisions history ('Änderungsabfragen')
+  .manager-revisions {
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    li {
+      margin: 2px 0 0 0;
+      font-size: 15px;
+    }
+    a {font-size: 15px;}
+
+  }
+
+}

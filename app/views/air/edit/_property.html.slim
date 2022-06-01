@@ -1,0 +1,81 @@
+- hp = I18n.t(property.predicate)
+- type = property.property_type
+- value = !property.value.nil? ? property.value : property.default_value
+/ id kann leer sein bei dummies
+- classes = ["inline-property"]
+- classes.push("expanded") if property.cardinality == 1 && !property.objekt?
+- classes.push("cardinality-one") if property.subject.cardinality_of(property.predicate) == 1
+- complex_prop = property.range.try(:constantize).try(:complex_property?) if property
+
+ruby:
+  range = property.subject.range_of(property.predicate)
+  if range.is_a? Array
+    complex_property = range.collect{|r|r.constantize.complex_property?}.any?
+  else
+    complex_property = range&.constantize&.complex_property?
+  end
+
+- if complex_prop
+  div.complex-property data-predicate=property.predicate data-id=value.try(:id) data-individual-id=property.subject_id data-property-id=property.try(:id)
+    - value = value || range.constantize.new
+    = @glass.edit_individual value
+- elsif local_assigns[:as_table]
+  tr data-id=property.id data-individual-id=property.subject.id data-objekt-id=(property.objekt.id if property.objekt) data-predicate=property.predicate
+    = @glass.edit_individual value, locals: local_assigns
+- else
+  div.js-data-holder[data-id=property.id
+    data-predicate=property.predicate
+    data-individual-id=property.subject_id
+    data-objekt-id=property.objekt_id]
+    - if type == :select_option
+      div.checkbox
+        label
+          input.select-option-checkbox type="checkbox" name=property.predicate value=property.data checked=property.persisted? data-id=property.id
+          = t value.to_s
+    - elsif type == :objekt
+      - if value.weak?
+        = @glass.edit_individual(value, subject: property.subject,
+            locals: local_assigns)
+      - else
+        / Dies ist nur provisorisch. TODO Mehr read-only-Info?
+        = link_to value, "#{value.type}/#{value.id}"
+      - if property.subject.cardinality_of(property.predicate) != 1
+        button type="button" class="btn btn-primary remove-property-btn" Entfernen
+  
+    - else
+      - if type == :text
+        textarea.form-control[style=local_assigns[:textarea_style]
+          placeholder=hp
+          name=property.predicate
+          data-server-value=value]
+          = value
+
+      - elsif type == :bool
+        div.checkbox
+          label
+            input name="#{property.subject.id}#{property.predicate}" data-predicate=property.predicate data-id=property.id checked=(value==true ? "checked":nil) type="checkbox"
+              = t property.predicate
+
+
+
+      - elsif type == :date
+        input.form-control.date[placeholder=hp
+          data-server-value=(value.strftime("%-d.%-m.%Y") if value)
+          value=(value.strftime("%-d.%-m.%Y") if value)]
+
+      - elsif property.options
+        - property.options.each do |option|
+          div.radio
+            label
+              input type="radio" name=property.predicate id=option value=option *{} checked=((value == option) ? "checked":nil)
+              = t option
+
+      - else
+        input.form-control[placeholder=hp
+          data-server-value=value
+          value=value
+          data-predicate=property.predicate
+          data-individual-id=property.subject.id
+          data-id = property.id
+          maxlength=PropertyString.validators_on(:data)[0].options[:maximum]]
+

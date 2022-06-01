@@ -1,0 +1,81 @@
+- @info_text = predicate_info predicate, individual_or_class: individual if respond_to? :predicate_info
+- properties = individual.sorted_visible_properties(predicate, current_user)
+- classes = ["property-group"]
+- classes.push("row") unless predicate == "label"
+- classes.push("editable") if editable
+- classes.push("empty") if properties.empty? && individual.type_of(predicate) != :bool && !(["can_edit","can_be_edited_by","visible_for"].include? predicate) && !(local_assigns[:force_display] && force_display == true)
+
+div[class=classes.join(' ')
+  data-predicate=predicate
+  data-toggle="tooltip"
+  data-placement="left"
+  data-title="Zum Bearbeiten klicken"]
+
+  .predicate.js-tooltip-anchor.col-md-3
+    = @glass.humanize individual, predicate
+    - if @info_text.present?
+      = render "glass/inline/info_helper", text: @info_text
+    br
+    - if on_concept_page = ((predicate == "has_concept") && (individual.is_a? ConceptScheme) && (individual.safe_value("hierarchical") == "true"))
+      div style="margin:3px 0"
+        a.btn.btn-xs.btn-default[data-toggle="tab"
+          href="#hierarchical-property2"
+          role="button"]
+          | Hierarchisch
+
+        a.btn.btn-xs.btn-default[data-toggle="tab"
+          href="#alphabetical-property2"
+          role="button"]
+          | Alphabetisch
+
+  .properties.col-md-9
+    - if local_assigns[:partial]
+      = render partial, properties: properties
+    - else
+      - if properties.any? && individual.range_of(predicate).is_a?(String) && \
+          ((on_concept_page && individual.range_of(predicate).constantize.hierarchical?) || \
+             individual.range_of(predicate).constantize.classifying?) \
+          && !(local_assigns[:hierarchical] == false)
+
+        - klass = properties.first.objekt.class
+        - props_hierarchical = klass.broader_property_hierarchy(properties)
+        - props_hierarchical[0..9].each do |prop, level|
+          = @glass.inline_property(prop, locals: local_assigns.merge({ level: level }))
+
+        - if props_hierarchical.size > 10
+          div[id="#{predicate}-collapsable-tail-hierarchical"
+            class="property-group-collapsable-tail collapse"]
+          a[style="cursor:pointer;"
+            class="js-collapse-property-group"
+            data-predicate=predicate
+            data-sortmode="hierarchical"
+            data-target="##{predicate}-collapsable-tail-hierarchical"
+            type="button"
+            data-alt-text="<span class='glyphicon glyphicon-chevron-up'></span> Weniger anzeigen"]
+            span.glyphicon.glyphicon-chevron-down
+            | Mehr anzeigen
+
+      - else
+        - properties[0..9].each do |prop|
+          = @glass.inline_property prop, locals: local_assigns
+
+        - if properties.size > 10
+          div[id="#{predicate}-collapsable-tail"
+            class="property-group-collapsable-tail collapse"]
+          a[style="cursor:pointer;"
+            class="js-collapse-property-group"
+            data-predicate=predicate
+            data-sortmode="alphabetical"
+            data-target="##{predicate}-collapsable-tail"
+            type="button"
+            data-alt-text="<span class='glyphicon glyphicon-chevron-up'></span> Weniger anzeigen"]
+            span.glyphicon.glyphicon-chevron-down
+            | Mehr anzeigen
+
+    - # Spezialbehandlung für nicht-gesetzte Boolean Properties
+    - if properties.empty? && individual.type_of(predicate) == :bool
+      = t("novalue")
+
+  .edit-icon
+    span.glyphicon.glyphicon-pencil
+

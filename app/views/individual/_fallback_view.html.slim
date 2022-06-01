@@ -1,0 +1,4 @@
+.individual-tab.default-tab
+  - @record.predicates.map(&:first).each do |predicate|
+    - next if predicate == "label"
+    = @glass.inline @record, predicate

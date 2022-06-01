@@ -1,0 +1,34 @@
+- if @uni.collections.any?
+  hr
+  h3 Sammlungen
+  / Tabelle der Sammlungen mit jeweils Eintrag aktiv, hat_koordination
+  table#collections.table-striped
+    thead
+      tr
+        th.name Sammlung
+        th.active aktive Sammlung
+        th.admin Ansprech&shy;partner
+        th digital zugänglich
+    tbody
+      - @uni.collections.sort_by(&:name).each do |coll|
+        tr
+          td.first-col
+            span.coll-name = coll.name
+            - org = SciCollection.find_by_id(coll.maya_id)
+            - if coll.indi && coll.indi.public?
+              a.ref-portal target="_blank" href=coll.indi.path Seite im Portal
+          td.attr-col
+            = render("winston/attributes/attribute_present",
+                attr: coll.is_active,
+                tooltip_true: "aktive Sammlung",
+                tooltip_false: "inaktive Sammlung")
+          td.attr-col
+            = render("winston/attributes/attribute_present",
+                attr: coll.has_contact,
+                tooltip_true: "Sammlung mit Ansprechpartner",
+                tooltip_false: "Sammlung ohne Ansprechpartner")
+          td.attr-col
+            = render("winston/attributes/attribute_present",
+                attr: coll.has_digital_collection,
+                tooltip_true: "digital zugängliche Sammlung",
+                tooltip_false: "nicht digital zugängliche Sammlung")

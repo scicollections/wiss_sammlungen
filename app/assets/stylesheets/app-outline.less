@@ -1,0 +1,158 @@
+@import "twitter/bootstrap/variables";
+@import "custom_bootstrap/variables.less";
+
+
+.container-app {
+  min-height: 650px;
+  padding: 0 15px;
+}
+
+.foot-app {
+  width: 100%;
+  background-color: #efefef;
+  margin-top: 100px;
+}
+
+.container-user + .foot-app {
+  margin-top: 0px;
+}
+
+.footer-info {
+    font-size: 0.9em;
+    text-align: center;
+    margin: 40px 0px;
+}
+
+// MAYA Logo Header (except on homepage)
+
+.logo-header{
+  height:120px;
+  width: 100%;
+  margin: 0;
+
+  .wrapper-standard{
+    height: 100px;
+
+  }
+    #left{
+      width: 49.9%; // Fix für Safari-1-Pixel-Bug
+      float: left;
+      background-image: image-url("logos/banner-02.png");
+      background-position: right;
+      background-repeat: repeat-x;
+      // background-size: auto 100px;
+    }
+    #right{
+      width: 50%;
+      float: right;
+      // background-image: image-url("logos/banner-01.png");
+      background-image: image-url("logos/banner-01.png");
+      background-position: left;
+      background-repeat: repeat-x;
+      // background-size: auto 100px;
+      overflow:hidden;
+    }
+    #links_innen {
+      margin-right: 507px;
+    }
+    #rechts_innen{
+      margin-left: 507px;
+    }
+    #mitte{
+      position: relative;
+      margin-left: -507px;
+      margin-right: -507px;
+      width: 1014px;
+      float: left;
+      background-image: image-url("logos/logo-1-1.png");
+      background-color: #ffffff;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: auto;
+    }
+
+
+
+  .wrapper-sm-standard{
+    height: 100px;
+    background-image: image-url("logos/logo-1-2.png");
+    background-color: #ffffff;
+    background-position: center;
+    background-repeat: repeat-x;
+    background-size: auto 100px;
+  }
+
+  .wrapper-xs-standard{
+    height: 90px;
+    background-image: image-url("logos/logo-1-3.png");
+    background-color: #ffffff;
+    background-position: center;
+    background-repeat: repeat-x;
+    background-size: auto 90px;
+  }
+}
+
+
+// Search Options – navigation on right side of the page
+aside.search-actions{
+  position: fixed;
+  right: 0;
+  top: 200px;
+  z-index: 1000;
+
+  ul {
+     text-align: right;
+  }
+
+  li {
+    font-size: 14px;
+    list-style: none;
+  }
+
+  a {
+    background:#efefef;
+    padding: 0 10px;
+    color: #1F2D54;
+  }
+
+  a:hover {
+    font-size: 18px;
+    background: #dde0e5;
+    padding: 0 10px;
+    text-decoration: none;
+  }
+}
+
+// transition effects for righthand navigation
+.search-actions, .search-actions ul, .search-actions li a {
+  -webkit-transition-property: all;
+  -moz-transition-property: all;
+  -o-transition-property: all;
+  transition-property: all;
+  -webkit-transition-duration: 0.15s;
+  -moz-transition-duration: 0.15s;
+  -o-transition-duration: 0.15s;
+  transition-duration: 0.15s;
+  -webkit-transition-timing-function: ease-in-out;
+  -moz-transition-timing-function: ease-in-out;
+  -o-transition-timing-function: ease-in-out;
+  transition-timing-function: ease-in-out;
+}
+
+
+b, strong {
+  font-weight: 600;
+}
+
+// all transition effects on a-tags (size, text-decoration, color etc.)
+// are triggered within a certain time
+a {
+  -webkit-transition: all 0.1s ease-in-out;
+  -moz-transition: all 0.1s ease-in-out;
+  -ms-transition: all 0.1s ease-in-out;
+  -o-transition: all 0.1s ease-in-out;
+}
+
+
+
+

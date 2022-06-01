@@ -1,0 +1,42 @@
+# JSON API
+
+## Authentifizierung
+
+**Bearer-Token**
+
+Ihren persönlichen API-Key finden Sie unter https://portal.wissenschaftliche-sammlungen.de/users/edit 
+
+Die JSON API kann auch ohne Authentifizierung genutzt werden, allerdings werden dann nur öffentlich sichtbare Informationen ausgeliefert.
+
+## Individual-Datensatz
+
+Der JOSN-Datensatz eines Individuals kann abgerufen werden, indem an die entsprechende URL die Endung ".json" angehängt wird.
+
+https://portal.wissenschaftliche-sammlungen.de/Organisation/19848
+
+`GET https://portal.wissenschaftliche-sammlungen.de/Organisation/19848.json`
+
+## JSON-Suche
+`POST https://portal.wissenschaftliche-sammlungen.de/discover.json`
+
+```
+{
+  term: "Erika Musterfrau",       #(query term)
+  category: "collection",         #(see ESConfig.categories)
+  from: 0,                        #offset
+  size: 50,                       #result size
+  facets: {                       # see ESConfig.facets
+    place: ["Berlin","Hamburg"],
+    collectiontype: "Geschichte & Archäologie"
+  }
+}
+```
+
+- term: Suchterm für die Volltextsuche
+- category: Klassenfilter 
+- from: Such-Offset
+- size: Maximale Ergebnisanzahl
+- facets: Hash der Facetten-Filter (Array für mehrere Werte)
+
+Die Kategorie- und Facettenfilter sowie mögliche Werte können https://portal.wissenschaftlche-sammlungen.de/discover entnommen werden.
+

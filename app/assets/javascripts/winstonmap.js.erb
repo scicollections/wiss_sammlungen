@@ -1,0 +1,299 @@
+function WinstonMap(dom,initMode,subjectMenu) {
+  // I. Define variables and alias `this` as `self` if necessary
+  var self = this;
+  var map = kartograph.map('#map');
+  var symbols;
+  var data;
+
+  // II. Publish functions and provide getters and setters
+
+  this.updateMap = updateMap;
+
+  // III. Call initialisation function(s)
+
+  $.fn.qtip.defaults.style.classes = 'test-tooltip';
+  $.fn.qtip.defaults.style.def = false;
+
+  init();
+
+
+  // IV. Define functions
+
+  function init() {
+    if(subjectMenu){
+      subjectMenu.find("input").prop('disabled',true);
+      var spinner = new Spinner(mapSpinnerOptions).spin(dom[0]);
+    }
+    
+    map.loadMap('/DE.svg', function() {
+      // context == region contained in .svg, that is outside of germany
+      map.addLayer('context', {
+        styles: {
+          stroke: '#aaa',
+          fill: '#f6f4f2'
+        }
+      });
+      map.addLayer('regions', {
+        id: 'bg',
+        styles: {
+          stroke: '#d8d6d4',
+          'stroke-width': 10,
+          'stroke-linejoin': 'round'
+        }
+      });
+      map.addLayer('regions', {
+        title: function(d) { return d.name; },
+        styles: {
+          stroke: '#333',
+          fill: '#fff'
+        }
+      });
+      
+      var collDataUrl = '/kennzahlen/uni_coll_data';
+      if(initMode == "subjects"){
+        collDataUrl = '/kennzahlen/uni_coll_data?page=subjects';
+      }
+
+      $.getJSON(collDataUrl, function(jsondata) {
+        data = jsondata.data;
+
+        symbols = map.addSymbols({
+          type: kartograph.Icon,
+          icon: "",
+          iconsize: [30,30],
+          offset: [-15,-15],
+          data:data,
+          location: function(uni){
+            lon = uni.lon;
+            lat = uni.lat;
+            return [uni.lon, uni.lat];
+          },
+          title: function(uni){
+            return uni.name;
+          }
+
+        });
+        updateMap(initMode,[]);
+        if(subjectMenu){
+          subjectMenu.find("input").prop('disabled',false);
+          dom.find("div.spinner").remove();
+        }
+      });
+
+    });
+
+  }
+
+  function updateMap(mode,filter) {
+    // based on the id decide which event handler to call
+    switch(mode) {
+      case 'coll_count':
+        symbols.remove();
+        symbols = map.addSymbols({
+          type: kartograph.Bubble,
+          // icon: "icons/world-search_cc_hunotika.png",
+          radius: function(uni) {
+            // depending on the collection count display as s/m/l point
+            if (uni.coll_count < 10)
+              return 7;
+            else if (uni.coll_count < 21)
+              return 9;
+            else
+              return 11;
+          },
+          data: data,
+          location: function(uni) {
+            return [uni.lon, uni.lat];
+          },
+          tooltip: function(uni) {
+            if (uni.coll_count == 1)
+              return [uni.name, uni.coll_count + " Sammlung"];
+            else
+              return [uni.name, uni.coll_count + " Sammlungen"];
+          },
+          click: function(uni) {
+            window.location.href = "/kennzahlen/universitaet/"+uni.maya_id;
+          },
+          style: "fill: #5890A6; stroke: #fff; fill-opacity: 0.8; cursor: pointer;",
+          sortBy: "radius desc"
+        });
+        break;
+
+      case 'coord':
+        symbols.remove();
+        symbols = map.addSymbols({
+          type: kartograph.Icon,
+          icon: function(uni) {
+            return "<%= asset_path 'icons/coordination_26452_cc_MOrmiston.svg' %>";
+          },
+          iconsize: [30, 30],
+          offset: [-15,-15],
+          data: $.map(data, function(uni,i) {
+            if (uni.has_coll_coord) {
+              return uni;
+            } else {
+              return null;
+            }
+          }),
+          location: function(uni) {
+            return [uni.lon, uni.lat];
+          },
+          tooltip: function(uni) {
+            return [uni.name, "Universität mit Sammlungskoordination"];
+          },
+          click: function(uni) {
+            window.location.href = "universitaet/"+uni.maya_id;
+          },
+        });
+        break;
+
+      case 'policy':
+        symbols.remove();
+        symbols = map.addSymbols({
+          type: kartograph.Icon,
+          icon: function(uni) {
+            return "<%= asset_path 'icons/legal-order.svg' %>";
+          },
+          iconsize: [30, 30],
+          offset: [-15,-15],
+          data: $.map(data, function(uni,i) {
+            if (uni.has_coll_policy) {
+              return uni;
+            } else {
+              return null;
+            }
+          }),
+          location: function(uni) {
+            return [uni.lon, uni.lat];
+          },
+          tooltip: function(uni) {
+            return [uni.name, "Universität mit Sammlungsordnung"];
+          },
+          click: function(uni) {
+            window.location.href = "universitaet/"+uni.maya_id;
+          },
+        });
+        break;
+
+      case 'website':
+        symbols.remove();
+        symbols = map.addSymbols({
+          type: kartograph.Icon,
+          icon: function(uni) {
+            return "<%= asset_path 'icons/world-search_cc_hunotika_2.svg' %>";
+          },
+          iconsize: [30, 30],
+          offset: [-15,-15],
+          data: $.map(data, function(uni,i) {
+            if (uni.has_coll_website) {
+              return uni;
+            } else {
+              return null;
+            }
+          }),
+          location: function(uni) {
+            return [uni.lon, uni.lat];
+          },
+          tooltip: function(uni) {
+            return [uni.name, "Universität mit Sammlungsportal"];
+          },
+          click: function(uni) {
+            window.location.href = "universitaet/"+uni.maya_id;
+          },
+        });
+        break;
+      case 'objectportal':
+        symbols.remove();
+        symbols = map.addSymbols({
+          type: kartograph.Icon,
+          icon: function(uni) {
+            return "<%= asset_path 'icons/world-search_cc_hunotika_2.svg' %>";
+          },
+          iconsize: [30, 30],
+          offset: [-15,-15],
+          data: $.map(data, function(uni,i) {
+            if (uni.has_object_portal) {
+              return uni;
+            } else {
+              return null;
+            }
+          }),
+          location: function(uni) {
+            return [uni.lon, uni.lat];
+          },
+          tooltip: function(uni) {
+            return [uni.name, "Universität mit Objektportal"];
+          },
+          click: function(uni) {
+            window.location.href = "universitaet/"+uni.maya_id;
+          },
+        });
+        break;
+      case 'subjects':
+                
+        var filteredData = $.grep(data, function(uni){
+          var use = false;
+          filter.forEach(function(subject){
+            if ($.inArray(subject,Object.keys(uni.coll_subjects)) > -1) {
+              use = true;
+            }
+          });
+          return use;
+        });
+        
+        
+        symbols.remove();
+        symbols = map.addSymbols({
+          data: filteredData,
+          type: kartograph.Bubble,
+          // icon: "icons/world-search_cc_hunotika.png",
+          radius: 10,
+          location: function(uni) {
+            return [uni.lon, uni.lat];
+          },
+          tooltip: function(uni) {
+            var filteredCollCount = 0;
+            filter.forEach(function(subject){
+              filteredCollCount += uni.coll_subjects[subject] || 0; 
+            });
+            if (filteredCollCount == 1)
+              return [uni.name, filteredCollCount + " Sammlung"];
+            else
+              return [uni.name, filteredCollCount + " Sammlungen"];
+          },
+          click: function(uni) {
+            //window.location.href = "/kennzahlen/universitaet/"+uni.maya_id;
+            window.open("/kennzahlen/universitaet/"+uni.maya_id);
+          },
+          style: "fill: #5890A6; stroke: #fff; fill-opacity: 0.8; cursor: pointer;",
+          sortBy: "radius desc"
+        });
+        break;
+    } // TODO switch hier nicht optimal
+  }
+  
+  var mapSpinnerOptions = {
+    lines: 15, // The number of lines to draw
+    length: 8, // The length of each line
+    width: 5, // The line thickness
+    radius: 8, // The radius of the inner circle
+    scale: 5, // Scales overall size of the spinner
+    corners: 1, // Corner roundness (0..1)
+    color: '#1f2d54', // #rgb or #rrggbb or array of colors
+    opacity: 0.25, // Opacity of the lines
+    rotate: 0, // The rotation offset
+    direction: 1, // 1: clockwise, -1: counterclockwise
+    speed: 1, // Rounds per second
+    trail: 40, // Afterglow percentage
+    fps: 20, // Frames per second when using setTimeout() as a fallback for CSS
+    zIndex: 2e9, // The z-index (defaults to 2000000000)
+    className: 'spinner', // The CSS class to assign to the spinner
+    top: '10px', // Top position relative to parent
+    left: '50%', // Left position relative to parent
+    shadow: false, // Whether to render a shadow
+    hwaccel: false, // Whether to use hardware acceleration
+    position: 'relative' // Element positioning
+  }
+
+
+}

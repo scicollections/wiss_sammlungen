@@ -1,0 +1,18 @@
+.container.container-winston-subjects
+  h1 Kennzahlen zu wissenschaftlichen Sammlungen an deutschen Universitäten
+  = render partial: "winston_navigation", locals: {show_date: true}
+  h2 Sammlungskonzept
+  
+  p 
+    = predicate_info_by_tag "has_collection_concept", individual_or_class: SciCollection, info_tag: "survey"
+  p
+    '  Siehe unseren 
+    = link_to "Leitfaden 'Sammlungskonzept und Leitbild'", "https://wissenschaftliche-sammlungen.de/de/service-material/handreichungen/leitfaden-sammlungskonzept-und-leitbild-2014"
+  h4 Sammlungskonzepte nach Sammlungsarten
+  = bar_chart @coll_type_collection_concept, height: "300px", library: bar_chart_library_settings(stacking: "normal"), colors: ["#d2daee","#4566ba","3e5ca8"]
+  h4 Sammlungskonzepte insgesamt
+  = pie_chart @total_collection_concept, colors: ["3e5ca8","#4566ba","#d2daee"]
+
+
+
+  

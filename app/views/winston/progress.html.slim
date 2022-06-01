@@ -1,0 +1,19 @@
+.container
+  h1 Kennzahlen zu wissenschaftlichen Sammlungen an deutschen Universitäten
+  = render partial: "winston_navigation", locals: {show_date: true}
+  h2 Entwicklung
+  
+  h3 Sammlungen an deutschen Universitäten
+  = line_chart @globalprogress1, colors: ["#4566ba","#b92101","#4a924c"]
+  ul
+    li Die Unterscheidung in <b>aktive</b> bzw. nicht aktive Sammlungen beruht auf Angaben von Sammlungsleiter_innen und universitätsweiten Sammlungsbeauftragten. Aktiv bedeutet, dass Sammlungen kustodial, konservatorisch oder wissenschaftlich betreut werden bzw. zugänglich und nutzbar sind.
+    li Eine Sammlung ist <b>digital zugänglich</b>, wenn ihre Objekte in mindestens einer digitalen Sammlung (Datenbank, Portal, Repository) online zugänglich online sind.
+  
+  
+  h3 Portale der Universitäten
+  = line_chart @globalprogress2, colors: ["#4566ba","#b92101","#4a924c"]
+  ul
+    li <b>Sammlungsportal</b>: Darunter wird die Präsentation aller bzw. eines Großteils der Sammlungen einer Universität im Rahmen einer gemeinsamen Webpräsenz verstanden.
+    li <b>Objektportal</b>: Darunter wird die Präsentation von Objekten der Sammlungen einer Universität im Rahmen einer gemeinsamen Webpräsenz verstanden.
+  
+  = render(partial: "winston_navigation")

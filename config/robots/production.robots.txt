@@ -1,0 +1,43 @@
+# robots.txt production
+
+# Nuetzliche Infos:
+# https://developers.google.com/webmasters/control-crawl-index/docs/robots_txt?hl=de
+
+# Bots, die wir nicht moegen
+
+User-agent: AhrefsBot
+User-agent: BLEXBot
+User-agent: Cliqzbot
+User-agent: DotBot
+User-agent: Jobboerse
+User-agent: ltx71
+User-agent: Mail.RU_Bot
+User-agent: MegaIndex
+User-agent: MetaJobBot
+User-agent: MJ12bot
+User-agent: Scopia
+User-agent: SemrushBot
+User-agent: SemrushBot-SA
+User-agent: SEOkicks
+User-agent: seoscanners
+User-agent: sSearch
+User-agent: XoviBot
+Disallow: /
+
+# Alle anderen (die Serioesen also)
+# /discover - mixed
+# /users - disallow
+
+User-agent: *
+Allow: /discover/collection
+Allow: /discover/objekt
+Allow: /discover/actor
+Allow: /discover/activity
+Disallow: /discover
+Disallow: /discover/
+Disallow: /discover/collection?
+Disallow: /discover/collection,
+Disallow: /discover/objekt?
+Disallow: /discover/actor?
+Disallow: /discover/activity?
+Disallow: /users

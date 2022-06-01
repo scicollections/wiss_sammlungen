@@ -1,0 +1,40 @@
+.container.container-winston-global
+  h1 Kennzahlen zu wissenschaftlichen Sammlungen an deutschen Universitäten
+  = render partial: "winston_navigation", locals: {show_date: true}
+  p Die Kennzahlen geben einen Überblick über die aktuelle <b>infrastrukturelle Situation der universitären Sammlungen</b> in Deutschland. Sie werden regelmäßig auf Basis der im Portal <a href="https://portal.wissenschaftliche-sammlungen.de" target="_blank">Wissenschaftliche Sammlungen</a> erfassten Daten durch die <a href="http://wissenschaftliche-sammlungen.de/de/" title="Koordinierungsstelle für wissenschaftliche Universitätssammlungen in Deutschland" target="_blank">Koordinierungsstelle</a> veröffentlicht. 
+  p Zum <b>Stichtag #{@report.date.to_formatted_s(:ger_date)}</b> waren <b>#{@report.collection_count}&nbsp;Sammlungen</b> an <b>#{@report.university_count}&nbsp;Universitäten</b> registriert.
+
+  h2 Geographische Übersicht
+  .container
+    = render "winston/global/map_buttons"
+    #map
+
+  p Auf den 5 Karten (siehe Menü oben rechts) werden dargestellt:
+
+  ol
+    li
+      | <b>Sammlungsstandorte</b> (Universitäten) und <b>Anzahl der Sammlungen</b> je Universität. Durch Mouseover über die jeweiligen Kreise werden Universität und Anzahl der Sammlungen angezeigt. Die Größe der Kreise hängt von der jeweiligen Anzahl der Sammlungen ab:
+      ul
+        li kleiner Kreis: weniger als 10 Sammlungen
+        li mittelgroßer Kreis: zwischen 10 und 20 Sammlungen
+        li großer Kreis: mehr als 20 Sammlungen
+    li Standorte mit <b>Sammlungskoordination</b>
+    li Standorte mit <b>Sammlungsordnung</b>
+    li Standorte mit <b>Sammlungsportal</b>
+    li Standorte mit <b>Objektportal</b>
+
+  p Unter #{link_to("Erläuterungen", controller: :winston, action: :about)} sind Beschreibungen und Hinweise zu den einzelnen Indikatoren zu finden.
+
+  h2 Aktive Sammlungen
+  p Die Unterscheidung in <b>aktive</b> bzw. <b>nicht aktive</b> Sammlungen beruht auf Angaben von Sammlungsleiter_innen und universitätsweiten Sammlungsbeauftragten. Aktiv bedeutet, dass Sammlungen kustodial, konservatorisch oder wissenschaftlich betreut werden bzw. zugänglich und nutzbar sind.
+
+  = chart_global_anteile_akt_sam
+
+  h2
+    a#sammlungsarten
+    | Sammlungsarten
+  p Sammlungsarten charakterisieren <strong>Bestand und inhaltlichen Schwerpunkt</strong> von Sammlungen. Das Vokabular basiert auf der UNESCO-Klassifikation für Museen und wurde für wissenschaftliche Sammlungen angepasst.
+
+  = chart_global_anteile_sammlungsart
+  
+  = render partial: "winston_navigation", locals: {do_not_show_update: false}

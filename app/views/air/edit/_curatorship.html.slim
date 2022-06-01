@@ -1,0 +1,10 @@
+div
+  - if subject.is_a?(SciCollection)
+    h4 = individual.curator_value
+  - else
+    h4 = individual.curated_collection_value
+div
+  = "#{t 'local_term'}:"
+  = @glass.edit individual, "local_term"
+div
+  = @glass.edit individual, "manager"

@@ -1,0 +1,28 @@
+# nach http://stackoverflow.com/a/4724497
+
+defaults: &DEFAULTS
+  action_mailer:
+    delivery_method: :smtp
+    smtp_settings:
+      enable_starttls_auto: true
+      address: "mailhost.cms.hu-berlin.de"
+      port: 25
+      domain: "portal.wissenschaftliche-sammlungen.de"
+      authentication: :plain
+      user_name: "name"
+      password: "password"
+  # used for support mail display in views
+  support_mail: "support@wissenschaftliche-sammlungen.de"
+
+development:
+  <<: *DEFAULTS
+
+production:
+  <<: *DEFAULTS
+  # in environments other than 'production', emails are only sent to 
+  # the support_mail address
+  send_emails: true # set to true to send emails (works only in production environment)
+  # list of adresses that get reports, used for errorlogs in backend
+  report_mails:
+    - support@wissenschaftliche-sammlungen.de
+

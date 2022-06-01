@@ -1,0 +1,149 @@
+/ set canonical url for seo
+- set_meta_tags canonical: (url_for_individual @record)
+
+.container
+
+  aside class="search-actions hidden-xs"
+    ul
+      li.nav-side = link_to("Neue Suche", controller: "discover", categories: "collection")
+
+      li.nav-side
+        = link_to("Ergebnisliste", controller: "discover", categories: @navigator.category.map(&:to_s).join(","),
+            q: @navigator.query,
+            lq: @navigator.query,
+            f: @navigator.filter,
+            p: @navigator.hit,
+            anchor: @navigator.anchor)
+
+      - unless @navigator.is_first
+        li.nav-side
+          a href="/navigation/#{@navigator.hit - 1}" data-turbolinks="false" Voriges
+
+      - unless @navigator.is_last
+        li.nav-side
+          a href="/navigation/#{@navigator.hit + 1}" data-turbolinks="false" Nächstes
+
+  / User: Individual Menu
+  = render "layouts/individual_menu"
+
+  div class="glass-individual container-app #{'edit-mode' if @mode == 'edit'}" data-id=@record.id data-class=@record.type
+
+    - unless current_user.public?
+      .user-rights
+        = image_tag "icons/eye_cc-ashlain.svg",
+            alt: "Seite öffentlich sichtbar",
+            title: "Seite öffentlich sichtbar",
+            class: "visibility visibility-public",
+            style: ("display: none" unless @record.visibility == :public)
+
+        = image_tag "icons/eye-closed_cc-ashlain.svg",
+            alt: "Seite nur für registrierte Benutzer sichtbar",
+            title: "Seite nur für registrierte Benutzer sichtbar",
+            class: "visibility visibility-member",
+            style: ("display: none" unless @record.visibility == :member)
+
+        = image_tag "icons/eye-closed-red_cc-ashlain.svg",
+            alt: "Seite nur intern sichtbar",
+            title: "Seite nur intern sichtbar",
+            class: "visibility visibility-manager",
+            style: ("display: none" unless @record.visibility == :manager)
+
+        - if current_user.can_edit_individual?(@record)
+          = image_tag "icons/unlock_cc-ashlain.svg",
+              alt: "Rechte zur Bearbeitung",
+              title: "Rechte zur Bearbeitung"
+        - else
+          = image_tag "icons/lock_cc-ashlain.svg",
+              alt: "Keine Rechte zur Bearbeitung",
+              title: "Keine Rechte zur Bearbeitung"
+
+    h2.individual-title
+      = @glass.inline @record, "label"
+      .individual-title-label = @record.class_display
+
+      - if (individual_info(@record).present?)
+        = render "glass/inline/info_helper", text: individual_info(@record)
+      - if @record.is_a?(Person) && !@record.year_of_death_value.nil?
+        p.infolabel-death = @record.info_text_value
+
+    = render "users/request_edit_privileges"
+
+    .row
+      .col-md-12
+        / show button only if current user is member, and current record is not publicly visible
+        - if (@record.visibility == :manager || @record.visibility == :member)
+          div class="individual-tab settings-tab"
+            = render "users/request_publicity"
+
+        = render_individual @record
+
+        - if current_user.can_edit_individual?(@record)
+          .individual-tab.settings-tab
+            .sektion Einstellungen
+            - if @record.is_a?(Person)
+              = @glass.inline @record, "year_of_death"
+            = @glass.inline @record, "visible_for"
+            = @glass.inline @record, "can_be_edited_by"
+            = @glass.inline @record, "info_text"
+
+            - if @record.automatically_editable_by.any?
+              .property-group.row data-tab="settings"
+                .predicate.col-md-3 Kann automatisch bearbeitet werden von
+                .properties.col-md-9.properties
+                  - @record.automatically_editable_by.each do |person|
+                    .property
+                      = render "glass/inline/user_rights", individual: person
+                      span.individual-label = person.class_display
+                      = link_to(person.inline_label, person.path)
+
+            - if current_user.can_delete_individual?(@record)
+              .delete.js-delete
+                a (class="btn btn-sm btn-danger request-action"
+                  data-confirm="Sind sie sicher? Durch diese Aktion wird #{@record.label} dauerhaft gelöscht!"
+                  data-method="delete"
+                  href="/update/individual?id=#{@record.id}"
+                  rel="nofollow")
+                  | Datensatz löschen
+
+          .individual-tab.notes-tab
+            .sektion Notizen
+            = @glass.inline @record, "has_memo"
+          
+          .individual-tab.datasetinternal-tab
+            - if current_user.can_edit_individual?(@record) 
+              = render_internal_tab @record 
+            
+          .individual-tab.revisions-tab
+            .sektion Änderungen
+            .searchresults
+
+          .individual-tab.relations-tab
+          
+          
+          - if Campaign.current && @record.is_a?(Person) && current_user.at_least?(:manager) #&& @record.user
+            .individual-tab.survey-tab data-user_id=@record.user.try(:id) data-campaignslug=Campaign.current.slug data-person_id=@record.id
+              .sektion Umfragestatus
+              div.class.property-group
+                div.predicate.col-md-3 Aktionen
+                div.properties.col-md-9 
+                  = render 'survey/surveyuserstatus', person: @record, campaign: Campaign.current
+                - if @record.user
+                  div.predicate.col-md-3 Revisions während Umfrage
+                  div.properties.col-md-9 = link_to "In Revisionsliste", "                /revisions?f[user][]=#{@record.user.id}&afk=campaign&afv=#{Campaign.current.slug}", target: "_blank"
+              div
+                .sektion Kuratierte Sammlungen
+                div
+                - @record.curated_collection.collect{|p| p.objekt.curated_collection.objekt}.each do |collection|
+                  div.row.col-xs-9 
+                    = link_to collection.inline_label, "/SciCollection/#{collection.id}", target: "_blank"
+                  div.row.col-xs-3.survey-form-link
+                    div.property-smaller = link_to "Zum Fragebogen", "/survey/form/#{collection.id}", target: "_blank"
+                .sektion Umfrage-Ereignisse
+                - if @record.user
+                  = render 'survey/usereventslist', user: @record.user, campaign: Campaign.current
+                
+          - if (current_user.current_survey_participant?() && current_user.can_edit_individual?(@record)) or (current_user.at_least?(:manager) && Campaign.current)
+            .individual-tab.surveyrevisions-tab data-campaignslug=Campaign.current.slug
+              - if @record.class == SciCollection
+                = link_to "Zum Fragebogen", "/survey/form/#{@record.id}", target: "_blank"
+              .searchresults

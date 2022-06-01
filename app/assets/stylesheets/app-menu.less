@@ -1,0 +1,93 @@
+@import "twitter/bootstrap/variables";
+@import "custom_bootstrap/variables.less";
+
+// INDIVIDUAL MENU is defined in /user.less
+
+
+// PUBLIC MENU – visible at all times
+.public-menu {
+  min-width: 100%;
+  padding: 0 0 0 10px;
+  background-color: transparent;
+
+  .container-public-menu {
+    min-width: 100%;
+
+    a {
+      display: inline-block;
+      height: 45px;
+      color: @darkblue;
+      padding: 12px 7px 0 7px;
+    }
+
+    a:hover {
+      background-color: #f4f4f4;
+      text-decoration: none;
+    }
+  }
+}
+
+.public-menu-dropdown {
+  cursor: pointer;
+  .dropdown-menu {
+    margin: 0;
+    padding: 0;
+    border-radius: 0px;
+  }
+  li {
+    a {width: 100%;}
+  }
+}
+
+
+// USER MENU – only visible for logged-in users
+.user-menu {
+  padding: 0 0 0 10px;
+  background-color: #dde0e5;
+  color: white;
+
+  .container-user-menu {
+    min-width: 100%;
+
+    .pull-left {margin-left: -10px;}
+
+    a {
+      display: inline-block;
+      color: @darkblue;
+      height: 45px;
+      padding: 12px 7px 0 7px;
+    }
+
+    a:hover {
+      background-color: #f4f4f4;
+      text-decoration: none;
+    }
+
+    a.img-link {padding: 6px 7px 0 7px;}
+    img {height: 35px;}
+
+    a#myaccount {
+      float: left;
+      font-size: 16px;
+      font-weight: 600;
+      padding: 12px 20px 0 15px;
+    }
+
+    .umenu-tab-active {background-color: #f4f4f4;}
+    
+    .environment-tag {
+      display: inline-block;
+      color: @darkblue;
+      text-transform: uppercase;
+      padding: 12px 7px 0 7px;
+    }
+  }
+}
+
+.user-menu.development {
+  background-color: #b3f59a;
+}
+
+.user-menu.acceptance {
+  background-color: #f2df18;
+}

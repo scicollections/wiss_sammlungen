@@ -1,0 +1,61 @@
+@import "twitter/bootstrap/variables";
+@import "custom_bootstrap/variables.less";
+
+// Partner Logos
+// displayed at the bottom of 'Credits' and 'About'
+
+.credits-partner {
+  width: 100%;
+  padding: 10px 0;
+
+  .partner{
+    margin: 23px auto 0 auto;
+    max-width: 750px;
+    display: block;
+
+    a{
+      height: 145px;
+      margin: 10px 25px;
+      display: inline-block;
+      opacity: 1;
+    }
+    a:hover {
+      opacity: 0.7;
+    }
+
+    .bmbf{
+      background: image-url("logos/bmbf.svg")  top center no-repeat;
+      background-size: 100%;
+      width: 200px;
+    }
+
+    .koord{
+      background: image-url("logos/koord.svg") top center no-repeat;
+      background-size: 100%;
+      width: 385px;
+    }
+
+  }
+
+  // Partner Logos in xs-view
+  .partner-xs{
+    .partner;
+    margin: 10px auto 0 auto;
+
+    .bmbf, .koord{
+      height: 120px;
+      background-size: contain;
+      display: block;
+      margin: auto;
+      margin-bottom: 20px;
+    }
+  }
+}
+
+// no time-delayed transition effect for partner logo a-tags
+a.koord, a.bmbf {
+  -webkit-transition: all 0s ease-in-out;
+  -moz-transition: all 0s ease-in-out;
+  -ms-transition: all 0s ease-in-out;
+  -o-transition: all 0s ease-in-out;
+}

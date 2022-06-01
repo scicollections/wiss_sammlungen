@@ -1,0 +1,38 @@
+<%= person.mail_salutation %>,
+
+vor einiger Zeit haben wir Sie gebeten, an unserer kurzen Umfrage für das Portal "Wissenschaftliche Sammlungen"[1] teilzunehmen. Dies ist eine höfliche Erinnerung.
+
+Wir haben Sie eingeladen, weil Sie bei uns als Ansprechpartner_in für eine oder mehrere Sammlung(en) registriert sind. Hier geht es zur Umfrage:
+
+  <% if urlprefix%>
+<<%= urlprefix %>/survey/join/SURVEY_TOKEN>
+  <% else %>
+<https://<%=Rails.configuration.hosts[Rails.env]%>/survey/join/SURVEY_TOKEN>
+  <% end %>
+
+Das Portal "Wissenschaftliche Sammlungen"[1] der Koordinierungsstelle für wissenschaftliche Universitätssammlungen in Deutschland[2] dokumentiert Hochschulsammlungen, ihre Bestände, sammlungsbezogene Aktivitäten und Akteur_innen. Es leistet damit einen wichtigen Beitrag zu deren Sichtbarkeit und Nutzbarkeit. 
+
+Aktuelle und zutreffende Daten sind Grundlage für die von uns jährlich herausgegebenen Kennzahlen zu wissenschaftlichen Sammlungen an deutschen Universitäten[3] – eine wichtige Informationsquelle für die Sammlungscommunity selbst, aber auch für Förderinstitutionen und Universitätsleitungen.  
+
+Bei Problemen oder Rückfragen können Sie mich gerne kontaktieren. 
+
+Vielen Dank und herzliche Grüße,
+
+<%= sender_user.to_s %>
+
+[1] <https://portal.wissenschaftliche-sammlungen.de>
+[2] <https://wissenschaftliche-sammlungen.de>
+[3] <https://portal.wissenschaftliche-sammlungen.de/kennzahlen>
+
+
+Koordinierungsstelle für wissenschaftliche Universitätssammlungen in Deutschland
+
+Hermann von Helmholtz-Zentrum für Kulturtechnik
+Humboldt-Universität zu Berlin
+Unter den Linden 6
+10099 Berlin
+<https://www.wissenschaftliche-sammlungen.de>
+
+Wissenschaftliche Sammlungen
+<https://portal.wissenschaftliche-sammlungen.de>
+

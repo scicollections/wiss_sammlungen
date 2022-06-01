@@ -1,0 +1,31 @@
+h3 Als Benutzer_in registrieren
+p Als registrierte_r Benutzer_in können Sie Ihre persönlichen Daten und die Ihrer Sammlungen und Aktivitäten selbständig kuratieren und uns damit helfen, aktuelle Informationen zur Sammlungslandschaft an deutschen Universitäten und Hochschulen zur Verfügung zu stellen.
+p Registrieren ist einfach: E-Mail und Passwort festlegen, alles weitere folgt im Anschluss.
+div 
+  = form_for(user, as: "user", url: "/survey/transform_account?survey_token=#{user.survey_token}", html: { method: :put, class: "js-edit-user" }) do |f|
+    - if user.errors.any?
+      #error_explanation.alert.alert-danger
+        b Folgende Fehler traten auf:
+        - user.errors.full_messages.each do |msg|
+          br/
+          = msg
+    .field style=("margin-bottom: 20px")
+      = f.label :email, "E-Mail"
+      = f.text_field :email, autofocus: true, class: "form-control"
+    .field
+      = f.label :password, "Passwort"
+      br
+      = f.password_field :password, autocomplete: "off", class: "form-control"
+      .progress style=("margin-top: 7px")
+        .length-note style=("padding-left: 4px")
+          | Bitte erstellen Sie ein Passwort mit mindestens 6 Zeichen.
+        .progress-bar style=("width: 0%; min-width: 17%; display: none")  0%
+    .field
+      = f.label :password_confirmation, "Passwort bestätigen"
+      br
+      = f.password_field :password_confirmation, autocomplete: "off", class: "form-control"
+      .progress style=("margin-top: 7px")
+        .sameness-note style=("padding-left: 4px")
+          | Die Passwörter stimmen noch nicht überein.
+    .actions
+      = f.submit "Account anlegen", class: "btn btn-primary", disabled: "disabled"

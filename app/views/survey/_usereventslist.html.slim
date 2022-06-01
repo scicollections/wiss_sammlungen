@@ -1,0 +1,7 @@
+ul.usereventslist
+  - user.user_events.where(campaign_slug: campaign.slug).order("created_at DESC").each do |user_event|
+    li
+      span.label class=(user_event.action) = t "survey_status."+user_event.action
+      |
+      span data-toggle="tooltip" data-placement="top" title=(l user_event.created_at, format: :short)
+        = " vor #{time_ago_in_words user_event.created_at} durch #{user_event.user.to_s}"

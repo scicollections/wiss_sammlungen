@@ -1,0 +1,26 @@
+- @campaign = @campaign ? @campaign : Campaign.current
+- user = person.user
+- status = @campaign.user_status(user)
+.suvery-tap-action
+  - if status == :initial
+    button.btn.btn-default.survey-invite title="Einladen" data-action="invite" 
+      span.glyphicon.glyphicon-play aria-hidden="true"
+  - else
+    button.btn.btn-default.survey-invite title="Erneut einladen" data-action="invite-override" 
+      span.glyphicon.glyphicon-play aria-hidden="true"
+  - if status == :invited or status == :in_progress
+    button.btn.btn-default.survey-remind title="Erinnern" data-action="remind"
+      /| Erinnern 
+      span.glyphicon.glyphicon-repeat aria-hidden="true"
+  - if status != :completed 
+    button.btn.btn-default.survey-complete title="Abschließen"
+      /| Abschließen 
+      span.glyphicon.glyphicon-ok aria-hidden="true"
+  - memo_count = person.has_memo_value.count
+  button.btn.btn-default.survey-note class=(memo_count > 0 ? "existing-memos":nil) title="Notiz"
+    /| Notiz 
+    span.glyphicon.glyphicon-file aria-hidden="true"
+    - if memo_count > 0
+      = " #{memo_count}"
+      
+    

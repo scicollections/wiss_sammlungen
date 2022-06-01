@@ -1,0 +1,48 @@
+#data_container
+  #data
+    table
+      tr
+        td.first-col Sammlungen:
+        td = @uni.coll_count
+
+      tr
+        td.first-col Aktive Sammlungen:
+        td = @uni.active_coll_share
+
+      tr
+        td.first-col Digital zugängliche Sammlungen:
+        td = @uni.digital_coll_share
+
+      = render "winston/university/coord_contact"
+
+      tr
+        td.first-col Sammlungsordnung:
+        td
+          = @uni.has_coll_policy ? t("yes") : t("no")
+          - if @uni.has_coll_policy && @uni.indi && @uni.indi.collections_order_url && policy_url = @uni.indi.collections_order_url.value.safe_value("url", false)
+            |  ·
+            =< link_to("Link", policy_url)
+
+      tr
+        td.first-col Sammlungsportal:
+        td
+          = @uni.has_coll_website ? t("yes") : t("no")
+          - if @uni.has_coll_website && @uni.indi && @uni.indi.collection_portal && portal_url = @uni.indi.collection_portal.value.safe_value("url", false)
+            |  ·
+            =< link_to "Link", portal_url, target: "_blank"
+
+      tr
+        td.first-col Objektportal:
+        td
+          = @uni.has_object_portal ? t("yes") : t("no")
+          - if @uni.has_object_portal && @uni.indi && @uni.indi.object_portal && portal_url = @uni.indi.object_portal.value.safe_value("access", false)
+            |  ·
+            =< link_to "Link", portal_url, target: "_blank"
+
+  #collection-types
+    = chart_university_anteile_sammlungsart
+    ul#legend
+      - @uni.coll_type_shares.each_with_index do |el, index|
+        li
+          .legend-blob style="background-color:#{get_colors(el.first)}"
+          |  #{el[0]}: #{el[1]} Sammlung(en)

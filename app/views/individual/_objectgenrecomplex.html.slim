@@ -1,0 +1,8 @@
+.individual-tab.default-tab
+  .sektion Eigenschaften
+  = @glass.inline @record, "genre"
+  = @glass.inline @record, "living_being", locals: {force_display: true}
+  = @glass.inline @record, "derivat", locals: {force_display: true}
+
+  .sektion Sammlungen
+  = @glass.inline @record, "is_genre_complex"

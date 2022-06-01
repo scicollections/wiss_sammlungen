@@ -1,0 +1,15 @@
+--markup=markdown
+
+--tag comment1:"Use the following for Rails controller actions, i.e. do document the API"
+--tag url:URL
+--tag action:Action
+
+--tag comment2:"Can't use @param with actions because YARD will complain about an 'unknown parameter name'"
+--type-name-tag arg:Arguments
+
+--private
+--output-dir public/doc
+-
+manual/*.md
+authors.txt
+LICENSE.txt

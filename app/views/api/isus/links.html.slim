@@ -1,0 +1,34 @@
+ruby:
+  property_names = [
+    "homepage",
+    "collection_portal",
+    "other_web_resource"
+  ]
+  props = property_names.collect do |property_name|
+    @col.sorted_visible_properties(
+      property_name,
+      User.anonymous_user
+    )
+  end.flatten
+
+  names = []
+  urls = []
+
+  props.each do |p|
+    res = p.value
+    url = res.safe_value("url")
+    name = res.name_value ? res.name_value : url
+    # avoid duplicates and dont deliver links to usm to an usm page
+    unless names.include?(name) || urls.include?(url) || url.include?("universitaetssammlungen.de")
+      names << name
+      urls << url
+    end
+  end
+  urls << url_for_individual(@col)
+  names << "#{@col.label} (Portal)"
+
+ul.hyperlist
+  - names.size.times do |i|
+    li
+      a href=urls[i]
+        = names[i]

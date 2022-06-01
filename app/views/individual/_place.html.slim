@@ -1,0 +1,8 @@
+.individual-tab.default-tab
+  .sektion Eigenschaften
+  = @glass.inline @record, "place_type"
+  = @glass.inline @record, "is_location" if @record.class == City
+  = @glass.inline @record, "state" if @record.class == City
+  = @glass.inline @record, "is_state" if @record.class == State
+  = @glass.inline @record, "is_country" if @record.class == Country
+  = @glass.inline @record, "same_as"

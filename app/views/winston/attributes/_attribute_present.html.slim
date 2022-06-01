@@ -1,0 +1,20 @@
+/ titles for the tooltips of this attribute may be passed as tooltip_true
+/ and tooltip_false
+- tooltip = (attr ? tooltip_true : tooltip_false)
+.winston-attr-qtip title=tooltip
+  - if attr == true
+    - if defined?(img_true) && img_true.present?
+      = image_tag img_true
+    - else
+      span.glyphicon.glyphicon-ok.attr.attr-present
+  - elsif attr == false
+    - if defined?(img_false) && img_false.present?
+      = image_tag img_false
+    - else
+      span.glyphicon.glyphicon-minus.attr.attr-not-present
+  - elsif attr == nil
+    - if defined?(img_nil) && img_nil.present?
+      = image_tag img_nil
+    - else
+      span.attr.attr-nil
+        | k.A.

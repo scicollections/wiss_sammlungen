@@ -1,0 +1,79 @@
+div[class = "modal fade"
+  id = "modalName"
+  tabindex = "-1"
+  role = "dialog"
+  aria-labelledby = "myModalLabel"
+  aria-hidden = "true"]
+
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
+        h4.modal-title#myModalLabel Neue Seite erstellen
+
+      form.form-horizontal method="POST" action="/update/individual"
+        div class="modal-body modal-edit modal-new"
+          / Neue New-Modal-Form
+          = token_tag(nil)
+          span Typ:
+          #js-typeselect-container role="tabpanel"
+            input class="form-control range-filter" placeholder="Typ suchen"
+            / Nav tabs
+            ul class="nav nav-tabs" role="tablist"
+              li.active role="presentation"
+                a href="#alphabetical" aria-controls="alphabetical" role="tab" data-toggle="tab" Alphabetisch
+              li role="presentation"
+                a href="#hierarchical" aria-controls="hierarchical" role="tab" data-toggle="tab" Hierarchisch
+            / Tab panes
+            .tab-content
+              .tab-pane class="active" id="alphabetical" role="tabpanel"
+                .range
+                  - @alphabetical.each do |type|
+                    button [type="button"
+                      class = "indi-typeselect js-indi-typeselect js-range-filter-target"
+                      data-filter-text = (t type.name)
+                      data-type = ""
+                      data-objekt-id = ""
+                      value = type.name]
+                      = t type.name
+              .tab-pane id="hierarchical" role="tabpanel"
+                .range
+                  - @hierarchical.each do |type|
+                    button [type="button"
+                      class = "indi-typeselect js-indi-typeselect js-range-filter-target level#{type[:layer]}"
+                      data-filter-text = type[:filter]
+                      value = type[:klass].name
+                      disabled = (type[:creatable] ? false : true)]
+                      = t type[:klass].name
+          / Initially hidden typeselect display
+          #js-selected-type-div style="display:none;"
+            input#typeselect type="hidden" name="type" value=""
+            .input-group
+              div class="indi-typeselect js-selected-type" Typ
+              .input-group-btn
+                .js-back-to-typeselection title="Typauswahl ändern"
+                  span
+                    = image_tag "icons/close.svg", class: "delete-selected-type", alt: "Entfernen"
+
+          .label-field
+            span Bezeichnung:
+            input name="label" class="new-type-label form-control property" placeholder="Bezeichnung"
+
+          .person-fields
+            | #{t "gender"}:
+            select name="gender" class="new-type-label form-control"
+              option value="" selected=true = t "select_please"
+              - Person.options_for("gender").sort_by { |x| t x }.each do |option|
+                option value=option = t option
+            | #{t "title"}:
+            select name="title" class="new-type-label form-control"
+              option value="" selected=true = t "select_please"
+              - Person.options_for("title").sort_by { |x| t x }.each do |option|
+                option value=option = t option
+            - %w(first_name name).each do |predicate|
+              | #{t predicate}:
+              input name=predicate class="new-type-label form-control" placeholder=(t predicate)
+
+        .modal-footer
+          button type="submit" class="btn btn-primary js-create-individual" disabled="true" Seite erstellen
+

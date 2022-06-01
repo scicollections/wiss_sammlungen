@@ -1,0 +1,7 @@
+table
+  - %w(gender title first_name name).each do |predicate|
+    tr
+      td[style="padding-right: 20px"]
+        = "#{t predicate}:"
+      td[style="width: 100%"]
+        = @glass.edit individual, predicate

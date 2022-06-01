@@ -1,0 +1,7 @@
+- if @uni.indi && (str = @uni.indi.safe_value("collection_publications")).present?
+  hr
+  h3 Publikationen
+  p.activities-descr Gesamtuniversitäre Sammlungsdarstellungen:
+  ul#publications
+    - str.split('|').each do |pub|
+      li = pub.strip

@@ -1,0 +1,33 @@
+.col-md-3.col-sm-3.col-xs-12.filter
+  .int-search-heading Nach Typ filtern
+  - @search.klasses.each do |kls, cnt|
+    - if @search.klass_filter.include?(kls)
+      .int-search-filter.active
+        a href="#{internal_search_url(@search, remove_klass_filter: kls)}?q=#{@search.q}"
+          = t kls
+          small= " (#{cnt})"
+          = image_tag("icons/close.svg", alt: "Auswahl löschen")
+    - else
+      .int-search-filter
+        a href="#{internal_search_url(@search, add_klass_filter: kls)}?q=#{@search.q}"
+          = t kls
+          small= " (#{cnt})"
+
+  .int-search-heading Nach Sichtbarkeit filtern
+  - @search.roles.each do |rl, cnt|
+    - if @search.role_filter.include?(rl)
+      .int-search-filter.active
+        a href="#{internal_search_url(@search, remove_role_filter: rl)}?q=#{@search.q}"
+          = t rl
+          small= " (#{cnt})"
+          = image_tag("icons/close.svg", alt: "Auswahl löschen")
+    - else
+      .int-search-filter
+        a href="#{internal_search_url(@search, add_role_filter: rl)}?q=#{@search.q}"
+          = t rl
+          small= " (#{cnt})"
+
+  .int-filter-actions
+    span.delete-filters= link_to("Alle Filter löschen",  controller: "search", filter: "", q: @search.q  )
+    | •
+    span.new-search= link_to("Neue Suche", controller: "search", filter: "", q: "" )

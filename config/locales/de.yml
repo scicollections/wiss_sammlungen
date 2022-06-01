@@ -1,0 +1,524 @@
+de:
+  # Meta
+  maya_title: Wissenschaftliche Sammlungen
+  maya_title_inline: '"Wissenschaftliche Sammlungen"'
+  # Umlaute werden im support_mail_from header nicht unterstützt!
+  # Bug im Mail-Gem: https://github.com/mikel/mail/issues/39
+  support_mail_from: Support Koordinierungsstelle fuer wissenschaftliche Universitaetssammlungen
+  klass: Typ
+
+  # Individuals
+  Activity: Aktivität
+  ActivityType: Art der Aktivität
+  Actor: Akteur_in
+  Address: Adresse
+  CollectionActivity: Sammlungsbezogene Aktivität
+  CollectionRole: Wissenschaftliche Funktion
+  CollectionType: Sammlungsart
+  Concept: Konzept
+  ConceptScheme: Kontrolliertes Vokabular
+  Curatorship: Sammlungsbetreuung
+  DigitalHolding: Digitaler Bestand
+  DigitalReproduction: Digitale Reproduktion
+  DigitalReproductionType: Digitaler Reproduktionstyp
+  Dummy: Dummy
+  Event: Ereignis
+  FundingProgram: Förderprogramm
+  Holding: Bestand
+  HoldingGroup: Bestandsgruppe
+  ImageQuality: Bildqualität
+  InformationResource: Ressource
+  LivingBeing: Lebewesen
+  Memo: Notiz
+  ObjectGenre: Objektgattung
+  ObjectGenreComplex: Gattungsbeschreibung
+  Organisation: Einrichtung
+  OrganisationType: Einrichtungsart
+  Person: Person
+  Place: Ort
+  PlaceType: Ortstyp
+  Quantity: Mengenangabe
+  Individual: Datensatz
+  SciCollection: Wissenschaftliche Sammlung
+  SciCollections: Wissenschaftliche Sammlungen
+  DigitalCollection: Digitale Sammlung
+  City: Stadt
+  State: Bundesland
+  Country: Staat
+  Subject: Fachgebiet
+  TimeSpan: Zeitraum
+  WebResource: Webressource
+  WebResourceType: Art der Webressource
+
+  # Predicates
+  academic_teaching: Verwendung in der akademischen Lehre
+  academic_teaching_basic: im Rahmen der disziplinären Lehre
+  academic_teaching_interdisciplinary: im Rahmen interdisziplinärer Lehrveranstaltungen
+  access: Zugang (URL)
+  active_collection: Aktive Sammlung
+  activity: Aktivität
+  activity_type: Art der Aktivität
+  address: Adresse
+  address_data: Adressdaten
+  admin: Admin
+  alt_label: Synonym
+  amount_objects: Anzahl Objekte
+  amount_indexed: Anzahl Objekte dokumentiert
+  amount_digitized: Anzahl Objekte digitalisiert
+  amount_online_available: Anzahl Objekte online verfügbar
+  amount_digital_copies: Anzahl Digitalisate
+  amount_digital_copies_online: Anzahl online verfügbarer Digitalisate
+  associated_collection: Assoziierte Wissenschaftliche Sammlung
+  associated_organisation: Assoziierte Einrichtung
+  begin: Von
+  broader: Oberbegriff
+  can_be_edited_by: Kann bearbeitet werden von
+  can_edit: Kann bearbeiten
+  change_note: Hinweis zum Status
+  circa: ca.
+  classification: Klassifikation
+  collection_activity: Sammlungsbezogene Aktivität
+  collection_portal: Sammlungsportal
+  collection_publications: Publikationen
+  collection_type: Sammlungsart
+  collections_order_url: Sammlungsordnung
+  comment: Kommentar
+  country: Staat
+  curated_collection: Ansprechpartner_in für
+  curator: Ansprechpartner_in
+  current_deadline: Aktuelle Deadline
+  current_keeper: Betreut
+  database: Datenbank / Dig. Sammlung
+  description: Beschreibung
+  digital_collection: Digitale Sammlung
+  digitized_quantity: Anzahl digitalisierter Objekte
+  display_as_year: Nur Jahreszahlen anzeigen
+  email: E-Mail-Adresse
+  end: Bis
+  first_name: Vorname
+  figure: Anzahl
+  funding_area: Förderschwerpunkt
+  further_info: Weitere Informationen
+  gender: Anrede
+  genre: Objektgattung
+  genre_complex: Objektgattung
+  has_budget: Budget
+  has_collection_concept: Sammlungskonzept
+  has_concept: Begriff
+  has_current_keeper: Betreuende Einrichtung
+  has_digital_reproductions: Arten digitaler Reproduktionen
+  has_digital_reproductions_digitized: Bilddigitalisat
+  has_digital_reproductions_3d: 3D-Reproduktion, 3D Modell
+  has_digital_reproductions_digitized_text: Bilddigitalisat von Text
+  has_digital_reproductions_video: Video
+  has_digital_reproductions_audio: Audio
+  has_digital_reproductions_animation: Animation
+  has_holding: Bestände
+  
+  has_public_digital_reproductions: Digitalen Reproduktionen online verfügbar und öffentlich zugänglich
+  
+  has_internal_digital_reproductions: Wenn nein, welche digitalen Reproduktionen sind nur für Mitarbeitern Ihrer Institution zugänglich?
+  
+  has_documented_history: Dokumentierte Sammlungsgeschichte 
+  has_documented_history_collection: für die ganze Sammlung    
+  has_holdinggroup: Bestand
+  has_documented_history_objects: für einzelne Objekte und/oder Teilbestände
+  has_memo: Notizen
+  has_part: Teilsammlung
+  has_database_internal: Sammlungsdatenbanken
+  provenance_status: Provenienzabklärung
+  provenance_status_colonial: Objekte aus kolonialen Kontexten
+  provenance_status_antiquities: antike Objekte aus dem Mittelmeerraum und dem Nahen Osten
+  provenance_status_ns: Objekte, die im Nationalsozialismus verfolgungsbedingt entzogen wurden
+  provenance_status_human_remains: Human Remains
+  provenance_status_endangered_species: im Rahmen von Artenschutzabkommen geschützte Objekte
+  has_usage_regulation: Benutzungsordnung
+  hierarchical: Hierarchisch
+  homepage: Homepage
+  image_height: Höhe
+  image_quality: Qualität
+  image_width: Breite
+  in_collection: Sammlung
+  in_project: Aktivität
+  in_scheme: Vokabular
+  indexed_quantity: Anzahl dokumentierter Objekte
+  info_text: Infotext
+  internal_notes: Interne Notizen
+  invite_mail_footer: Signatur für Einladungsmails
+  involved_organisation: Organisation
+  involved_person: Person
+  is_activity_type: Art der Aktivität von
+  is_address: Adresse für
+  is_collection_portal: Sammlungsportal für
+  is_collection_type: Wissenschaftliche Sammlung
+  is_country: Staat für
+  is_funding_area: Förderschwerpunkt von
+  is_genre: Objektgattung für
+  # is_genre_complex: Wissenschaftliche Sammlung
+  is_genre_for_holding: Objektgattung für
+  is_holdinggroup: Bestandsgruppe für
+  is_homepage: Homepage für
+  is_living_being: Lebewesen in
+  is_location: Ort für
+  is_location_for_address: Ort für Adresse
+  is_object_portal: Objektportal für
+  is_organisation_type: Einrichtungen
+  is_other_web_resource: Weitere Webressource für
+  is_place_type: Ortstyp für
+  is_reproduction_type: Reproduktionstyp für
+  is_role: Funktion für
+  is_shown_at: Datensatz des Providers
+  is_state: Bundesland für
+  is_subject: Fachgebiet von
+  is_web_resource_type: Webressource
+  label: Bezeichnung
+  label_en: Englisch
+  landing_page: Einstiegsseite
+  living_being: Lebewesen
+  local_term: Lokale Bezeichnung
+  location: Ort
+  manager: Manager_in
+  manager_female: Managerin
+  manager_male: Manager
+  manufacturing_technique: Herstellungstechnik
+  materials: Material
+  measurement: Maße
+  memo_subject: Betreff
+  name: Name
+  narrower: Unterbegriff
+  object_creation: Herstellung
+  object_function: Verwendungszweck
+  object_genre: Objektgattung
+  object_portal: Objektportal
+  object_subject: Fachgebiet
+  object_quantity: Anzahl Objekte
+  ocurred_at: Zeitraum
+  online_available_quantity: Anzahl online verfügbarer Objekte
+  opening_hours: Öffnungszeiten
+  organisation: Organisation
+  organisation_type: Einrichtungsart
+  other_web_resource: Weitere Webressource
+  part_of: Ist Teilsammlung von
+  parts: Geschwistersammlung
+  person: Person
+  phone: Telefonnummer
+  place_type: Ortstyp
+  postal_code: PLZ
+  procedures_and_rules: Ausschreibungsmodalitäten
+  purl: Permalink
+  related_activity: Verknüpfte Aktivität
+  related_actor: Verknüpfte_r Akteur_in
+  reproduction: Art der Reproduktion
+  reproduction_type: Reproduktionstyp
+  request_edit_privileges: Bearbeitungsrechte beantragt
+  request_publicity: Zur Veröffentlichung vorgeschlagen
+  role: Funktion
+  salutation: Anrede
+  same_as: Entspricht
+  sci_collection: Wissenschaftliche Sammlung
+  selectable: Auswählbar
+  selectables: Auswählbar gesetzt
+  small: Kleines Fach
+  special_form: Sonderform
+  special_form_of: Sonderform von
+  special_status: Status
+  state: Bundesland
+  subject: Fachgebiet
+  survey_participant: Umfrageteilnehmer_in
+  text: Text
+  time_span_label: Eigener Text
+  title: Titel
+  url: URL
+  used_collection: Verwendete Sammlung
+  used_in_activity: Aktivität
+  visible_for: Sichtbar für
+  web_resource_type: Art der Webressource
+  weight: Gewicht
+  year_of_death: Todesjahr
+
+  # Values
+  female: Frau
+  male: Herr
+  hello: Hallo
+  dr: Dr.
+  prof: Prof.
+  prof_female: Professorin
+  prof_male: Professor
+  prof_hello: Prof.
+  # manager steht schon bei den Properties
+  "yes": "ja"
+  "no": "nein"
+  "none": "nicht vorhanden"
+  member: Benutzer_in
+  member_female: Benutzerin
+  member_male: Benutzer
+  novalue: keine Angabe
+  public: Öffentlichkeit
+  select_please: Bitte auswählen...
+  in_total: Insgesamt
+  deprecated: Nicht mehr verwenden
+  draft: Entwurf
+  
+
+  # Actions
+  actions:
+    indi_create: Datensatz erstellt
+    indi_rename: Datensatz umbenannt
+    indi_delete: Datensatz gelöscht
+    prop_create: Eigenschaft erstellt
+    prop_update: Eigenschaft aktualisiert
+    prop_delete: Eigenschaft gelöscht
+    send_invite: Die Person wurde eingeladen
+    join: Die Einladung wurde angenommen
+    request_publicity: Zur Veröffentlichung vorgeschlagen
+    request_edit_privileges: Antrag auf Bearbeitungsrechte
+    unknown: Unbekannte Aktion
+
+  activerecord:
+    models:
+      rahel/user: Benutzer_in
+    attributes:
+      rahel/user:
+        current_password: Bisheriges Passwort
+        email: E-Mail-Adresse
+        password: Passwort
+        password_confirmation: Passwortbestätigung
+        remember_me: Angemeldet bleiben
+
+  # Von https://github.com/svenfuchs/rails-i18n/blob/master/rails/locale/de.yml
+  date:
+    abbr_day_names:
+    - So
+    - Mo
+    - Di
+    - Mi
+    - Do
+    - Fr
+    - Sa
+    abbr_month_names:
+    -
+    - Jan
+    - Feb
+    - Mär
+    - Apr
+    - Mai
+    - Jun
+    - Jul
+    - Aug
+    - Sep
+    - Okt
+    - Nov
+    - Dez
+    day_names:
+    - Sonntag
+    - Montag
+    - Dienstag
+    - Mittwoch
+    - Donnerstag
+    - Freitag
+    - Samstag
+    formats:
+      default: ! '%d.%m.%Y'
+      long: ! '%e. %B %Y'
+      short: ! '%e. %b'
+    month_names:
+    -
+    - Januar
+    - Februar
+    - März
+    - April
+    - Mai
+    - Juni
+    - Juli
+    - August
+    - September
+    - Oktober
+    - November
+    - Dezember
+    order:
+    - :day
+    - :month
+    - :year
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: etwa einer Stunde
+        other: etwa %{count} Stunden
+      about_x_months:
+        one: etwa einem Monat
+        other: etwa %{count} Monaten
+      about_x_years:
+        one: etwa einem Jahr
+        other: etwa %{count} Jahren
+      almost_x_years:
+        one: fast einem Jahr
+        other: fast %{count} Jahren
+      half_a_minute: einer halben Minute
+      less_than_x_minutes:
+        one: weniger als einer Minute
+        other: weniger als %{count} Minuten
+      less_than_x_seconds:
+        one: weniger als einer Sekunde
+        other: weniger als %{count} Sekunden
+      over_x_years:
+        one: mehr als einem Jahr
+        other: mehr als %{count} Jahren
+      x_days:
+        one: einem Tag
+        other: ! '%{count} Tagen'
+      x_minutes:
+        one: einer Minute
+        other: ! '%{count} Minuten'
+      x_months:
+        one: einem Monat
+        other: ! '%{count} Monaten'
+      x_seconds:
+        one: einer Sekunde
+        other: ! '%{count} Sekunden'
+    prompts:
+      day: Tag
+      hour: Stunde
+      minute: Minute
+      month: Monat
+      second: Sekunde
+      year: Jahr
+  errors:
+    format: ! '%{attribute} %{message}'
+    messages:
+      accepted: muss akzeptiert werden
+      blank: muss ausgefüllt werden
+      present: darf nicht ausgefüllt werden
+      confirmation: stimmt nicht mit %{attribute} überein
+      empty: muss ausgefüllt werden
+      equal_to: muss genau %{count} sein
+      even: muss gerade sein
+      exclusion: ist nicht verfügbar
+      greater_than: muss größer als %{count} sein
+      greater_than_or_equal_to: muss größer oder gleich %{count} sein
+      inclusion: ist kein gültiger Wert
+      invalid: ist nicht gültig
+      less_than: muss kleiner als %{count} sein
+      less_than_or_equal_to: muss kleiner oder gleich %{count} sein
+      not_a_number: ist keine Zahl
+      not_an_integer: muss ganzzahlig sein
+      odd: muss ungerade sein
+      record_invalid: ! 'Gültigkeitsprüfung ist fehlgeschlagen: %{errors}'
+      restrict_dependent_destroy:
+        one: ! 'Datensatz kann nicht gelöscht werden, da ein abhängiger %{record}-Datensatz existiert.'
+        many: ! 'Datensatz kann nicht gelöscht werden, da abhängige %{record} existieren.'
+      taken: wird bereits durch eine_n andere_n Nutzer_in verwendet
+      too_long: ist zu lang (mehr als %{count} Zeichen)
+      too_short: ist zu kurz (weniger als %{count} Zeichen)
+      wrong_length: hat die falsche Länge (muss genau %{count} Zeichen haben)
+      other_than: darf nicht gleich %{count} sein
+    template:
+      body: ! 'Bitte überprüfen Sie die folgenden Felder:'
+      header:
+        one: ! 'Konnte %{model} nicht speichern: ein Fehler.'
+        other: ! 'Konnte %{model} nicht speichern: %{count} Fehler.'
+  helpers:
+    select:
+      prompt: Bitte wählen
+    submit:
+      create: ! '%{model} erstellen'
+      submit: ! '%{model} speichern'
+      update: ! '%{model} aktualisieren'
+  number:
+    currency:
+      format:
+        delimiter: .
+        format: ! '%n %u'
+        precision: 2
+        separator: ! ','
+        significant: false
+        strip_insignificant_zeros: false
+        unit: €
+    format:
+      delimiter: .
+      precision: 2
+      separator: ! ','
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: ! '%n %u'
+        units:
+          billion:
+            one: Milliarde
+            other: Milliarden
+          million: Millionen
+          quadrillion:
+            one: Billiarde
+            other: Billiarden
+          thousand: Tausend
+          trillion: Billionen
+          unit: ''
+      format:
+        delimiter: ''
+        precision: 3
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: ! '%n %u'
+        units:
+          byte:
+            one: Byte
+            other: Bytes
+          gb: GB
+          kb: KB
+          mb: MB
+          tb: TB
+    percentage:
+      format:
+        delimiter: ''
+        format: "%n%"
+    precision:
+      format:
+        delimiter: ''
+  support:
+    array:
+      last_word_connector: ! ' und '
+      two_words_connector: ! ' und '
+      words_connector: ! ', '
+  time:
+    am: vormittags
+    formats:
+      default: ! '%A, %d. %B %Y, %H:%M Uhr'
+      long: ! '%A, %d. %B %Y, %H:%M Uhr'
+      medium: '%d. %B %Y, %H:%M Uhr'
+      short: ! '%d. %B, %H:%M Uhr'
+      date_condensed: ! '%d.%m.%Y'
+    pm: nachmittags
+
+  # Survey
+  survey_status:
+    invited: Eingeladen
+    invited-overdue: (Überfällig) Eingeladen
+    in_progress: Zugegriffen
+    blocked: Blockiert
+    reminded: Erinnert
+    done: Als fertig gemeldet
+    completed: Abgeschlossen
+    initial: Initial
+    invite: Einladung
+    remind: Erinnerung
+    access: Erster Zugriff 
+    complete: Abschluss durch Manager_in
+    i_am_done: Fertigmeldung durch Nutzer_in
+    add_to_survey: Zur Umfrage hinzugefügt
+    survey_memo: Notiz
+    
+  # Winston
+  collection_count: Sammlungen gesamt
+  digitized_collection_count: Digital zugängliche Sammlungen
+  active_collection_count: Aktive Sammlungen
+  object_portal_count: Objektportale
+  webportal_count: Sammlungsportale
+  collection_coordination_count: Sammlungskoordinationen
+  
+  # devise
+  devise:  
+      failure:  
+        deleted_account: "Ihr Account wurde deaktiviert. Wenden Sie sich gegbenenfalls an den Support."
+  
+    

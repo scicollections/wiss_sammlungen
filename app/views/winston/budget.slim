@@ -1,0 +1,11 @@
+.container.container-winston-subjects
+  h1 Kennzahlen zu wissenschaftlichen Sammlungen an deutschen Universitäten
+  = render partial: "winston_navigation", locals: {show_date: true}
+  h2 Budget
+  p Unter Budget werden wiederkehrend fest in den Haushalt eingeplante Finanzen verstanden. Die Angaben zum Budget beruhen auf den Ergebnissen der Umfrage der Koordinierungsstelle von 2019.
+  h4 Budgets in den Sammlungsarten
+  = bar_chart @coll_type_budget, height: "300px", library: bar_chart_library_settings(stacking: "normal"), colors: ["#d2daee","#4566ba","3e5ca8"]
+  h4 Budgets insgesamt
+  = pie_chart @total_budget, colors: ["3e5ca8","#4566ba","#d2daee"]
+
+        

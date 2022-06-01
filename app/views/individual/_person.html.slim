@@ -1,0 +1,41 @@
+.individual-tab.default-tab
+  .sektion Beschreibung
+  = @glass.inline @record, "purl"
+  = @glass.inline @record, "curated_collection"
+  = @glass.inline @record, "activity"
+  = @glass.inline @record, "organisation"
+  = @glass.inline @record, "related_actor"
+
+  .sektion Informationen und Kontakt
+  = @glass.inline @record, "homepage"
+  = @glass.inline @record, "other_web_resource"
+  = @glass.inline @record, "address"
+  = @glass.inline @record, "email"
+  = @glass.inline @record, "phone"
+  
+  = @glass.inline @record, "same_as"
+
+.individual-tab.settings-tab
+  - if @record.is_a?(Person) && current_user.can?(:invite_user)
+    = render "users/invite_status"
+
+  - if current_user.can_edit_individual?(@record)
+    .sektion data-tab="settings" Rechte
+
+    - if current_user.can_view_property?(subject: @record, predicate: "can_edit")
+      .property-group.row data-tab="settings"
+        .predicate.col-md-3 Kann automatisch bearbeiten
+        .properties.col-md-9
+          - @record.automatically_editable.each do |indi|
+            .property
+              = render "glass/inline/user_rights", individual: indi
+              span.individual-label = indi.class_display
+              = link_to(indi.inline_label, indi.path)
+
+  = @glass.inline @record, "can_edit", locals: { tab: "settings" }
+
+/ private manager-settings properties, only show them to the person itself
+- if (current_user.at_least? :manager) && (@record == current_user.person)
+  .individual-tab.settings-tab
+    .sektion data-tab="settings" Private Einstellungen
+    = @glass.inline @record, "invite_mail_footer"

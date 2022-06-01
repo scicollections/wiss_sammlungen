@@ -1,0 +1,38 @@
+- individual = local_assigns[:individual] ? local_assigns[:individual] : nil
+
+div.row.person-record data-person_id=person.id data-user_id=(person.user.id if person.user) data-individual_id=(individual.try(:id))
+  div.col-sm-2
+    - if campaign.user_status(person.user) != :initial
+      span.label.label-info class=(campaign.userstatus_css_class(person.user)) = t "survey_status."+(campaign.userstatus_css_class(person.user)).to_s
+      br
+      .last-status-user
+        = "vor #{distance_of_time_in_words(Time.now, campaign.last_status_user_event(person.user).created_at)}"
+  
+  div.col-sm-3
+    - if person.email_value.blank?
+      span.label.label-warning Keine E-Mail-Adresse vorhanden
+    - else
+      - checkboxid = local_assigns[:individual] ? "#{person.id}_#{individual.id}" : "#{person.id}"
+      - if campaign.user_status(person.user) == :initial
+        input type="checkbox" class="checkbox-invite" name="checkbox-invite" id="checkbox_invite_#{checkboxid}" value="value"
+        label.collecting-invitation for="checkbox_invite_#{checkboxid}"
+          | Sammeleinladung
+      - elsif campaign.at_most_status? person.user, :in_progress
+        input type="checkbox" class="checkbox-remind" name="checkbox-remind" id="checkbox_remind_#{checkboxid}" value="value"
+        label.collecting-reminder for="checkbox_remind_#{checkboxid}"
+          | Sammelerinnerung
+    = render "survey/actions", person: person
+  div.col-sm-4
+    span = link_to person, "/Person/#{person.id}#survey", target: "_blank"
+  div.col-sm-3.additional-survey-infos
+    - if individual
+      = render "survey/userstate_additional/userstatus_#{individual.class.to_s.downcase}", person: person, campaign: campaign, individual: individual
+    
+    - if person.user && person.user.at_least?(:member)
+      span.glyphicon.glyphicon-user title="Maya-Status"
+      - if person.user.registration_complete?
+        |  registriert
+      - else
+        |  nur eingeladen, nicht registriert
+    - else
+      span.glyphicon.glyphicon-user.disabled

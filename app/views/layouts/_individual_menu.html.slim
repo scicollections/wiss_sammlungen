@@ -1,0 +1,40 @@
+- if current_user.can_edit_individual?(@record)
+  // Menüleiste für User mit Bearbeitungsrecht
+  .clearfix.individual-menu.js-individual-menu
+    / TODO Check if this if statement is really necessary. What other controllers use this partial?
+    - if controller_name == "individual"
+      - if current_user.person.id == @record.id
+        = link_to(image_tag("icons/account-dataset.svg", alt: "Anfangsansicht", title: "Anfangsansicht"), "#", class: "img-link show-default-tab js-tab", data: {hash: "" })
+      - else
+        = link_to(image_tag("icons/dataset.svg", alt: "Anfangsansicht", title: "Anfangsansicht"), "#", class: "img-link show-default-tab js-tab", data: {hash: "" })
+      - if @record.class == SciCollection
+        = link_to(image_tag("icons/datasetlocked.svg", alt: "Interne Sammlungsdaten", title: "Interne Sammlungsdaten"), "#", class: "img-link show-datasetinternal-tab js-tab", data: {hash: "#datasetinternal" })
+      = link_to(image_tag("icons/history_cc_EDimitrova.svg", alt: "Verlauf", title: "Änderungen an der Seite"), "#", class: "img-link show-revisions-tab js-tab", data: {hash: "#revisions" })
+      
+      / MANAGER ONLY
+      - if current_user.at_least? :manager
+        = link_to(image_tag("icons/relations.svg", alt: "Relationen", title: "Relationen"), "#", class: "img-link show-relations-tab js-tab", data: {hash: "#relations" })
+        = link_to(image_tag("icons/paperclip_cc_EStandley.svg", alt: "Notizen", title: "Notizen"), "#", class: "img-link show-notes-tab js-tab", data: {hash:  "#notes" })
+        - if (@record.is_a? Person) && Campaign.current
+          = link_to(image_tag("icons/survey_cc_parkjisun.svg", alt: "Änderungsaktivitäten in der Umfrage"), "#", class: "img-link show-survey-tab js-tab", data: {hash:  "#survey" })
+      = link_to(image_tag("icons/setting_cc_SimpleIcons.svg",                             \
+                  alt: "Einstellungen für Seite", title: "Einstellungen für Seite"), "#", \
+        class: "img-link show-settings-tab js-tab", data: {hash: "#settings" })
+      - if Campaign.current && ((current_user.current_survey_participant?() && current_user.can_edit_individual?(@record)) or current_user.at_least? (:manager))
+        = link_to(image_tag("icons/survey-revisionen.svg", alt:"Umfrage Revisionen"), "#", class: "img-link show-surveyrevisions-tab js-tab", data: {hash:  "#surveyrevisions" })
+      // Edit-Switch
+      - if current_user.can_edit_individual?(@record)
+        .edit-switch.pull-right
+          // On Off Flipswitch
+          .onoffswitch.pull-right
+            input#myonoffswitch.onoffswitch-checkbox [name="onoffswitch"
+                type="checkbox" checked=(@mode == "edit")]
+
+            label.onoffswitch-label for="myonoffswitch"
+              .onoffswitch-inner
+              .onoffswitch-switch
+        - if Campaign.current && session[:managing_a_survey] && current_user.at_least?(:manager)
+          // this is just a hidden signal for individual.js to highlight updated predicate groups
+          input.highlight-survey-changes type="hidden" 
+      - else
+        = link_to Bearbeitungsrechte anfordern, "/nicht_implementiert"

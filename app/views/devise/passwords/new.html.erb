@@ -1,0 +1,26 @@
+<div class="container container-login">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+
+    <h2>Passwort vergessen?</h2>
+
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+        <%= devise_error_messages! %>
+
+        <div class="field log-in-fields">
+          <%= f.label :email %><br />
+          <%= f.email_field :email, autofocus: true, class: "form-control" %>
+        </div>
+
+        <div class="actions">
+          <%= f.submit "Passwort zurücksetzen", class: "btn btn-default" %>
+        </div>
+
+      <% end %>
+
+    </br>
+    <%= render "devise/shared/links" %>
+
+    </div>
+  </div>
+</div

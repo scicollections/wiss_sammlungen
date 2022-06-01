@@ -1,0 +1,45 @@
+.container.container-survey-home data-campaign_slug=@campaign.slug
+  .row
+    .col-md-12 
+      h2 
+        = @campaign.name
+        | : Willkommen! 
+        span.not_the_user
+            |   
+            a href="/survey/clarify"
+              = "Sie sind nicht #{current_user.to_s}?"
+      - if @campaign.at_most_status?(current_user, :in_progress)
+        p Herzlichen Dank für Ihre Teilnahme!
+        p Die Umfrage besteht aus 2 Abschnitten. Zuerst bitten wir Sie, Daten zu einigen neuen Erfassungskriterien für folgende Sammlungen einzugeben:
+        
+        // 1. Neuerfassung
+        h3 1. Neuerfassung
+        ul
+           - @survey_individuals.each do |indi_hash|
+             li 
+               - individual = indi_hash[:individual]
+               - if indi_hash[:edited]
+                 span.glyphicon.glyphicon-ok.record-edited-icon
+               a href="/survey/form/#{individual.id}" 
+                 b
+                   = individual.inline_label
+               
+        // Support
+        p 
+          | Bei Rückfragen wenden Sie sich bitte an 
+          = @inviter_name
+          |  unter 
+          = link_to @inviter_email, "mailto:#{@inviter_email}"
+          | .
+          
+        // Weiter 
+        // TODO generalize text "für alle angegebenen Sammlungen"
+        - if @at_least_one_revision
+          h3 2. Daten überprüfen
+          p Nach Abschluss der Neuerfassung für alle angegebenen Sammlungen würden wir uns freuen, wenn Sie einen Blick auf die vorhandenen Informationen werfen könnten. Klicken Sie hierfür auf "Weiter". 
+          = link_to "Umfrage abschließen", "/survey/checkdata", class: "btn btn-success"
+          
+      // Abgeschlossen    
+      - else 
+        p Sie haben die Umfrage bereits abgeschlossen. Wir würden uns jedoch freuen, wenn Sie sich auch außerhalb des Rahmens unserer Umfrage im Portal "Wissenschaftliche Sammlungen" engagieren.
+        = link_to "Nutzerkonto anlegen / Mitmachen", "/survey/checkdata", class: "btn btn-success"

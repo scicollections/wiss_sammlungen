@@ -1,0 +1,5 @@
+[mysql]
+user=root
+password=
+host=localhost
+database=maya

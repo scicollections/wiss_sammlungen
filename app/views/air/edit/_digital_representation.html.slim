@@ -1,0 +1,8 @@
+div
+  - if subject.is_a?(SciCollection)
+    h4 = individual.digital_collection_value
+  - else
+    h4 = individual.sci_collection_value
+div
+  | Landing Page für diese Sammlung:
+  = @glass.edit individual, "landing_page"

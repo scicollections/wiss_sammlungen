@@ -1,0 +1,17 @@
+- info_text = discover_info(@search.cat_filter.first)
+.result-types-selection
+  / Typen-Filter
+  .result-types
+    - @search.categories.each do |key, val|
+      = link_to(controller: "discover", categories: key, q: @search.q, lq: @search.q, f: @search.facet_filter) do
+        div class=("type#{@search.cat_filter.include?(key) ? " active" : ""}")
+          = val[:name]
+          span.type-count
+            | (#{val[:count]})
+    - if info_text.present?
+        a#info-discover-results-ein-aus.info-helper-discover-result-types.info-helper-active title=("Für Hilfe klicken")
+
+- if info_text.present?
+  .info-text-discover-result-types.js-info-text-discover-result-types
+    p == info_text
+

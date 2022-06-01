@@ -1,0 +1,10 @@
+.container.container-winston-subjects
+  h1 Kennzahlen zu wissenschaftlichen Sammlungen an deutschen Universitäten
+  = render partial: "winston_navigation", locals: {show_date: true}
+  h2 Benutzungsordnung
+  p = predicate_info_by_tag "has_usage_regulation", individual_or_class: SciCollection, info_tag: "survey"
+  h4 Benutzungsordnungen nach Sammlungsarten
+  = bar_chart @coll_type_usage_regulation, height: "300px", library: bar_chart_library_settings(stacking: "normal"), colors: ["#d2daee","#4566ba","3e5ca8"]
+  h4 Benutzungsordnungen insgesamt
+  = pie_chart @total_usage_regulation, colors: ["3e5ca8","#4566ba","#d2daee"]
+

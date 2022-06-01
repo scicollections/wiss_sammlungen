@@ -1,0 +1,29 @@
+- search_url = search_url(@search)
+- terms = terms(@search)
+- info_text = discover_info(@key)
+
+.filterbox-head
+  | Filtern
+  - if info_text.present?
+    a.info-helper-discover-facets class="info-helper-discover-facets-#{@key}" id="info-discover-ein-aus" title="Für Hilfe klicken"
+
+- if info_text.present?
+  .info-text-discover-facets.js-info-text-discover-facets class="js-info-text-discover-facets-#{@key}" id="info-facets-text"
+    == info_text
+
+- if terms.size == 0
+  .filterbox-range
+    p
+      | Keine weiteren Auswahlmöglichkeiten
+
+- else
+  .filterbox-search
+    input.form-control.criteria-filter id="filterCriteria_#{@key}" type="search"
+
+  .filterbox-range
+    - terms.each do |term, count|
+      - missing = term == @search.MISSING_STRING
+      li class=(missing ? "missing":"")
+        a.criteria-item href="#{search_url}&afk=#{@key}&afv=#{u term}" 
+          = "#{term} (#{count})"
+

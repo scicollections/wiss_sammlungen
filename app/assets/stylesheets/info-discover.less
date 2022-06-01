@@ -1,0 +1,77 @@
+@import "twitter/bootstrap/variables";
+@import "custom_bootstrap/variables.less";
+@import "/info.less";
+
+// Infosystem for Filters
+.info-helper-discover-facets {
+  height: 20px;
+  width: 20px;
+  border-radius: 10px;
+  background: image-url("icons/info.svg") center center no-repeat;
+  background-size: cover;
+  margin: 1px 5px 0 10px;
+  float: right;
+  cursor: pointer;
+}
+
+.info-helper-discover-facets:hover {
+  background: image-url("icons/info-blue.svg") center center no-repeat;
+  background-size: cover;
+}
+
+.info-helper-discover-facets:active {
+  box-shadow: 0 0 6px #3377c0;
+  -webkit-transition: all 0s ease-in-out;
+  -moz-transition: all 0s ease-in-out;
+  -ms-transition: all 0s ease-in-out;
+  -o-transition: all 0s ease-in-out;
+}
+
+
+.info-text-discover-facets {
+  display: none;
+  .info-text;
+  padding: 0px 12px 10px 12px;
+  margin: 0 0 10px 0;
+}
+
+ @media only screen and (max-width: 767px){
+  .info-text-discover-facets{
+    height: 245px;
+  }
+}
+
+
+
+// Infosystem for Search Results
+.info-helper-discover-result-types{
+  height: 20px;
+  width: 20px;
+  border-radius: 10px;
+  background: image-url("icons/info.svg") center center no-repeat;
+  background-size: cover;
+  float: right;
+  margin: 3px 5px;
+}
+
+.info-helper-discover-result-types:hover {
+  background: image-url("icons/info-blue.svg") center center no-repeat;
+  background-size: cover;
+}
+
+.info-helper-discover-result-types:active {
+  box-shadow: 0 0 6px #3377c0;
+  -webkit-transition: all 0s ease-in-out;
+  -moz-transition: all 0s ease-in-out;
+  -ms-transition: all 0s ease-in-out;
+  -o-transition: all 0s ease-in-out;
+}
+
+
+// Text for selectabe categories ('Sammlungen', 'Akteure', etc.)
+.info-text-discover-result-types{
+  .info-text;
+  margin: 0;
+  padding: 5px;
+  p{margin-bottom: 0;}
+}

@@ -1,0 +1,421 @@
+@import "twitter/bootstrap/variables";
+@import "custom_bootstrap/variables.less";
+
+
+// Place all the styles related to the Winston controller here.
+// They will automatically be included in application.css.
+// You can use Less here: http://lesscss.org/
+
+.winston-navigation,.winston-navigation-bottom {
+  margin-top: 25px;
+  margin-bottom: 25px;
+  border-bottom: 1px solid #e4e4e4;
+
+  .winston-nav-tab {
+    display: inline-block;
+    font-size: 16px;
+    background: #efefef;
+    margin: 0 4px 0 0;
+    padding: 2px 15px;
+    line-height: 1.44em;
+    color: #1F2D54;
+  }
+
+  .winston-nav-tab:hover {
+    text-decoration: none;
+    background-color: #dde0e5;
+  }
+
+  .winston-nav-tab-active {
+    background-color: #dde0e5;
+  }
+}
+
+.winston-navigation-bottom {
+  border-bottom: none;
+  border-top: 1px solid #e4e4e4;
+}
+
+// Fluctuation Page
+
+.container.winston-fluctuation {
+  .row{
+    margin-bottom: 3em; 
+    
+    div {
+      text-align: center;
+    }
+  }
+  .fluctuation-number {
+    font-size: 3em;
+    
+  }
+
+}
+
+
+// Global View
+
+.map-filter {
+  margin-top: 10px;
+}
+
+#map-buttons {
+  float: left;
+  z-index: 100;
+  margin-right: 10px;
+  min-width: 550px;
+}
+
+.test-tooltip {
+  font-size: 13px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid #e4e4e4;
+
+  .qtip-titlebar {
+    padding: 7px;
+    background: #EDEDED;
+    line-height: 14px;
+  }
+
+  .qtip-content {
+    padding: 7px 9px;
+  }
+
+}
+
+.attr-not-present {
+  color: #A5A5A5;
+}
+.attr-nil {
+  color: #D0D0D0;
+}
+
+// desperate attempt to override kartograph's css settings
+#map {
+  margin-left: -30px;
+  min-width: 600px;
+  img {
+    cursor: auto;
+  }
+
+  margin-bottom: 12px;
+}
+
+
+// State-View
+
+
+.expand-states{
+  margin: 30px 0 10px 5px;
+  a {
+    cursor: pointer;
+  }
+}
+
+.state:hover {
+  color:#337ab7;
+}
+
+////KOPF
+.headrow {
+  font-size: 12px;
+  border-bottom: 2px solid #dddddd;
+
+  .hcell-1 {
+    // width: 220px;
+    width: 25%;
+  }
+  .hcell-2 {
+    word-break: break-all;
+    max-width: 100px;
+    // width: 10%;
+  }
+}
+
+
+.state_panel {
+  margin: 2px 2px 8px 2px;
+  border-radius: 2px;
+}
+.state-table-header, .state_panel {
+  min-width: 700px; // auf schmaleren Geräten geht die Ansicht sonst kaputt
+}
+
+
+.state{
+  border-bottom: 2px solid #dddddd;
+  text-align: center;
+  cursor: pointer;
+}
+
+.cell-1 {
+  width: 220px;
+  // width: 25%;
+  padding-left: 5px;
+}
+
+.cell-2 {
+  width: 100px;
+  // width: 10%;
+  text-align: center;
+}
+
+.cursor-help {
+  cursor: help;
+}
+
+.highcharts-container {
+  margin: auto;
+}
+
+tr.unis {
+  border-bottom: 1px dotted #dddddd;
+}
+
+.unis {
+  ul {
+    padding-left: 5px;
+  }
+  li {
+    list-style-type: none;
+    padding-left: 5px;
+    padding-bottom: 3px;
+
+    div {
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+}
+
+
+// University View
+
+
+
+.activity-title {
+  font-weight: bold;
+}
+
+.activities-descr {
+  font-size: 13px;
+  margin-top: -3px;
+  margin-bottom: 15px;
+  color: #777777;
+}
+
+.container-winston-university ul {
+  list-style-type: none;
+}
+
+#data_container {
+  height: 100%;
+  width: 100%;
+  div {
+    display: inline-block;
+    *display: inline;
+    vertical-align: top;
+    width: 370px;
+  }
+  div:nth-child(1) {
+    width: 50%;
+  }
+
+  #data {
+    .first-col {
+      font-weight: bold;
+      vertical-align: top;
+      padding-right:20px;
+    }
+    td {
+      padding: 5px;
+    }
+  }
+
+  #collection-types {
+    margin-left: 75px;
+
+    .right {
+    }
+
+    #chart-1 {
+      width: 300px;
+      margin: auto;
+      display: block;
+    }
+
+    #legend {
+      padding-left: 0;
+      .legend-blob {
+        width: 20px;
+        height: 15px;
+        vertical-align: middle;
+        margin: 3px;
+        margin-right: 5px;
+      }
+    }
+  }
+}
+
+#collections, #activities, #publications {
+  width: 100%;
+  padding-left: 5px;
+
+  td {
+    padding: 5px;
+  }
+
+  li {
+    margin-bottom: 10px;
+  }
+
+}
+
+
+.table-u-v  {
+  td {
+    height: 35px;
+  }
+}
+
+
+a.ref-portal {
+  color: #888;
+  font-size: 13px;
+
+    background: transparent image-url("icons/int-link-01.png") left center no-repeat;
+    background-size: 10%;
+    vertical-align: top;
+    margin: 0 5px 0 7px;
+    padding-left: 13px;
+}
+
+a.ref-portal:hover{
+    text-decoration: none;
+    color: #337ab7;
+
+    background: transparent image-url("icons/int-link-02.png") left center no-repeat;
+    background-size: 11%;
+
+}
+
+h1 a.ref-head {
+  margin: 0px;
+  vertical-align: top;
+  margin-top: 6px;
+}
+
+a.ref-head {
+  margin: 0;
+}
+
+.attr-col {
+  text-align: center;
+}
+
+// Subjects
+
+.container-winston-subjects {
+  #subjectcol{
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-right: 0px;
+    z-index: 100;
+    background-color: white;
+
+    -webkit-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
+    #subjectlist{
+      padding-right: 0px;
+    
+      form.list{ 
+        overflow-y: scroll;
+        max-height: 700px;
+        margin-top: 4px;
+        div.radio:nth-child(2n){
+          background-color: @gray-light;
+        }
+        div.radio:nth-child(2n+1){
+          background-color: #f8f8f8;
+        }
+        div.radio {
+          padding: 5px 0 5px 0;
+          margin: 0 5px 0 0;
+          label{
+            padding-left: 5px;
+            input{
+              margin-right: 4px;
+            }
+          }
+        }
+      }
+    }
+  }
+  #mapcol{
+    
+  }
+
+  
+  .right-container {
+    //visibility: hidden;
+    //opacity: 0;
+    display: none;
+    transition: visibility 350ms ease-out;
+    transition: opacity 350ms ease-out;
+    background: #fff;
+    min-height: 375px;
+    max-height: 400px;
+      overflow-y: auto;
+    width: 310px;
+    position: absolute;
+    z-index: 100;
+    //left: 100%;
+    //top: -37px;
+    box-shadow: 1px 2px 0.5em gray;
+
+    @media only screen and (max-width: 767px){
+      width: 100%;
+      min-height: 210px;
+      left: 0;
+      top: -9px;
+    }
+
+
+    .filterbox-head {
+      //.criteria;
+      margin-top: 0px;
+    }
+
+    .filterbox-search {
+      margin: 2px 5px;
+
+      input {
+        height: 27px;
+        padding: 2px 9px
+      }
+    }
+
+    .filterbox-range {
+      margin: 5px;
+      height: 307px;
+      overflow-y: scroll;
+
+      li {
+        margin: 1px 0 0 1px;
+        line-height: 1.2em;
+        padding: 4px 8px;
+      }
+
+      li:hover {background-color: #f4f4f4;}
+
+      @media only screen and (max-width: 767px){
+        height: 200px;
+      }
+    }
+
+
+
+  }
+}

@@ -1,0 +1,15 @@
+.row.facets-applied-container
+  .col-sm-12
+    div.facets-applied
+      - unless @search.fallback
+        - search_url = url_for(controller: "discover", categories: @search.cat_filter.map(&:to_s).join(","), q: @search.q, lq: @search.q, f: @search.facet_filter)
+        - ESConfig.facets.keys.each do |k| 
+          - if @search.facet_filter[k]
+            - @search.facet_filter[k].each do |v|
+              a href="#{search_url}&rfk=#{k}&rfv=#{u v}"
+                div.facets-applied-focus
+                  - if @search.MISSING_STRING == v
+                    = "#{v} (#{ESConfig.facets[k]})"
+                  - else
+                    = v
+                  = image_tag("icons/close_white.svg", alt: "Auswahl löschen")

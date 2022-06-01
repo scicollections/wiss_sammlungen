@@ -1,0 +1,40 @@
+- if current_user.public?
+  .public-menu.clearfix
+    .container-public-menu
+      = render "layouts/submenu"
+      = link_to "Kennzahlen", "/kennzahlen", class: ["pull-right"]
+      = link_to "Entdecken", "/discover", class: ["pull-right"]
+      = link_to "<b>Sammlung registrieren</b>".html_safe, "https://wissenschaftliche-sammlungen.de/de/nachrichten/aktuelles/sammlung-registrieren",  target: "_blank", class: ["pull-right"]
+
+- elsif current_user.at_least? :survey_participant
+  // menu for logged-in users
+  .user-menu.clearfix class=(('acceptance' if Rails.env.acceptance?).to_s)
+    .container-user-menu
+      .js-user-menu.pull-left
+        // Survey Home
+        - if Campaign.current && current_user.current_survey_incomplete_participant?
+          = link_to Campaign.current.name, "/survey/home/", class: ["js-tab", @user_menu_tab_surveyhome_active ? "umenu-tab-active" : ""], class: "survey-button", title: "Zur Umfragenübersicht"
+        
+        - if current_user.at_least? :member
+          // Accountseite
+          = link_to current_user.to_s, "/users/home/", id: "myaccount", class: ["js-tab", @user_menu_tab_home_active ? "umenu-tab-active" : ""], title: "Mein Account"
+
+          // "Meine Seite"
+          = link_to(image_tag("icons/account-dataset.svg", alt: "Mein Profil", title: "Mein Profil"), current_user.person.path, class: ["js-tab img-link", @user_menu_tab_self_active ? "umenu-tab-active" : ""])
+
+          // Interne Suche
+          = link_to(image_tag("icons/search_cc_ACSantos.svg", alt: "Interne Suche", title: "Interne Suche"), session[:quicksearch] || "/search", class: ["js-tab img-link", @user_menu_tab_search_active ? "umenu-tab-active" : ""])
+          - unless current_user.member?
+            // Verlauf global
+            = link_to(image_tag("icons/history_cc_EDimitrova.svg", alt: "Verlauf", title: "Änderungsverlauf aller Seiten"), "/revisions", class: ["js-tab img-link", @user_menu_tab_revisions_active ? "umenu-tab-active" : ""])
+          - if current_user.at_least?(:manager) && Campaign.current
+        
+            // Umfrage
+            = link_to(image_tag("icons/survey_cc_parkjisun.svg", alt: "Umfrage", title: "Hier geht es zu den Umfragen"), "/survey/dashboard?filter=initial", class: ["js-tab img-link", @user_menu_tab_surveydashboard_active ? "umenu-tab-active" : ""]) 
+
+          // Neu
+          = link_to "Neu", "#", class: "js-show-new-modal", title: "Neue Seite erstellen"
+
+      = render "layouts/submenu"
+      = link_to "Kennzahlen", kennzahlen_path, class: ["pull-right", @menu_tab_kennzahlen_active ? "umenu-tab-active" : ""]
+      = link_to "Entdecken", discover_path, class: ["pull-right", @menu_tab_discover_active ? "umenu-tab-active" : ""]

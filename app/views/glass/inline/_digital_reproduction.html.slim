@@ -1,0 +1,12 @@
+div style=("margin-bottom: 5px;")
+  b= individual.inline_label
+  - if individual.reproduction_type_value.safe_value("type_label") == "Image"
+    br/
+    - if individual.image_quality && individual.image_width && individual.image_height
+      | Qualität: #{individual.safe_value "image_quality"} • max. Auflösung: #{individual.safe_value "image_width"}x#{individual.safe_value "image_height"}
+    - elsif individual.image_quality
+      | Qualität: #{individual.safe_value "image_quality"}
+    - elsif individual.image_width && individual.image_height
+      | max. Auflösung: #{individual.safe_value "image_width"}x#{individual.safe_value "image_height"}
+  br/
+  .shadowed-text= individual.safe_value "comment"

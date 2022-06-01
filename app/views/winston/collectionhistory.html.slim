@@ -1,0 +1,7 @@
+.container
+  h1 Kennzahlen zu wissenschaftlichen Sammlungen an deutschen Universitäten
+  = render partial: "winston_navigation", locals: {show_date: true}
+
+  h2 Dokumentation der Sammlungsgeschichte 
+  = bar_chart @coll_type_documented_history, height: "300px", stacked: true, library: bar_chart_library_settings(stacking: "percent"), colors: ["#d2daee","#4566ba","#848484","#000"]
+  p Die Aufarbeitung und Dokumentation von Erwerbsumständen, Entstehungszusammenhängen und Entwicklung einer Sammlung bilden die Grundlage für jede professionelle Sammlungsarbeit. Die Zahlen beruhen auf den Angaben der Sammlungsleiter_innen und wurden im Rahmen der Umfrage 2019 erhoben.

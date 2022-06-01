@@ -1,0 +1,15 @@
+- unless @addressees.blank?
+  - @addressees.each do |addressee|
+    div
+      div.row.list-collection-name data-individual_id=addressee[:individual].id
+        .col-md-9
+          = link_to addressee[:individual].inline_label, "/#{addressee[:individual].class}/#{addressee[:individual].id}", target: "_blank"
+        .col-md-3.surveyform-link
+          = link_to "Fragebogen", "/survey/form/#{addressee[:individual].id}#surveyrevisions", target: "_blank"
+    div.row
+      .col-md-12
+        - addressee[:persons].each do |person|
+          = render 'surveyuserstatus', person: person, campaign: @campaign, individual: addressee[:individual]
+- unless @addressees.empty?
+  a.nextselector href="/survey/dashboard?group=#{@group}&filter=#{@filter}&page=#{@page+1}&searchterm=#{@searchterm}"
+    | Weitere laden

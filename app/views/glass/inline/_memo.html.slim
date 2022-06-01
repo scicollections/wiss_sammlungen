@@ -1,0 +1,8 @@
+div
+  b = individual.safe_value("memo_subject")
+  |  
+  - if individual.last_updater && individual.last_updater != individual.creator
+    small = "Von #{individual.creator}, aktualisiert von #{individual.last_updater} am #{I18n.l(individual.updated_at, format: :medium )}"
+  - else
+    small = "Von #{individual.creator}, aktualisiert am #{I18n.l(individual.updated_at, format: :medium )}"
+p = simple_format individual.safe_value("text")

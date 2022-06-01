@@ -1,0 +1,54 @@
+- @report.states.each do |state|
+  table.state_panel width="100%" id="state_panel_#{state.admin1}"
+    / Kopfzeile: Bundesland –– Collapse Head
+    tr.state[
+      data-toggle="collapse"
+      data-target="#state_panel_#{state.admin1} .unis"
+    ]
+      th.cell-1 = state.name
+      th.cell-1 = state.university_count
+      th.cell-2 = state.collection_count
+
+      / Aktive Sammlungen
+      th.cell-2.cursor-help.winston-pie-qtip[
+        title="aktive Sammlungen: #{state.active_collection_count}"
+      ]
+        = chart_states_aktive_sammlungen(state)
+
+      / digital zugängliche Sammlungen
+      th.cell-2.cursor-help.winston-pie-qtip[
+        title="digital zugängliche Sammlungen: #{state.digitized_collection_count}"
+      ]
+        = chart_states_digitale_sammlungen(state)
+
+      / Universitäten mit Sammlungskoordination
+      th.cell-2.cursor-help.winston-pie-qtip[
+        title="Universitäten mit Sammlungskoordination: #{state.collection_coordination_count}"
+      ]
+        = chart_states_collection_coordinations(state)
+
+      / Universitäten mit Sammlungsordnung
+      th.cell-2.cursor-help.winston-pie-qtip[
+        title="Universitäten mit Sammlungsordnung: #{state.collection_policy_count}"
+      ]
+        = chart_states_collection_policies(state)
+
+    / untergeordnete Zeilen für jede Universität
+    - state.universities.each do |uni|
+      tr.collapse.unis
+        td.cell-1 colspan="2"
+          = link_to(uni.name, "universitaet/#{uni.maya_id}")
+        td.cell-2
+          = uni.coll_count
+        td.cell-2.cursor-help.winston-pie-qtip[
+          title="aktive Sammlungen: #{uni.active_coll_share}"
+        ]
+          = chart_states_university_aktive_sammlung(uni)
+        td.cell-2.cursor-help.winston-pie-qtip[
+          title="digital zugängliche Sammlungen: #{uni.digital_coll_share}"
+        ]
+          = chart_states_university_digitale_sammlungen(uni)
+        td.cell-2.cursor-help.winston-attr-qtip
+          = render("winston/attributes/coordination_present", uni: uni)
+        td.cell-2.cursor-help.winston-attr-qtip
+          = render("winston/attributes/policy_present", uni: uni)

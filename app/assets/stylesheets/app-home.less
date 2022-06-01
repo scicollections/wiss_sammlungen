@@ -1,0 +1,194 @@
+@import "twitter/bootstrap/variables";
+@import "custom_bootstrap/variables.less";
+
+
+.logo-coverpage {
+    background-image: image-url("logos/logo-start.png");
+    width: 99%;
+    height: 120px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 150px 0 0 0;
+    position: relative;
+    top: -50px;
+}
+
+
+// Coverpage Container
+.home{
+  min-height: 250px;
+
+  .welcome-text {
+    text-align: center;
+    margin: -40px 0px 50px 0px;
+    font-size: 18px;
+  }
+
+  // New thematic sections can be added as home tile
+  // Specific changes on home tiles through id for sections (see below)
+  .home-tile {
+    height: 160px;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+
+  .home-tiles-title {
+    font-size: 34px;
+    margin-bottom: 15px;
+    a {color: #444444;}
+
+    a:hover {text-decoration: none;}
+  }
+
+  #search-discover.home-tile {
+    background: image-url("logos/fibo-4.png");
+    background-repeat: no-repeat;
+    background-position: right 212px;
+    background-size: 43%;
+
+    min-height: 330px;
+    max-height: 500px;
+
+    .start-searchbox {
+      min-height: 50px;
+      margin-top: 10px;
+
+      input{
+        font-size: 15px;
+        height: 40px;
+        float: left;
+        clear: right;
+        z-index: 6;
+      }
+      button{
+        width: 75px;
+        height: 40px;
+        padding: 8.5px;
+        background-color: #efefef;
+      }
+    }
+
+    .button-coverpage {
+      text-transform: uppercase;
+      background-color: #efefef;
+      border: 1px solid #e4e4e4;
+      color: #444444;
+      padding: 5px 7px;
+      margin-bottom: 5px;
+    }
+    .button-coverpage:hover{
+      text-decoration: none;
+      background-color: #dde0e5;
+    }
+
+    .suggestion {
+      color: #808080;
+      font-size: 13px;
+      margin-top: 10px;
+
+      a {font-size: 15px;}
+    }
+  }
+
+  #kennzahlen.home-tile {
+    background: image-url("icons/pie-chart-2.png");
+    background-repeat: no-repeat;
+    background-size: 41%;
+    background-position: right 55px;
+  }
+
+  #wiki.home-tile {
+    background: image-url("logos/logo_wiki_digi.png");
+    background-repeat: no-repeat;
+    background-position: right 26px;
+    background-size: 42%;
+  }
+
+  #more-about.home-tile{
+    height: auto;
+    margin: 50px 0;
+
+    .logos {
+      margin: 5px 0 15px 15px;
+      img {height: 100px;}
+    }
+
+    .logos-sm, .logos-xs {
+      display: block;
+      margin: 20px auto;
+
+      img {height: 100px;}
+
+      a {
+        display: inline-block;
+        margin: 5px 10px;
+      }
+    }
+
+    .logos-sm {
+      width: 495px;
+      a.koord {width: 265px;}
+      a.bmbf {width: 125px;}
+    }
+
+    .logos-xs {
+      width: 262px;
+      img.bmbf{margin-left: 62.5px;}
+    }
+  }
+
+// adjustments for xs-view
+  @media (max-width:320px) {
+    .home-tile{
+      min-height: 190px;
+    }
+    #search-discover.home-tile {
+      background-position: right bottom;
+      min-height: 400px;
+    }
+
+    #kennzahlen.home-tile {
+      background-position: right bottom;
+    }
+
+    #wiki.home-tile {
+      background-position: right bottom;
+    }
+  }
+
+  // a section can be marked as "new" with this simple patch
+  // use  .new-patch NEU  in slim-file
+ .new-patch{
+    font-size: 17px;
+    font-weight: 600;
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    padding: 13px 8px;
+    z-index: 99;
+    color: #1f2e54;
+    -webkit-transform: rotate(-11deg);
+    transform: rotate(-11deg);
+    background-color: #efefef;
+    float: left;
+    margin-right: 12px;
+    margin-bottom: 100px;
+  }
+
+}
+
+
+// adjustments for xs-view
+@media only screen and (max-width: 767px){
+  .logo-coverpage {
+    background-image: image-url("logos/logo-2-2.png");
+    margin: 80px 0 0 0;
+  }
+  .home {
+    .welcome-text {font-size: 16px;}
+    .home-tiles-title {font-size: 28px;}
+  }
+}

@@ -1,0 +1,11 @@
+.container
+  h1 Kennzahlen zu wissenschaftlichen Sammlungen an deutschen Universitäten
+  = render partial: "winston_navigation", locals: {show_date: true}
+
+
+  h3 Verwendung von Sammlungen in der Lehre
+  
+  = bar_chart @coll_type_academic_teaching, library: bar_chart_library_settings(stacking: "percent", shared: false), colors: ["#d2daee","#4566ba","#d2daee","3e5ca8"]
+  p Universitäre Sammlungen gelten als bedeutende Infrastrukturen für die akademische Lehre. Die Grafik zeigt, in welchem Maße die Sammlungen tatsächlich in der Lehre genutzt werden. Die Zahlen beruhen auf den Angaben der Sammlungsleiter_innen und wurden im Rahmen der Umfrage 2019 erhoben.
+  
+

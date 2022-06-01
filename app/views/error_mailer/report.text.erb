@@ -1,0 +1,23 @@
+--- Automatisch generierte Fehlerbenachrichtigung ---
+
+Maya Error on <%= @hostname %>: <%= @exception.inspect.html_safe %>
+
+<%= @datetime %> on <%= @hostname %>, posted to: <%= @recipients.join(",").html_safe %>
+
+Request Parameters:
+<%= @rparams.inspect.html_safe %>
+<% sess = {}
+@session.keys.each do |k|
+  sess[k] = @session[k]
+end %>Session Store:
+<%= sess.inspect.html_safe %>
+<% envars = {}
+["REMOTE_ADDR", "REQUEST_METHOD", "QUERY_STRING", "REQUEST_URI", "SCRIPT_NAME", "PATH_INFO", "HTTP_USER_AGENT"].each do |p|
+  envars[p] = @env[p]
+end
+%>Environment Variables:
+<%= envars.inspect.html_safe %>
+Backtrace:
+<% @exception.backtrace.each do |line| %>
+  <%= line.html_safe %>
+<% end %>

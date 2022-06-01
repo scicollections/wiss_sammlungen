@@ -1,0 +1,14 @@
+- @individual = individual
+- if !@individual[:visbility].nil?
+  - @visibility = individual[:visbility]
+- elsif @individual.respond_to?("visibility".to_sym)
+  - @visibility = individual.visibility
+- elsif !@individual[:scope].nil?
+  - @visibility = @individual[:scope].to_sym
+- else
+  - @visibility = "nothing".to_sym
+
+span.inline-user-rights
+  = image_tag "icons/eye_cc-ashlain.svg", alt: "Seite öffentlich sichtbar", title: "Seite öffentlich sichtbar", class: "visibility visibility-public", style: ("display: none" unless @visibility == :public)
+  = image_tag "icons/eye-closed_cc-ashlain.svg", alt: "Seite nur für registrierte Benutzer sichtbar", title: "Seite nur für registrierte Benutzer sichtbar", class: "visibility visibility-member", style: ("display: none" unless @visibility == :member)
+  = image_tag "icons/eye-closed-red_cc-ashlain.svg", alt: "Seite nur intern sichtbar", title: "Seite nur intern sichtbar", class: "visibility visibility-manager", style: ("display: none" unless @visibility == :manager)

@@ -1,0 +1,23 @@
+- if @search.has_results
+  - @search.results.each do |r|
+    .row.item id="hit_#{r[:num]}"
+      a href="/#{r[:klass]}/#{r[:id]}?hit=#{r[:num]}"
+        .col-md-12.col-sm-12.col-xs-12.left
+          - if r[:thumb].to_i != 0
+            .preview-image
+              img#a src=("#{production_url ("dig/#{r[:thumb]}/155.jpg")}")
+          div.s-title
+            - if current_user != User.anonymous_user 
+              = render 'glass/inline/user_rights', individual: r
+            = r[:headline]
+          div
+            .subtitle= r[:subheadline]
+            - limit = 300
+            - text = (r[:description].to_s.length > limit) ? r[:description][0...limit] + "..." : r[:description]
+            .text= text
+  - if @search.has_more
+    .search_nav
+      = link_to("Mehr Ergebnisse", {controller: "discover", categories: @search.cat_filter.map(&:to_s).join(","), q: @search.q, lq: @search.q, p: @search.from + @search.results.size, f: @search.facet_filter, anchor: "hit_#{@search.results.last[:num]}"}, class: "btn btn-default")
+
+- else
+  = render "no_results"

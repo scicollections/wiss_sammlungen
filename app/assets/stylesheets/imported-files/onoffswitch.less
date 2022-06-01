@@ -1,0 +1,79 @@
+@import "twitter/bootstrap/variables";
+@import "custom_bootstrap/variables.less";
+
+
+.edit-switch{
+  width: 170px;
+  display: inline-block;
+  font-size: 12px;
+  text-align: center;
+  margin: 7.5px 0 0 15px;
+}
+
+
+/* http://proto.io/freebies/onoff/ */
+
+
+.onoffswitch {
+    position: relative; width: 200px;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+   
+
+}
+
+.onoffswitch-checkbox {
+    display: none;
+}
+
+.onoffswitch-label {
+    display: block; overflow: hidden; cursor: pointer;
+    border: 2px solid #F3F4F6; /*#e8eaee; */
+    border-radius: 20px;
+
+}
+
+.onoffswitch-inner {
+    width: 200%; margin-left: -100%;
+    -moz-transition: margin 0.3s ease-in 0s; -webkit-transition: margin 0.3s ease-in 0s;
+    -o-transition: margin 0.3s ease-in 0s; transition: margin 0.3s ease-in 0s;
+}
+
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+    float: left; width: 50%; height: 25px; padding: 0; line-height: 25px;
+    font-size: 14px; color: white; 
+    -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 400;
+}
+
+.onoffswitch-inner:before {
+    content: "Bearbeiten ausschalten";
+    padding-left: 10px;
+    padding-right: 30px;
+    background-color: @darkblue; color: #ffffff;
+
+}
+
+.onoffswitch-inner:after {
+    content: "Bearbeiten einschalten";
+    padding-right: 10px;
+    background-color: #dde0e5; color: @darkblue;
+    text-align: right;
+}
+
+.onoffswitch-switch {
+    width: 18px; height: 18px; margin: 5px;
+    background: #ffffff;
+    border: 2px solid #ffffff;; border-radius: 20px;
+    position: absolute; top: 0; bottom: 0; right: 170px;
+    -moz-transition: all 0.3s ease-in 0s; -webkit-transition: all 0.3s ease-in 0s;
+    -o-transition: all 0.3s ease-in 0s; transition: all 0.3s ease-in 0s; 
+}
+
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+    right: 0px; 
+}

@@ -1,0 +1,22 @@
+.container.container-winston-subjects
+  h1 Kennzahlen zu wissenschaftlichen Sammlungen an deutschen Universitäten
+  = render partial: "winston_navigation", locals: {show_date: true}
+
+  h2 Fächer
+  p Die Übersicht ermöglicht die geografische Darstellung von Sammlungen nach ihren Fachgebieten. Die Zuordnung der Sammlungen zu den jeweiligen Fächern richtet sich dabei meist nach ihrer institutionellen Zugehörigkeit. Sammlungen können mit mehreren Fächern verknüpft sein.
+  .container
+    .row
+      .col-sm-3#subjectcol
+        div#subjectlist
+          div.filterbox-search
+            input.search placeholder="Suche"
+          form.list#map-subject-select
+            - @data.each do |rd|
+              div.radio
+                label
+                  input type="checkbox" name="subject" value=rd.string1
+                  span.subjectLabel = "#{rd.string1} (#{rd.int2})"
+                
+      .col-sm-9#mapcol
+        #map
+        

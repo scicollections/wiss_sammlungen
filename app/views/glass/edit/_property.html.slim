@@ -1,0 +1,106 @@
+- hp = @glass.humanize(property.subject, property.predicate)
+- type = property.property_type
+- value = !property.value.nil? ? property.value : property.default_value
+/ id kann leer sein bei dummies
+- classes = ["property"]
+- classes.push("expanded") if property.cardinality == 1 && !property.objekt?
+- classes.push("cardinality-one") if property.subject.cardinality_of(property.predicate) == 1
+
+ruby:
+  range = property.subject.range_of(property.predicate)
+  if range.is_a? Array
+    complex_property = range.collect{|r|r.constantize.complex_property?}.any?
+  else
+    complex_property = range&.constantize&.complex_property?
+  end
+
+- classes.push("complex-property") if complex_property
+
+// data-individual-id is used in EditModal#init
+div[class=classes.join(' ')
+  data-id=property.id
+  data-predicate=property.predicate
+  data-individual-id=property.subject_id
+  data-objekt-id=property.objekt_id]
+
+  - classes = ["summary"]
+  
+  - if type == :select_option
+    div class=classes.join(' ')
+      span.summary-span.complain-if-empty.force-wrap
+        
+        div.checkbox
+          label
+            input.select-option-checkbox type="checkbox" name=property.predicate value=property.data checked=property.persisted? data-id=property.id
+            = t value.to_s
+  - elsif complex_property
+    / TODO dummy indi
+    - value = value || range.constantize.new
+    = @glass.edit_individual(value, subject: property.subject,locals: local_assigns)
+
+  - else
+    / Eigentlich: if in left column
+    - classes.push("editable") if !property.objekt? || (property.objekt && property.objekt.weak?)
+    div class=classes.join(' ')
+      = local_assigns[:prefix]
+      span.glyphicon.glyphicon-pencil.pull-right
+      span.summary-span.complain-if-empty.force-wrap
+        = value.to_s
+
+    button.delete-property
+      span.glyphicon.glyphicon-trash
+
+    .details
+      - if type == :objekt
+        - if value.weak?
+          = @glass.edit_individual(value, subject: property.subject,
+              locals: local_assigns)
+        - else
+          / Dies ist nur provisorisch. TODO Mehr read-only-Info?
+          = link_to value, "#{value.type}/#{value.id}"
+
+      - else
+        - classes = ["form-horizontal", "update-property", "#{type}-form"]
+        - classes.push("with-options") if property.options
+        form [class=classes.join(' ')]
+          .form-group.has-success.has-feedback
+            - if type == :text
+              textarea.form-control[style=local_assigns[:textarea_style]
+                placeholder=hp
+                data-server-value=value]
+                = value
+
+            - elsif type == :bool
+              .checkbox
+                label
+                  input[type="checkbox"
+                    data-server-value=value
+                    checked=value.present?]
+                  = hp
+
+            - elsif type == :date
+              input.form-control.date[placeholder=hp
+                data-server-value=(value.strftime("%-d.%-m.%Y") if value)
+                value=(value.strftime("%-d.%-m.%Y") if value)]
+
+            - elsif property.options
+              - selected = property.options.include? value
+              select.form-control[data-server-value=value]
+                option[value=""
+                  selected=!selected]
+                  | Bitte auswählen...
+                - property.options.sort_by{|x| t x }.each do |option|
+                  - selected = (option == value)
+                  option[value=option
+                    selected=selected]
+                    = t option
+
+            - else
+              input.form-control[placeholder=hp
+                data-server-value=value
+                value=value
+                maxlength=PropertyString.validators_on(:data)[0].options[:maximum]]
+
+            span.glyphicon.glyphicon-ok.form-control-feedback
+            span.glyphicon.glyphicon-warning-sign.form-control-feedback
+            span.glyphicon.glyphicon-remove.form-control-feedback

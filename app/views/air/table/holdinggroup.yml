@@ -1,0 +1,6 @@
+holdinggroup:
+  - genre
+  - object_quantity
+  - indexed_quantity
+  - digitized_quantity
+  - online_available_quantity

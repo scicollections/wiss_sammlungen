@@ -1,0 +1,10 @@
+- addr = @col.sorted_visible_properties("address", User.anonymous_user).first
+- if addr
+  - addr = addr.value
+  - if addr.address_data
+    = addr.safe_value("address_data").gsub(/\n/,"<br>").html_safe
+    br
+  - if addr.postal_code
+    => addr.safe_value("postal_code")
+  - if addr.location
+    = addr.safe_value("location")

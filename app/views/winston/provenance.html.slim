@@ -1,0 +1,14 @@
+.container
+  h1 Kennzahlen zu wissenschaftlichen Sammlungen an deutschen Universitäten
+  = render partial: "winston_navigation", locals: {show_date: true}
+  h2 Provenienz
+  
+  = bar_chart @coll_type_provenance, height: "620px", stacked: true, library: bar_chart_library_settings(stacking: false, showPercentages: false, shared: false), colors: ["#0033cc","#ba7ec6","#fead08","#b92101","#4a924c"]
+  
+  p Die Grafik stellt die Anzahl der Sammlungen dar, für die angegeben wurde, dass sich in Ihren Beständen (auch möglicherweise) Objekte aus kolonialen Kontexten, antike Objekte aus dem Mittelmeerraum und dem Nahen Osten, Human Remains, im Rahmen von Artenschutzabkommen geschützten Objekte und/oder Objekte, die im Nationalsozialismus verfolgungsbedingt entzogen wurden, befinden. Die Zahlen beruhen auf den Angaben der Sammlungsleiter_innen und wurden im Rahmen der Umfrage 2019 erhoben.
+  
+  h2 Provenienz und dokumentierte Sammlungsgeschichte
+  = bar_chart @documented_history_provenance, height: "300px", stacked: true, library: bar_chart_library_settings(stacking: "percent"), colors: ["#d2daee","#4566ba","3e5ca8","#848484"]
+  p Die Grafik stellt den Dokumentationsgrad derjenigen Sammlungen dar, für die angegeben wurde, dass sich in Ihren Beständen (auch möglicherweise) Objekte aus kolonialen Kontexten, antike Objekte aus dem Mittelmeerraum und dem Nahen Osten, Human Remains, im Rahmen von Artenschutzabkommen geschützten Objekte und/oder Objekte, die im Nationalsozialismus verfolgungsbedingt entzogen wurden, befinden. Die Zahlen beruhen auf den Angaben der Sammlungsleiter_innen und wurden im Rahmen der Umfrage 2019 erhoben.
+
+  = render(partial: "winston_navigation")

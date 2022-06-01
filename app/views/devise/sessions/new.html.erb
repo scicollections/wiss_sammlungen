@@ -1,0 +1,31 @@
+<div class="container container-login">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <h2>Anmelden</h2>
+      <br>
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <div class="field log-in-fields">
+          <%= f.label :email, "E-Mail" %><br />
+          <%= f.email_field :email, autofocus: true, class: "form-control" %>
+        </div>
+
+        <div class="field log-in-fields">
+          <%= f.label :password, "Passwort" %><br />
+          <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+        </div>
+
+        <% if devise_mapping.rememberable? -%>
+          <div class="field log-in-fields">
+            <%= f.check_box :remember_me %>
+            <%= f.label :remember_me, "An diesem Gerät dauerhaft angemeldet bleiben" %>
+          </div>
+        <% end -%>
+        <div class="actions">
+          <%= f.submit "Anmelden", class: "btn btn-default" %>
+        </div>
+      <% end %>
+      </br>
+      <%= render "devise/shared/links" %>
+    </div>
+  </div>
+</div>

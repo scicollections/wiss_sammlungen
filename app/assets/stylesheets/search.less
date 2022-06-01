@@ -1,0 +1,32 @@
+@import "twitter/bootstrap/variables";
+@import "custom_bootstrap/variables.less";
+
+
+
+
+.container-discover, .container-internal-search {
+  margin-top: 15px;
+}
+
+
+// full-width container in xs- and sm-views
+@media (min-width: 768px){
+  .container-discover, .container-internal-search, .container-global-revisions {
+    width: 100%;
+
+    .left-container {
+      p {max-width: 130px;}
+    }
+  }
+}
+
+// fixed-width container in lg-view
+@media (min-width: 1200px) {
+  .container-discover, .container-internal-search, .container-global-revisions{
+    width: 1200px;
+
+    .left-container {
+      p {max-width: 235px;}
+    }
+  }
+}

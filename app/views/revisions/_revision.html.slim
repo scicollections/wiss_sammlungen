@@ -1,0 +1,154 @@
+/ _revision.html.erb wird sowohl von home#revisions als auch von users#home verwendet;
+  der HomeController gibt hier das ganze @search Objekt weiter, wohingegen der UsersController
+  (aus Gründen der Aggregation von mehreren Suchen über versch. Indis hinweg) "nur" eine Liste der Revisionen
+  übergibt
+
+- rev = revision
+
+.revision.row
+  .revision-user.col-md-4
+    b
+      -  if rev.user && rev.user.person
+        = link_to rev.user.to_s, rev.user.person.path
+      - elsif rev.user && rev.user.name
+        = "#{rev.user.first_name} #{rev.user.name}"
+      - else
+        = rev.user ? rev.user : "User #{rev.user_id}"
+    span title=(l rev.created_at, format: :medium)  vor #{time_ago_in_words rev.created_at} 
+
+    - unless @search && @search.indi
+      / Wir sind auf der globalen Revisionsliste, und wollen deswegen zu jeder Revision
+        den Individual dazu schreiben, den der Benutzer gerade offen hatte.
+      - if rev.complex_property_parent_individual_id
+        / 
+        <br> 
+        - if rev.complex_property_parent_individual
+          / Den Individual gibt es noch, wir können also verlinken
+          = rev.complex_property_parent_individual.label
+        - elsif rev.complex_property_parent_individual_label.present?
+          / Den Individual wurde schon gelöscht, aber er hatte zum Zeitpunkt dieser Revision
+            schon ein Label, das wir nun anzeigen können
+          = rev.complex_property_parent_individual_label
+        - else
+          / Der Individual wurde schon gelöscht, und hatte zum Zeitpunkt der Revision ein
+            leeres Label. Versuche deshalb eine neuere Revision mit Label zu finden.
+            Falls es das gibt, zeige das Label von dort an, andernfalls gebe auf.
+          - r = rev.class.where(old_individual_id: rev.complex_property_parent_individual_id).last
+          = r ? r.old_label : "[Keine Bezeichnung]"
+        |  @ 
+      - if rev.occured_at_individual
+        <br>
+        / Den Individual gibt es noch, wir können also verlinken
+        = link_to(rev.occured_at_individual.label, rev.occured_at_individual.path)
+        - case rev.occured_at_individual.visibility
+        - when :manager
+          =< image_tag "icons/eye-closed-red_cc-ashlain.svg"
+        - when :member
+          =< image_tag "icons/eye-closed_cc-ashlain.svg"
+      - elsif rev.occured_at_individual_label.present?
+        / Den Individual wurde schon gelöscht, aber er hatte zum Zeitpunkt dieser Revision
+          schon ein Label, das wir nun anzeigen können
+        = rev.occured_at_individual_label
+      - else
+        / Der Individual wurde schon gelöscht, und hatte zum Zeitpunkt der Revision ein
+          leeres Label. Versuche deshalb eine neuere Revision mit Label zu finden.
+          Falls es das gibt, zeige das Label von dort an, andernfalls gebe auf.
+        - r = rev.class.where(old_individual_id: rev.occured_at_individual_id).last
+        = r ? r.old_label : "[Keine Bezeichnung]"
+
+      - if rev.other_related_strong_individual_id
+        <br>&hArr; 
+        / Wir sind bei einer Revision eines Curatorships, wo es zwei relevante Individuals gibt
+        - if rev.other_related_strong_individual
+          / Den Individual gibt es noch, wir können also verlinken
+          = link_to(rev.other_related_strong_individual.label, rev.other_related_strong_individual.path)
+          - case rev.other_related_strong_individual.visibility
+          - when :manager
+            =< image_tag "icons/eye-closed-red_cc-ashlain.svg"
+          - when :member
+            =< image_tag "icons/eye-closed_cc-ashlain.svg"
+        - elsif rev.other_related_strong_individual_label.present?
+          / Den Individual wurde schon gelöscht, aber er hatte zum Zeitpunkt dieser Revision
+            schon ein Label, das wir nun anzeigen können
+          = rev.other_related_strong_individual_label
+        - else
+          / Der Individual wurde schon gelöscht, und hatte zum Zeitpunkt der Revision ein
+            leeres Label. Versuche deshalb eine neuere Revision mit Label zu finden.
+            Falls es das gibt, zeige das Label von dort an, andernfalls gebe auf.
+          - r = rev.class.where(old_individual_id: rev.other_related_strong_individual_id).last
+          = r ? r.old_label : "[Keine Bezeichnung]"
+    - if rev.campaign_slug
+      |  
+      small = "[#{Campaign.get(rev.campaign_slug).name}]"
+
+  .revision-data.col-md-8
+    / show weak/complex prop parent on indi revision 
+    - if @search && @search.indi
+      - print_occur_label = rev.weak_occured_at_indi_label(@search.indi)
+      - unless print_occur_label.blank?
+        | &hArr; 
+        = print_occur_label
+        br
+    
+    - if rev.property_id
+      - if rev.subject_id != rev.occured_at_individual_id
+        | #{t rev.subject_type}: 
+
+      - if rev.new_data_bool
+        / Boolean Properties brauchen eigenen Text
+        | Markierung hinzugefügt:
+        .diff
+          ul
+            li.ins
+              ins= t rev.predicate
+      - elsif rev.old_data_bool
+        | Markierung entfernt:
+        .diff
+          ul
+            li.del
+              del= t rev.predicate
+      - elsif rev.old_value && rev.new_value
+        = t rev.predicate
+        |  geändert:
+        = raw Diffy::Diff.new(rev.old_value.to_s, rev.new_value.to_s).to_s(:html)
+
+      - elsif rev.new_value
+        = t rev.predicate
+        |  hinzugefügt:
+        - if rev.new_objekt && !rev.new_objekt.weak?
+          - x = "<a href='#{h rev.new_objekt.path}'>#{h rev.new_objekt_label}</a>".html_safe
+        - else
+          - x = h rev.new_value
+        / Das folgende ist die HTML-Struktur, die Diffy produziert. Wir schreiben sie aus
+          Effizienzgründen hier direkt rein. Es darf um "x" herum aber keinen Whitespace
+          geben, deshalb berechnen wir das schon vorher.
+        .diff
+          ul
+            li.ins
+              <ins>#{x}</ins>
+
+      - else
+        = t rev.predicate
+        |  entfernt:
+        - if rev.old_objekt && !rev.old_objekt.weak?
+          - x = "<a href='#{h rev.old_objekt.path}'>#{h rev.old_objekt_label}</a>".html_safe
+        - else
+          - x = h rev.old_value
+        .diff
+          ul
+            li.del
+              <del>#{x}</del>
+
+    - elsif rev.new_individual_id || rev.old_individual_id
+      - if rev.old_individual_id && rev.new_individual_id
+        | Label geändert:
+        = raw Diffy::Diff.new(rev.old_label.to_s, rev.new_label.to_s).to_s(:html)
+      - elsif rev.new_individual_id
+        | Seite erstellt.
+      - else
+        | Seite gelöscht.
+        - unless @search && @search.indi
+          |  (#{link_to("Details", "/#{rev.individual_type}/#{rev.old_individual_id}/revisions")})
+
+    - elsif rev.action
+      | #{t rev.action, scope: "actions"}.

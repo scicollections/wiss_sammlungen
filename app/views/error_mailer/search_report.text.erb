@@ -1,0 +1,21 @@
+--- Automatisch generierte Fehlerbenachrichtigung ---
+
+Maya Error: Search Fallback Error on <%= @hostname %>:
+<%= @exception.inspect.html_safe %>
+
+<%= @datetime %> on <%= @hostname %>: <%= @exception.class.to_s %>
+Posted to: <%= @recipients.join(",").html_safe %>
+
+Request Parameters:
+<%= @rparams.inspect.html_safe %>
+
+Searcher Dump:
+<%= @searcher.inspect.html_safe %>
+
+Backtrace:
+<% @exception.backtrace.each do |line| %>
+  <%= line.html_safe %>
+<% end %>
+
+Environment Dump:
+<%= @env.inspect.html_safe %>

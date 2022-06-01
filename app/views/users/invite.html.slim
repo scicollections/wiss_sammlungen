@@ -1,0 +1,55 @@
+.modal-invite
+  form.form
+    .modal-body
+      = token_tag(nil)
+      input name="individual_id" type="hidden" value="#{@individual.id}" /
+      - if @non_distinct_emails.any?
+        .invite-alert.alert.alert-danger
+          | Es können für die Einladung nur E-Mail-Adressen ausgewählt werden, die nicht bereits mit anderen Benutzeraccounts verknüpft sind.
+          - @non_distinct_emails.each do |email|
+            =<> mail_to email, email, encode: "hex"
+            - person = User.where(email: email).first.person
+            - if person.is_a?(Person)
+              | ist bereits mit #{link_to person.label, (url_for_individual person)} verknüpft.
+            - else
+              | wird bereits verwendet.
+
+      table style=("width: 100%")
+        colgroup
+          col style=("width: 15%")
+            col
+          tr
+            td Von:
+            td
+              - sender_emails = [current_user.person.safe_values("email"),
+                  "support@wissenschaftliche-sammlungen.de"].flatten
+              = select_tag "from", options_for_select(sender_emails), class: "form-control"
+
+          tr
+            td An:
+            td
+              = select_tag "email", options_for_select(@emails.collect{|email| [email, email]}), \
+                class: "form-control", disabled: (@emails.none?)
+          tr
+            td Betreff:
+            td
+              input.form-control[name="subject"
+                value=("Einladung zur Mitarbeit – #{t 'maya_title_inline'}")
+                disabled=@emails.none?]
+
+
+
+      textarea.form-control [name="text_body"
+        disabled=@emails.none?]
+        - if !@individual.user.present? 
+          = render "users/mails/invite.text"
+        - elsif @individual.user.role == :survey_participant
+          = render "users/mails/invite.text"
+        - else 
+          = render "users/mails/invite_repeated.text" 
+
+
+    .modal-footer
+      button.btn.btn-primary.pull-right [type="submit"
+        disabled=@emails.none?]
+        | Absenden

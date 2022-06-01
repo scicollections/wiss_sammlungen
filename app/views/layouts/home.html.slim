@@ -1,0 +1,17 @@
+doctype html
+html
+  = render "layouts/head"
+
+  body
+    // Site Menu
+    = render "layouts/menu"
+
+    // CRUD: Alerts
+    = render "layouts/alerts_home"
+    .logo-coverpage
+
+    // Content
+    = yield
+    // Content:End
+
+    = render "layouts/foot"

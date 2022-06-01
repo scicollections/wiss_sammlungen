@@ -1,0 +1,61 @@
+.container.container-user
+  h2 Account #{current_user.to_s}
+  .welcome-user-message.alert-warning
+    strong> Willkommen!
+    | •
+    a<> href="/users/notes/"
+      b Aktuelle Hinweise
+    | • Etwas unklar? Wir helfen gerne:
+    a< href="mailto:support@wissenschaftliche-sammlungen.de" support@wissenschaftliche-sammlungen.de
+  - if current_user.current_survey_active_participant?
+    div.alert.alert-info
+      p 
+        = "Sie nehmen aktuell an der #{Campaign.current.name} teil: "
+        = link_to "Zur Umfragenübersicht","/survey/home"
+
+
+  .row
+    .col-md-8
+      - if current_user.at_least? :manager
+        .user-box.manager-revisions
+          h4 Änderungsabfragen
+          ul
+            li= link_to "Veröffentlichungsanfragen", "/revisions?f=&afk=action&afv=request_publicity"
+            li= link_to "Anträge auf Bearbeitungsrechte", "/revisions?f=&afk=action&afv=request_edit_privileges"
+            li= link_to "Neuer Datensatz von Benutzer_innen erstellt", "/revisions?f%5Bcreator_role%5D%5B%5D=member&afk=action&afv=indi_create"
+            li= link_to "Bearbeitungen von Benutzer_innen", "/revisions?f%5Baction%5D%5B%5D=prop_update&f%5Baction%5D%5B%5D=indi_rename&f%5Baction%5D%5B%5D=prop_delete&f%5Bcreator_role%5D%5B%5D=member&afk=action&afv=prop_create"
+            li= link_to "Aktionen von Manager_innen", "/revisions?f%5Bcreator_role%5D%5B%5D=admin&afk=creator_role&afv=manager"
+      - else
+        - if @editables_hash.present?
+          .user-box#user-datasets
+            h4 Seiten, die ich bearbeite
+            - @editables_hash.each do |type, individuals|
+              .sektion= t type
+              ul.my-datasets
+                - if individuals.present?
+                  - individuals.each do |indi|
+                    li= link_to indi.label, (url_for_individual indi)
+        - if @revisions.present?
+          .user-box#user-history
+            h4 Meine letzten Änderungen
+            = render "users/user_revision_results"
+
+    .col-md-4
+      - if current_user.person.present?
+        .user-box#user-dataset-info
+          h4 Mein Profil
+          = link_to current_user.person.label, (url_for_individual current_user.person)
+
+      .user-box#user-short-info
+        h4 Meine Anmeldedaten
+        p Sie sind mit <b>#{current_user.email}</b> als #{t_gender current_user.role, current_user.person.safe_value("gender")} registriert.
+        a href="/users/edit"  Anmeldedaten ändern
+
+      .user-box#user-quickguide
+        h4 Schnelleinstieg
+        p Im Schnelleinstieg erfahren Sie mehr über das Portal und die für Nutzer_innen verfügbaren Funktionen.
+        a href="/docs/file.Quickguide.html"  Zum Schnelleinstieg
+        
+      .user-box#apis
+        h4 Schnittstellen
+        a href="/users/home/api"  Informationen zu den Schnittstellen

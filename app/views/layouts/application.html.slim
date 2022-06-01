@@ -1,0 +1,25 @@
+doctype html
+html
+  = render "layouts/head"
+
+  body data-rails-env=Rails.env
+    = render "layouts/menu"
+    // Site Logo
+    header.logo-header.row
+      a href="/"
+        #left.wrapper-standard.hidden-xs.hidden-sm
+          #links_innen
+        #mitte.wrapper-standard.hidden-xs.hidden-sm
+        #right.wrapper-standard.hidden-xs.hidden-sm
+          #rechts_innen
+      a href="/"
+        .wrapper-sm-standard.visible-sm
+      a href="/"
+        .wrapper-xs-standard.visible-xs
+    // CRUD: Alerts
+    = render "layouts/alerts_application"
+
+    // Content
+    = yield
+    // Content:End
+    = render "layouts/foot_app"

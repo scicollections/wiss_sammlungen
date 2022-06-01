@@ -1,0 +1,60 @@
+@import "twitter/bootstrap/variables";
+@import "custom_bootstrap/variables.less";
+
+// NEW MODAL
+// Modal displayed when creating a new dataset – accessed via user menu
+
+.modal-new {
+ // all 'typeselect'-classes define the list of types displayed at top of modal
+  .indi-typeselect {
+    border: 1px solid #e5e5e5;
+    border-radius: 3px;
+    padding: 6px 9px;
+    margin: 3px 0 3px 0.1px;
+    background-color: #fff;
+    vertical-align: middle;
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+
+  .indi-typeselect:disabled {
+    color: #bbb;
+  }
+
+  .indi-typeselect:enabled:hover {
+    text-decoration: none;
+    color: #000;
+    background-color: #eee;
+    cursor: pointer;
+  }
+
+  .indi-typeselect.active, .indi-typeselect.active:hover {
+    color: #fff;
+    background-color: #337AB7;
+  }
+
+  // 'x' button to remove selected type
+  img.delete-selected-type {
+    height: 20px;
+    margin: 0px 0 0 10px;
+    cursor: pointer;
+  }
+
+  // Input Section
+  .label-field {
+    margin-top: 30px;
+  }
+  .new-type-label {
+    margin: 5px 0 10px;
+  }
+  // input fields for Personal Data /Name etc. are first hidden
+  .person-fields {
+    display: none;
+  }
+
+  input {
+    margin: 3px 0;
+  }
+
+}

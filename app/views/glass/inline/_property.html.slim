@@ -1,0 +1,72 @@
+- if property.is_a? PropertyObjekt
+  / Warum @info_text statt info_text?
+  - @info_text = property.objekt.info_text_value
+
+/ if property is not saved AND hierarchical (:level), display italic via css class
+/ applies currently to hierarchical super terms not seleced explicitly
+- non_permanent_prop = (property.id.nil? && local_assigns[:level] && current_user.at_least?(:manager) ? "non-permanent":"")
+div[class="property js-tooltip-anchor level#{local_assigns[:level]} #{non_permanent_prop}"
+  data-id=property.id]
+  = prefix if local_assigns[:prefix]
+  - if property.type == "PropertyObjekt"
+    / Sichtbarkeitsinfo der verbundenen PropertyObjekts nur für eingeloggte
+    / Benutzer anzeigen
+    - unless current_user.public?
+      / wenn es sich beim PropertyObjekt um ein weak Individual handelt, dass
+      / genau mit dem property.subject und mit genau **einem** anderen
+      / *strong* Individual verbunden ist (bisher bei Curatorship und
+      / DigitalRepresentation der Fall) dann soll der Sichtbarkeitsstatus des
+      / anderen verbundenen Individuals angezeigt werden (und nicht der des
+      / weak Individuals selbst)
+      - if property.value.weak?
+        - if property.value.owners.size == 2
+          / finde verbundenes strong individual
+          - owner = property.value.owners.map { |indi, _| indi }.find { |indi| indi != property.subject }
+          = render "glass/inline/user_rights", individual: owner
+          - @info_text = owner.info_text_value
+      - else
+        = render "glass/inline/user_rights", individual: property.value
+    - template = "glass/inline/#{property.value.class.name.underscore}"
+    - if lookup_context.template_exists?(template, [], true)
+      = render(template, individual: property.value, subject: property.subject)
+    - else
+      span.individual-label
+        = property.value.class_display
+      - if (facetlink = property.facetlink)
+        - facetterm = URI.encode_www_form_component(property.value.inline_label)
+        = link_to( property.value.inline_label, "/discover/#{property.subject.class.indexmapping[:category]}?lq=&q=&afk=#{facetlink}&afv=#{facetterm}")
+        - if current_user.at_least?(:manager)
+          = link_to(image_tag("icons/dataset.svg", alt: "Zur Seite", title: "Zur Seite"), url_for(controller: "individual",action: "show", individual: property.value.class.name,id: property.value.id), class: "non-facet-link")
+      - else
+        = link_to(property.value.inline_label, controller: "individual",
+          action: "show", individual: property.value.class.name,
+          id: property.value.id)
+  - elsif property.type == "PropertyBool"
+    = property.value ? t("yes") : t("no")
+  - elsif property.type == "PropertyEmail"
+    = mail_to(property.value, property.value, encode: "hex")
+  - elsif property.type == "PropertyUrl"
+    - if property.predicate == "purl"
+      = link_to property.value, property.value
+    - elsif vocab_name = property.dereferences?(property.value)
+      p 
+        = image_tag("icons/vocab_icons/#{vocab_name}.png", alt: vocab_name, title: vocab_name, class: 'external-vocab-icon')
+        = external_link property.value
+      - if Rails.cache.read("/reference_vocabs/cache_data/"+property.value)
+        - deref_data = property.dereference(property.value)
+        = render "glass/inline/deref_data", deref_data: deref_data, property: property
+      - else
+        div.deref-placeholder data-property=property.id data-individual=property.subject.id
+    - else
+      = external_link property.value
+  - elsif property.type == "PropertyText"
+    = format_text property.value
+  - elsif property.options
+    / Dies ist ein Property, wo die Auswahlmöglichkeiten im Datenmodell
+    / definiert sind (zum Beispiel male/female).
+    = t property.value
+  - else
+    = property.value.to_s
+  = suffix if local_assigns[:suffix]
+  - if @info_text.present?
+    = render "glass/inline/info_helper", text: @info_text

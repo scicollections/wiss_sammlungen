@@ -1,0 +1,27 @@
+.modal-invite
+  form.form
+    .modal-body
+      table style=("width: 100%")
+        colgroup
+          col style=("width: 15%")
+        tr
+          td Von:
+          td
+            b= @from
+        tr
+          td Datum:
+          td
+            b= @date.to_s(:ger_datetime)
+        tr
+          td An:
+          td
+            b= @to
+        tr
+          td Betreff:
+          td
+            b= @subject
+      textarea.form-control disabled="disabled" name="text_body" = @body
+
+.modal-footer
+  .revision-message
+  button.btn.btn-default data-dismiss="modal" type="button"  Fenster schließen

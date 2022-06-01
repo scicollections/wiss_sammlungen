@@ -1,0 +1,10 @@
+div
+  h4 #{@uni.place.blank? ? "keine Ortsangabe" : @uni.place}, #{@uni.state && @uni.state.name}
+  p
+    - if @uni.indi && (address = @uni.indi.safe_value("address")).present?
+      - address.split(", ").each do |addr_line|
+        = addr_line
+        br
+  p
+    a target="_blank" href=@uni.url
+      = @uni.url

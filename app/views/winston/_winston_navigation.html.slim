@@ -1,0 +1,33 @@
+/ get winston controller's action
+- action = params[:action]
+.winston-navigation[data-no-turbolink]
+  = link_to "Übersicht", "/kennzahlen",
+      class: ['winston-nav-tab', (action == 'global' ? 'winston-nav-tab-active' : '')]
+  = link_to "Fächer", "/kennzahlen/faecher",
+      class: ['winston-nav-tab', (action == 'subjects' ? 'winston-nav-tab-active' : '')]
+  = link_to "Bundesländer", "/kennzahlen/bundeslaender",
+      class:['winston-nav-tab', (action == 'states' ? 'winston-nav-tab-active' : '')]
+  = link_to "Entwicklung", "/kennzahlen/progress",
+      class: ['winston-nav-tab', (action == 'progress' ? 'winston-nav-tab-active' : '')]
+  = link_to "Fluktuation", "/kennzahlen/fluctuation",
+      class: ['winston-nav-tab', (action == 'fluctuation' ? 'winston-nav-tab-active' : '')]
+  = link_to "Digitalisierung", "/kennzahlen/digitization",
+      class:['winston-nav-tab', (action == 'digital_collections' ? 'winston-nav-tab-active' : '')]
+  = link_to "Lehre", "/kennzahlen/teaching",
+      class: ['winston-nav-tab', (action == 'teaching' ? 'winston-nav-tab-active' : '')]
+  = link_to "Sammlungsgeschichte", "/kennzahlen/collectionhistory",
+      class: ['winston-nav-tab', (action == 'collectionhistory' ? 'winston-nav-tab-active' : '')]
+  = link_to "Provenienz", "/kennzahlen/provenance",
+      class: ['winston-nav-tab', (action == 'provenance' ? 'winston-nav-tab-active' : '')]
+  = link_to "Budget", "/kennzahlen/budget",
+      class:['winston-nav-tab', (action == 'budget' ? 'winston-nav-tab-active' : '')]
+  = link_to "Sammlungskonzept", "/kennzahlen/collection_concept",
+      class:['winston-nav-tab', (action == 'collection_concept' ? 'winston-nav-tab-active' : '')]
+  = link_to "Benutzungsordnung", "/kennzahlen/usage_regulation",
+      class:['winston-nav-tab', (action == 'usage_regulation' ? 'winston-nav-tab-active' : '')]
+  = link_to "Erläuterungen", "/kennzahlen/about",
+      class: ['winston-nav-tab', (action == 'about' ? 'winston-nav-tab-active' : '')]
+
+- if !local_assigns[:show_date].nil? && local_assigns[:show_date]
+  = render partial: "update_datum"
+  

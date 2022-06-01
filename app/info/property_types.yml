@@ -1,0 +1,7 @@
+# Info Texte für einzelne PropertyTypes können hier festgelegt werden.
+# Diese Texte werden als Tooltips an Eingabefeldern für die Erstellung von
+# Propertys vom jeweiligen PropertyType anzgeigt.
+#
+# Beispiel:
+#
+# PropertyEmail: "Emails sind voll wichtig und gut und so."

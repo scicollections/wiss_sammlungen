@@ -1,0 +1,21 @@
+.container.container-winston-states
+  h1 Kennzahlen zu wissenschaftlichen Sammlungen an deutschen Universitäten
+  = render partial: "winston_navigation", locals: {show_date: true}
+  h2 Universitäten nach Bundesländern
+  p Die Tabelle zeigt eine Übersicht anhand der Bundesländer mit kumulierten Daten zu Anzahl von <b>Universitäten und Sammlungen</b>, Anteil <b>aktiver Sammlungen</b>, Anteil <b>digital zugänglicher Sammlungen</b> (Objekte online verfügbar), <b>Sammlungskoordinationen</b>, und <b>Sammlungsordnungen</b>.
+  p Durch Mausklick auf eine Tabellenzeile (bzw. durch Klick auf "Alle ausklappen") können die <b>Daten einzelner Universitäten</b> aufgerufen werden.
+  p Durch Klick auf eine Universität kann deren <b>ausführliches Datenblatt</b> aufgerufen werden.
+  .expand-states
+    a#expand-toggle
+      | bitte Javascript aktivieren
+  table.state-table-header[width="100%"]
+    tr.headrow
+      td.cell-1 Bundesland
+      td.cell-1 Universitäten
+      td.cell-2 Sammlungen
+      td.cell-2 aktive Sammlungen
+      td.cell-2 digital zugängliche Sammlungen
+      td.cell-2 Sammlungs­koordination
+      td.cell-2 Sammlungs­ordnung
+  = render "winston/states"
+  = render partial: "winston_navigation"

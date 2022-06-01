@@ -1,0 +1,39 @@
+tr
+  td.first-col Sammlungskoordination:
+  td
+    - if !@uni.has_coll_coord
+      = t "no"
+    - else
+      - @coll_coords.each_with_index do |coord, index|
+        - if index > 0
+          hr
+        - if coord.try(:homepage).try(:first).try(:value).try(:safe_value,"url").present?
+          a target="_blank" href=coord.try(:homepage).try(:first).try(:value).try(:safe_value,"url")
+            b = coord.label
+          br
+        - else
+          b = coord.label
+          br
+        - if coord.address.present? && address = coord.safe_value("address")
+          - address.split(", ").each do |addr_line|
+            = addr_line
+            br
+        - if coord.phone.present? && phone = coord.safe_value("phone")
+          = phone
+          br
+        - if coord.email.present? && mail = coord.safe_value("email")
+          a href="mailto:#{mail}"
+            = mail
+          br
+        - coord.person_value.each do |person|
+          - next unless person.public?
+          br
+          = person.label
+          br
+          - if person.email.present? && email = person.safe_value("email")
+            a href="mailto:#{email}"
+              = email
+            br
+          - if person.phone.present? && phone = person.safe_value("phone")
+            = phone
+            br

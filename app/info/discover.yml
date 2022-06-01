@@ -1,0 +1,10 @@
+# Mapping von discover-Filter-Typen auf ihre zugehörigen Info-Texte.
+# Für mögliche Werte siehe ESConfig.facets bzw. ESConfig.categories.
+#
+# Beispiel:
+#   ...
+#   actor: |
+#     Far far away, behind the word mountains, far from the countries Vokalia
+#     and Consonantia, there live the blind texts. Separated they live in
+#     Bookmarksgrove right now.
+#

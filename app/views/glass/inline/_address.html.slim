@@ -1,0 +1,10 @@
+.complain-if-empty
+  - if individual.address_data
+    = individual.safe_value("address_data").gsub(/\n/,"<br>").html_safe
+    br/
+  - if individual.postal_code
+    span>
+      = individual.safe_value("postal_code")
+  - if (individual.safe_value("location", false))
+    span
+      = link_to individual.safe_value("location"), individual.location_value.path

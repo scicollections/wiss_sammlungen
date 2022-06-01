@@ -1,0 +1,34 @@
+- @universities.each do |uni|
+  p
+    h3
+      | #{uni[:location]}: #{uni[:name]}
+    - uni[:coords].each do |coord|
+      p
+        h4
+          a[href="#{production_url}/Organisation/#{coord[:id]}"
+            target="_blank"]
+            = coord[:name]
+          br
+
+        / list each associated person and link it to it's individual-site in the portal
+        - coord[:persons].each do |person|
+          = person[:name]
+          br
+
+        - coord[:address].split(',').each do |line|
+          = line
+          br
+
+        - if coord[:phone].present?
+          = coord[:phone]
+          br
+
+        - if coord[:email].present?
+          a.obfuscated_link_maillink href="mailto:#{coord[:email]}"
+            span.obfuscated_link_text
+              = coord[:email]
+          br
+
+        - if coord[:homepage]
+          a.externlink href=coord[:homepage] target="_blank"
+            = coord[:homepage_name]

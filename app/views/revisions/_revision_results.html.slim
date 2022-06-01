@@ -1,0 +1,10 @@
+- if @search.has_results
+  .searchresults
+    - @search.results.each do |rev|
+      = render "revisions/revision", revision: rev
+    - if @search.has_more
+      .search_nav
+        = link_to("Mehr Ergebnisse", { controller: "home", action: "revisions", p: @search.from + @search.results.size, f: @search.filter, individual_id: @search.indi }, class: "btn btn-default")
+
+- else
+  .subtitle Keine Ergebnisse

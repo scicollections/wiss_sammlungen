@@ -1,0 +1,51 @@
+<div class="container container-login">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+    <% if resource.errors.messages.any? %>
+    <div class="alert alert-danger">
+      <h4>Passwort konnte nicht aktualisiert werden</h4>
+
+      <% resource.errors.messages.each do |msg| %>
+        <p>
+          <%# in case the previous attempt to reset the password was not successful due to an second-hand reset_password_token %>
+          <% if resource.errors.messages[:reset_password_token].present? && resource.errors.messages[:reset_password_token].first == t(:errors)[:messages][:invalid] %>
+          Passwort konnte nicht aktualisiert werden, da dieser Link bereits verwendet wurde. Klicken Sie bitte <%= link_to "hier", new_password_path(resource_name) %> um Ihr Passwort zu aktualisieren.
+          <% else %>
+          <%= t msg[0], scope: ["activerecord", "attributes", "rahel/user"] %> <%= msg[1].first %>
+          <% end %>
+        </p>
+      <% end %>
+
+    </div>
+    <% end %>
+    <h2>Passwort ändern</h2>
+    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: "js-edit-user"}) do |f| %>
+      <%= f.hidden_field :reset_password_token %>
+
+      <div class="field log-in-fields optional">
+        <%= f.label :password, "Neues Passwort" %><br>
+        <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+
+        <div class="progress" style="margin-top: 7px">
+          <div class="length-note" style="padding-left: 4px">
+            Bitte wählen Sie ein Passwort mit mindestens 6 Zeichen.
+          </div>
+          <div class="progress-bar" style="width: 0%; min-width: 17%; display: none">0%</div>
+        </div>
+      </div>
+
+      <div class="field log-in-fields">
+        <%= f.label :password_confirmation, "Neues Passwort wiederholen" %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
+      </div>
+
+      <div class="actions ">
+        <%= f.submit "Passwort ändern", class: "btn btn-default" %>
+      </div>
+    <% end %>
+    </br>
+    <%= render "devise/shared/links" %>
+
+   </div>
+  </div>
+</div

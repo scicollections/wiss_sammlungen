@@ -1,0 +1,12 @@
+/ button that is displayed on individual-page for members that do not (yet) have edit rights
+  for that individual; with a click they request edit rights and trigger a notification email to support
+- if current_user.role == :member && !current_user.can_edit_individual?(@record)
+  - requested = current_user.requested("edit_privileges", @record)
+  .request-edit-privileges.js-request-edit-privileges data-request-action="edit_privileges"
+    - if requested.nil? || (Date.today - requested) > 3
+      button.btn.btn-sm.btn-primary.request-action Bearbeitungsrechte für diese Seite beantragen
+
+    - elsif requested.present?
+      .label.label-warning.request-status-detail
+        | Für diese Seite haben Sie am #{requested.to_formatted_s(:ger_datetime)} Bearbeitungsrechte beantragt.
+

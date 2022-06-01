@@ -1,0 +1,66 @@
+.container.container-winston-digital-collections
+  h1 Kennzahlen zu wissenschaftlichen Sammlungen an deutschen Universitäten
+  = render partial: "winston_navigation", locals: {show_date: true}
+
+  h2 Digitale Sammlungen
+
+  p Wenn Sammlungen Objekte erschließen (Meta- und Erschließungsdaten erarbeiten) und digitalisieren (digitale Reproduktionen herstellen), entstehen <strong>Digitale Sammlungen</strong>. Eine wissenschaftliche Sammlung kann in mehreren digitalen Sammlungen zugänglich sein. Zugleich kann z.B. ein Verbundportal Bestände mehrerer Sammlungen zugänglich machen.
+
+  p Recherchieren Sie die hier ausgewerteten <a href="/discover/digital">digitale Sammlungen in unserem Portal</a>!
+
+  / Digitalisierungsgrad
+  h3 Zum Grad der Digitalisierung wissenschaftlicher Sammlungen
+
+  p Für unsere Auswertung ist eine Sammlung <b>digital zugänglich</b>, wenn mindestens 1 Objekt dieser Sammlung online verfügbar ist. Meta- bzw. Erschließungsdaten reichen aus; Digitalisate sollten zwar, müssen aber nicht zugänglich sein.
+
+  / allgemein
+  h4 Digitalisierungsgrad allgemein
+  = chart_digital_collections_anteile_sammlungen
+
+  / Sammlungsart
+  h4 Digitalisierungsgrad nach Sammlungsart
+  = chart_digital_collections_anteile_sammlungsart
+
+  / Fachgebiet
+  h4 Digitalisierungsgrad nach Fachgebiet
+  p Eine wissenschaftliche Sammlung kann mit mehreren Fachgebieten verschlagwortet sein, infolgedessen kann sie mehrfach im Diagramm vertreten sein. Die Gesamtlänge der Balken ergeben im Diagramm "relativ" jeweils 100% der entsprechend verschlagworteten Sammlungen, die einzelnen <b>Fachgebiete sind damit jeweils relativ nach ihrem Digitalisierungsgrad vergleichbar</b>.
+  p Es werden die 30 am häufigst vergebenen Fachgebiete angezeigt. <a href="#" class="winston-dc-subject-list" data-toggle="modal" data-target="#subjects-modal">Hier finden Sie eine vollständige alphabetische Liste</a>.
+
+  ul class="nav nav-tabs" role="tablist"
+    li.active role="presentation"
+      a href="#relative-tab" aria-controls="home" role="tab" data-toggle="tab" Relativ
+    li role="presentation"
+      a href="#absolute-tab" aria-controls="home" role="tab" data-toggle="tab" Absolut
+  div.tab-content
+    div.tab-pane.active#relative-tab role="tabpanel"
+      = chart_digital_collections_anteile_fachgebiet
+    div.tab-pane#absolute-tab role="tabpanel"
+      = chart_digital_collections_anteile_fachgebiet false
+
+
+  h3 Digitale Sammlungen: Digitalisate (digitale Reproduktionen)
+  p Unter »Digitalisaten« bzw. »digitalen Reproduktionen« sind Medienobjekte bzw. -dateien zu verstehen, die <b>ein Sammlungsobjekt digital reproduzieren</b>: Bilddigitalisate (Fotografien, Scans, Repros), Audio, Video, 3D, Animationen usw.
+
+  h4 Digitale Sammlungen ohne und mit Digitalisaten (digitalen Reproduktionen)
+  = chart_digital_collections_digitalisate
+
+  h4 Digitale Sammlungen: Art der Digitalisate
+
+  = chart_digital_collections_anteile_digitalisate
+
+  h4 Bilddigitalisate: Nutzungsqualität
+  p Für eine erfolgreiche wissenschaftliche Nutzung in Forschung und Lehre müssen Objektdigitalisate <strong>Mindestanforderungen hinsichtlich ihrer Qualität</strong> erfüllen. Für die am häufigsten vertretene Art der Digitalisate – Bilddigitalisate (Fotografien, Scans, Repros) – haben wir eine einfache Klassifikation entwickelt:
+  ul
+    li <strong>Optimale Nutzungsqualität</strong>: z.B. ohne Komprimierung/verlustfreie Komprimierung; sehr hohe Auflösung, die eine Wahrnehmung und visuelle Untersuchung kleiner Details ermöglicht; Instrumente zur Kalibrierung (Farbkeil, Maßstab)
+    li <strong>Hohe Nutzungsqualität</strong>: z.B. hohe Auflösung, die eine Wahrnehmung und visuelle Untersuchung von Details ermöglicht
+    li <strong>Eingeschränkte Nutzungsqualität</strong>: z.B. niedrige Auflösung, die über die Objektidentifikation hinaus wenig ermöglicht; auch: Unschärfen, Farb- und Tonwertprobleme, sichtbehindernde Wasserzeichen
+    li <strong>Niedrige Nutzungsqualität</strong>: z.B. sehr kleine Auflösung, Objektidentifikation bzw. Objekttypidentifikation nicht gewährleistet ("Thumbnails")
+
+  = chart_digital_collections_bilder_qualitaet
+  
+  p Die konkrete Nutzungsqualität kann von der spezifischen Verwendungsart des Digitalisats abhängen. Vorgestellte Daten sind als Gesamteinschätzungen der jeweiligen digitalen Sammlungen zu verstehen. Aussagen zur Nutzungsqualität des »digitalen Sammlungsobjekts« insgesamt werden nicht gemacht – dies hängt unter anderem von der Anzahl der Fotografien aus unterschiedlichen Perspektiven, dem Bildgebungsverfahren sowie den verknüpften Meta- und Erschließungsdaten ab. Nutzungsrechte bzw. Lizenzierungsfragen werden derzeit nicht berücksichtigt.
+
+  = render(partial: "winston_navigation")
+
+  / hidden modal
+  = render("winston/digital_collections/modal_anteile_fachgebiet_full", layout: "modal_wide")

@@ -1,0 +1,315 @@
+.container.container-user
+  h2 Schnelleinstieg
+  - @me = current_user.person
+  .row
+    .col-md-6.col-sm-12.faq-links
+      ul.faq-links-list
+        li.faq-link-e1
+          a href="#anmelden"
+            strong Anmelden
+        li.faq-link-e1
+          a href="#mein-account"
+            strong Mein Account
+          ul
+            li
+              a href="#seiten-die-ich-bearbeite"  Seiten, die ich bearbeite
+            li
+              a href="#letzte-aenderungen"  Letzte Änderungen an Seiten, die ich bearbeite
+            li
+              a href="#mein-profil"  Mein Profil
+              = image_tag("icons/account-dataset.svg", width: "20")
+            li
+              a href="#meine-anmeldedaten"  Meine Anmeldedaten
+        li.faq-link-e1
+          a href="#seiten-finden"
+            strong Seiten finden
+          ul
+            li
+              a href="#entdecken"  Entdecken
+            li
+              a href="#schnellsuche"  Schnellsuche
+            li
+              a href="#interne-suche"  Interne Suche
+              = image_tag("icons/search_cc_ACSantos.svg", width: "20")
+
+    .col-md-6.col-sm-12.faq-links
+      ul.faq-links-list
+        li.faq-link-e1
+          a href="#seiten-bearbeiten"
+            strong Seiten bearbeiten
+          ul
+            li
+              a href="#sichtbarkeit-und-bearbeitungsrechte"  Sichtbarkeit und Bearbeitungsrechte
+            li
+              a href="#bearbeitungsmenu"  Das Bearbeitungsmenü
+            li
+              a href="#welche-seiten-darf-ich-bearbeiten"  Welche Seiten darf ich bearbeiten?
+            li
+              a href="#wie-bearbeite-ich-seiten"  Wie bearbeite ich Seiten?
+            li
+              a href="#weitere-bearbeiterinnen"  Weitere Bearbeiter_innen hinzufügen/entfernen
+        li.faq-link-e1
+          a href="#neue-seite-erstellen"
+            strong Neue Seite erstellen
+          span.inner-text-button-list Neu
+        li.faq-link-e1
+          a href="#seite-veroeffentlichen"
+            strong Seite veröffentlichen
+        li.faq-link-e1
+          a href="#seite-loeschen"
+            strong Seite löschen
+        li.faq-link-e1
+          a href="#abmelden"
+            strong Abmelden
+        li.faq-link-e1
+          a href="#fragen-support"
+            strong Weitere Fragen &amp; Support
+
+
+    .col-md-12.faq-content
+      h4#anmelden.faq-item Anmelden
+      .row.clearfix
+        .col-md-7.col-sm-12.screen
+          img alt=("Menü --> Anmelden") src="/quickguide/menu-anmelden.png"
+
+        .col-md-5.col-sm-12.faq-text
+          p
+            | Sobald Sie sich mit einer E-Mail-Adresse sowie einem selbstgewählten Passwort als Benutzer_in registriert haben, können Sie sich jederzeit mit diesen Daten im Portal an- und wieder abmelden.
+            br
+            | Um sich bei einem erneuten Besuch anzumelden, folgen Sie im Hauptmenü unter
+            span.inner-text-button2-light Mehr ▾
+            | der Option "Anmelden".
+        .col-md-7.col-sm-12.screen
+          img alt="Anmelden" src="/quickguide/anmelden.png"
+        .col-md-5.col-sm-12.faq-text
+          p Sofort werden Sie auf die Anmelde-Seite weitergeleitet. Dort können Sie sich nach Eingabe Ihrer legitimierenden E-Mail-Adresse sowie Ihrem Passwort als Benutzer_in anmelden. Wenn Sie es wünschen, können Sie die Option "Angemeldet bleiben" wählen.
+          p Sollten Sie ihr Passwort vergessen haben, folgen Sie dem Link "Passwort vergessen?" unterhalb der Anmeldung.
+
+      h4#mein-account.faq-item Mein Account
+      .row.clearfix
+        .col-md-12.col-sm-12.faq-text
+          p Nachdem Sie sich erfolgreich eingeloggt haben, werden Sie direkt auf Ihren Account weitergeleitet. Neben aktuellen Hinweisen auf neue Funktionen oder Änderungen erhalten Sie hier einen ersten Überblick über Ihren Account sowie alle Seiten, die Sie bearbeiten können.
+          .subtitle style=("font-size: 16px;")  Ihr Account im Überblick
+
+        .col-md-7.col-sm-12.screen
+          img.screen-account alt=("Ihre Account-Seite") src="/quickguide/account-seite.png"
+
+        .col-md-5.col-sm-12.faq-text
+          p#seiten-die-ich-bearbeite
+            b Seiten, die ich bearbeite
+            br An dieser Stelle sind alle Seiten aufgelistet, zu denen Sie Bearbeitungsrechte besitzen. Um zu einer bestimmten Seite zu gelangen, klicken Sie einfach einen Eintrag an und Sie werden auf die entsprechende Seite im Portal weitergeleitet.
+
+          p#letzte-aenderungen
+            b Meine letzten Änderungen
+            br
+              | Hier wird Ihnen Ihre persönliche Änderungshistorie angezeigt. Die komplette Änderungshistorie einer einzelnen Seite können Sie zudem auf der jeweiligen Seite einsehen.
+          p#mein-profil
+            b Mein Profil
+            br
+              | Im Portal wird zwischen Ihrer Accountseite (#{link_to("Account #{@me.label}","home", class: "quickstart-ref-portal")}) und Ihrem meist öffentlichen Profil (#{link_to("#{@me.label}", {controller: "individual", action: "show", individual: "Person", id: @me.id}, class: "quickstart-ref-portal")}) unterschieden. Die Eigenschaften Ihres Profils können Sie immer überarbeiten, folgen Sie dazu dem Link unterhalb von "Mein Profil".
+          p#meine-anmeldedaten
+            b Meine Anmeldedaten
+            br Bei Ihrer Registrierung haben Sie eine E-Mail-Adresse und ein Passwort hinterlegt, mit denen Sie sich als Benutzer_in anmelden. Diese Anmeldedaten können Sie jederzeit unter "Anmeldedaten ändern" aktualisieren.
+
+        .col-md-12.col-sm-12.faq-text
+          p Als registrierte_r Benutzer_in stehen Ihnen nun außerdem im Hauptmenü neben den allgemeinen Optionen sowie der Schnellsuche noch weitere Optionen zur Verfügung.
+          p
+            span.inner-text-button.inner-text-button-account>= @me.label
+            | Diese Schaltfläche leitet Sie immer wieder auf Ihre Accountseite.
+          p
+            = image_tag("icons/account-dataset.svg", class: "inner-text-icon", alt: "Profil")
+            | Egal wo Sie sich gerade befinden, diese Option führt auf Ihr Profil im Portal.
+          p
+            = image_tag("icons/search_cc_ACSantos.svg", class: "inner-text-icon", alt: "Interne Suche")
+            | Zusätzlich zur Schnellsuche können Sie über die Lupe auch die interne Suche benutzen. Siehe auch
+            a href="#interne-suche" ►&nbsp;Interne Suche
+          p
+            span.inner-text-button Neu
+            | Hier können Sie eine neue Seite für das Portal anlegen. Siehe auch
+            a href="#neue-seite-erstellen"  ►&nbsp;Neue Seiten erstellen
+
+      h4#seiten-finden.faq-item Seiten finden
+      .row.clearfix
+        .col-md-12.col-sm-12.faq-text
+          p Sind sie auf der Suche nach einer Person, einer Sammlung oder gar einer Aktivität, bietet das Portal unterschiedliche Möglichkeiten diese zu finden. Insgesamt können Sie als registrierte Benutzer_in drei Suchformate benutzen.
+          #entdecken.subtitle Entdecken
+
+        .col-md-12.col-sm-12.screen
+          img alt="Screenshot" src="/quickguide/entdecken.png" /
+
+        .col-md-12.col-sm-12.faq-text
+          p
+            | Die öffentliche Recherche (Entdecken) im Portal ist sowohl über den Abschnitt <b>Suchen & Entdecken</b> auf der Startseite als auch über die Option
+            span.inner-text-button2 Entdecken
+            |  im Hauptmenü zu erreichen. Unter <b>Entdecken</b> können Sie einen beliebigen Suchbegriff eingeben und diesen mithilfe weiterer Kategorien filtern. Darüber hinaus werden die Suchergebnisse in vier verschiedene Typen, namentlich Sammlungen, Digitale Sammlungen, Akteure und Aktivitäten, unterteilt, was einen ersten fokussierten Einblick gewährt.
+
+        .col-md-12.col-sm-12.faq-text
+          #schnellsuche.subtitle Schnellsuche
+        .col-md-7.col-sm-12.screen
+          img alt="Schnellsuche" src="/quickguide/quicksearch.png"
+        .col-md-5.col-sm-12.faq-text
+          p Die <b>Schnellsuche</b> im Hauptmenü bietet sich vor allem dann an, wenn Sie nach einer konkreten Sammlung, Aktivität oder Person suchen. Nach Eingabe des Suchbegriffs in oberen rechten Feld wird Ihnen dort eine Auswahl möglicher Treffer angezeigt. Je konkreter der eingegebene Begriff, desto genauer das Suchergebnis. Ein Eintrag im Suchergebnis leitet Sie auf die entsprechende Seite im Portal weiter.
+        .col-md-12.col-sm-12.faq-text
+          #interne-suche.subtitle Interne Suche
+          p
+            | Sollte Ihre Suche allerdings komplexer sein, empfiehlt sich die <b>interne Suche</b>, die Sie über die Option
+            = image_tag("icons/search_cc_ACSantos.svg", class: "inner-text-icon-sm", alt: "Suche")
+            |  im oberen Menü erreichen.
+
+        .col-md-12.col-sm-12.screen
+          img alt=("Interne Suche") src="/quickguide/interne-suche.png"
+
+        .col-md-12.col-sm-12.faq-text
+          p In der <b> internen Suche</b> können Sie einen eingegebenen Suchbegriff zusätzlich nach Typen filtern und somit weiter einschränken bzw. erweitern. Dabei sind Sie nicht nur auf die Kategorien Wissenschaftliche Sammlung, Sammlungsbezogene Aktivität oder Einrichtung beschränkt, sondern können ebenso nach Kategorien wie Fachrichtung, Stadt oder Art der Aktivität filtern.
+
+      h4#seiten-bearbeiten.faq-item Seiten bearbeiten
+      .row.clearfix
+        .col-md-12.col-sm-12.faq-text
+          p Jede Seite, egal ob Person, Wissenschaftliche Sammlung oder Sammlungsbezogene Aktivität, ist nach demselben Schema aufgebaut. Wie Sie eine Seite bearbeiten ist immer gleich, lediglich die einzelnen Eigenschaften können sich je nach Typ der Seite unterscheiden. Bevor Sie anfangen, eine Seite zu bearbeiten, sollten Sie sich mit dem grundlegenden Aufbau sowie der Bedeutung einzelner Optionen vertraut machen.
+
+        .col-md-12.col-sm-12.screen
+          img alt=("Seite bearbeiten") src="/quickguide/seite-overview.png" /
+        .col-md-12.col-sm-12.faq-text
+          #sichtbarkeit-und-bearbeitungsrechte.subtitle Sichtbarkeit und Bearbeitungsrechte
+          p Jede_r eingeloggte_n Benutzer_in werden zur linken Seite des Titels (bei kleineren Bildschirmen direkt darüber) zwei Symbole angezeigt, die Auskunft über den Status der Sichtbarkeit sowie der Bearbeitungsrechte geben.
+          p <b>Sichtbarkeit</b>
+          p
+            = image_tag("icons/eye_cc-ashlain.svg", alt: "Öffentlich sichtbar", class: "inner-text-icon")
+            | Das offene Auge symbolisiert, dass eine Seite öffentlich und damit für jeden  sichtbar ist.
+          p
+            = image_tag("icons/eye-closed_cc-ashlain.svg", alt: "Nur für registrierte Benutzer_innen sichtbar", class: "inner-text-icon")
+            | Das geschlossene Auge bedeutet, dass nur registrierte Benutzer_innern sowie die Bearbeiter_innen einer Seite diese sehen können.
+          p <b>Bearbeitungsrechte</b>
+          p
+            = image_tag("icons/unlock_cc-ashlain.svg", alt: "Bearbeitungsrechte", class: "inner-text-icon")
+            | Das offene Schloss signalisiert, dass Sie Bearbeitungsrechte für eine Seite besitzen.
+          p
+            = image_tag("icons/lock_cc-ashlain.svg", alt: "Keine Bearbeitungsrechte", class: "inner-text-icon")
+            | Das geschlossene Schloss bedeutet, dass Sie keine Bearbeitungsrechte besitzen. In diesem Fall wird Ihnen aber die Option zur Anforderung der Rechte angezeigt. Siehe auch
+            a href="#welche-seiten-darf-ich-bearbeiten" ►&nbsp;Welche Seiten darf ich bearbeiten?
+
+        .col-md-12.col-sm-12.faq-text
+          #bearbeitungsmenu.subtitle Das Bearbeitungsmenü
+          p
+            | Auf jeder Seite, die Sie bearbeiten dürfen, erscheint über dem Titel eine graue Menüleiste. Neben den verschiedenen Optionen zur Anzeige erscheint hier rechtsbündig die Schaltfläche "Bearbeiten einschalten".
+            br
+            img alt="Bearbeitungsmen\u00FC" src="/quickguide/bearbeiten-menu.png" style=("width: 100%;")
+            br/
+          p Das Bearbeitungsmenü wird bei entsprechenden Rechten stets eingeblendet. Je nachdem welche Anzeigeoption aktiv ist, werden Ihnen allerdings andere Informationen zur Seite angezeigt:
+          p
+            = image_tag("icons/dataset.svg", alt: "Seite", class: "inner-text-icon")
+            | In diesem Modus sehen sie alle (öffentlich sichtbaren) Informationen einer Seite.
+          p
+            = image_tag("icons/history_cc_EDimitrova.svg", alt: "Revisionen/Änderungen", class: "inner-text-icon")
+            | Unter dieser Option können Sie alle Änderungen an der Seite einsehen.
+          p
+            = image_tag("icons/setting_cc_SimpleIcons.svg", alt: "Einstellungen", class: "inner-text-icon")
+            | Informationen zu Sichtbarkeit und  Bearbeitungsrechten finden sich unter Einstellungen.
+
+        .col-md-12.col-sm-12.faq-text
+          #welche-seiten-darf-ich-bearbeiten.subtitle Welche Seiten darf ich bearbeiten?
+          p
+            | Als registrierte_r Benutzer_in können Sie alle Seiten bearbeiten, zu denen Sie Bearbeitungsrechte besitzen. Eine Übersicht dieser Seiten finden Sie auf ihrer persönlichen Startseite. Darüber hinaus befinden sich auf jeder Seite links die zwei Symbole, die Auskunft über Sichtbarkeit und Rechte dieser Seite geben. Siehe auch
+            a href="#sichtbarkeit-und-bearbeitungsrechte"  ►&nbsp;Sichtbarkeit und Bearbeitungsrechte
+          p
+            | Wollen Sie eine Seite bearbeiten, für die Sie keine Bearbeitungsrechte besitzen, können Sie diese einfach beantragen. Dazu gehen Sie auf die enstprechende Seite und drücken den Aktionsbutton
+            button.btn.btn-xs.btn-primary.help-text.disabled Bearbeitungsrechte für diese Seite beantragen
+          p
+            | Alternativ können Sie auch eine_n für die Seite verantwortliche_n Benutzer_in bitten, Sie als Bearbeiter_in für die Seite aufzunehmen. Wie dies genau geht, erfahren sie unter
+            a href="#weitere-bearbeiterinnen"  ►&nbsp;Weitere Bearbeiter_innen hinzufügen/entfernen
+
+        .col-md-12.col-sm-12.faq-text
+          #wie-bearbeite-ich-seiten.subtitle Wie bearbeite ich eine Seite?
+          p
+            | Wählen Sie die Anzeigeoption #{image_tag("icons/dataset.svg", class: "inner-text-icon-sm", alt: "Seite")} und aktivieren Sie den Bearbeitungsmodus. Die Anzeige der Seite wird sich nun minimal verändern. Alle Einträge werden mit einem kleinen Stift versehen und bislang unausgefüllte Eigenschaften werden eingeblendet.
+        .col-md-12.col-sm-12.screen
+          img alt=("Seite bearbeiten") src="/quickguide/seite-bearbeiten-an.png"
+        .col-md-12.col-sm-12.faq-text
+          p Jede Eigenschaft mit einem Stift kann direkt bearbeitet werden. Fahren Sie dazu mit dem Mauszeiger über eine vergebene Eigenschaft und klicken Sie diese an. Sofort wird ein Fenster eingeblendet, indem sie ihre Änderungen oder Neueinträge vornehmen können.
+        .col-md-7.col-sm-12.screen
+          img alt=("Seite bearbeiten") src="/quickguide/modal-art.png"
+          br
+          br
+          img alt=("Seite bearbeiten") src="/quickguide/modal-fachgebiet.png"
+
+        .col-md-5.col-sm-12.screen
+          p
+            | Eine Bearbeitung der Eigenschaften ist stets gleich aufgebaut, allerdings verändert sich der Änderungsdialog je nach Typ. Erscheint etwa der Aktionsbutton
+            button.btn.btn-xs.btn-primary.help-text.disabled Entfernen & neu auswählen
+            |  dürfen Sie nur einen Wert angeben. Der Aktionsbutton
+            button.btn.btn-xs.btn-primary.help-text.disabled Hinzufügen
+            |  hingegen erlaubt eine Mehrfachnennung von Werten. Bei einigen Feldtypen wie Beschreibung, Website oder E-Mail-Adresse können Sie den Wert frei ausfüllen, bei anderen wie Ort, Objektgattung oder Sammlungsart müssen Sie wiederum aus einer Vorgabe wählen.
+          p
+            | Bei vielen Einträgen können Sie die Auswahlvorgabe über ein Suchfeld filtern. Grau hinterlegte Ergebnisse sind bereits vergeben, schwarze Ergebnisse können einfach hinzugefügt werden. Sollte eine Person, eine Sammlung, eine Einrichtung oder eine Aktivität nicht aufgeführt sein, müssen Sie für diese zunächst selbst eine neue Seite anlegen. Wie dies funktioniert, erfahren Sie unter
+            a href="#neue-seite-erstellen"  ►&nbsp;Neue Seiten erstellen
+          p
+            | Die Änderungen werden im Hintergrund automatisch gespeichert. Haben Sie alle Daten bearbeitet, drücken Sie auf
+            button.btn.btn-xs.btn-default.help-text2.disabled Fenster schließen
+            |  und deaktivieren abschließend den Bearbeitungsmodus.
+
+        .col-md-12.col-sm-12.faq-text
+          #weitere-bearbeiterinnen.subtitle Weitere Bearbeiter_innen hinzufügen/entfernen
+
+        .col-md-7.col-sm-12.screen
+          img alt=("Bearbeiter_in hinzufügen") src="/quickguide/bearbeiterinnen-1.png"
+          br
+          br
+          img alt=("Bearbeiter_in hinzufügen – Fenster") src="/quickguide/bearbeiterinnen-2.png"
+
+        .col-md-5.col-sm-12.faq-text
+          p
+            | Informationen über die
+            a href="#sichtbarkeit-und-bearbeitungsrechte"  ►&nbsp;Sichtbarkeit und Bearbeitungsrechte
+            | einer Seite erhalten Sie nicht nur über die beiden Symbolen zur linken Seite des Titels. Unter der Anzeigeoption #{image_tag("icons/setting_cc_SimpleIcons.svg", alt: "Einstellungen", class: "inner-text-icon-sm")} können Sie dies ebenfalls einsehen und die Rechte sogar bearbeiten. So können sie hier etwa weitere Personen als Bearbeiter_innen einer Seite hinzufügen.
+          p
+            | Sobald der Bearbeitungsmodus aktiv ist, klicken Sie auf die Eigenschaft <b>Kann bearbeitet werden von</b>, woraufhin sich ein neues Fenster öffnet. Hier fügen Sie wie bei anderen Eigenschaften eine neue Person hinzu oder entfernen bereits aufgelistete Personen wieder aus der Liste der Bearbeiter_innen. Haben Sie Ihre Änderungen vorgenommen, klicken Sie auf
+            button.btn.btn-xs.btn-default.help-text2.disabled Fenster schließen
+            | .
+
+      h4#neue-seite-erstellen.faq-item Neue Seite erstellen
+      .row.clearfix
+        .col-md-12.col-sm-12.faq-text
+          p
+            | Sobald Sie als Benutzer_in eingeloggt sind, stehen Ihnen im Hauptmenü mehrere Optionen zur Verfügung. Wenn Sie dort die Option
+            span.inner-text-button2 Neu
+            | anklicken, öffnet sich ein Fenster, das Ihnen die Möglichkeit bietet, einen neue Seite zu erstellen.
+
+        .col-md-7.col-sm-12.screen
+          img alt=("Neue Seite erstellen") src="/quickguide/neue-seite.png" /
+        .col-md-5.col-sm-12.faq-text
+          p Unter <b>Typ</b> wählen Sie die Art der neuen Seite aus, wobei Sie die Auswahl mithilfe der Suche und der alternativen Sortierung anpassen können. Haben Sie den passenden Typ entdeckt, wählen Sie ihn mit einem Klick aus. Möchten Sie  doch einen anderen Typ erstellen, dann können Sie die Auswahl über das blaue Kreuz wieder aufheben.
+          p Anschließend vergeben Sie eine aussagekräftige Bezeichnung im entsprechenden Eingabefeld. Je nach Typ kann sich das Eingabefeld verändern, ausgefüllt werden sollten dennoch alle Felder. Bei Personen müssen Sie etwa neben Vor- und Nachname ebenso Anrede und Titel angeben.
+          p
+            | Abschließend drücken Sie auf den blauen Aktionsbutton
+            button.btn.btn-xs.btn-primary.help-text.disabled Seite erstellen
+
+      h4#seite-veroeffentlichen.faq-item Seite veröffentlichen
+      .row.clearfix
+        .col-md-7.col-sm-12.screen
+          img alt=("Seite zur Veröffentlichung vorschlagen") src="/quickguide/seite-veroffentlichen.png" /
+        .col-md-5.col-sm-12.faq-text
+          p Nachdem Sie eine neue Seite erstellt haben, werden Sie direkt auf diese weitergeleitet. Ab dann können Sie die Seite im Detail bearbeiten und mit Inhalt füllen.
+          p
+            | Jede neu erstellte Seite ist zunächst nur für registrierte Benutzer_innen sichtbar, was durch das entsprechende Symbol auf der linken Seite angezeigt wird. Haben Sie die Seite bearbeitet und möchten diese nun publizieren, ist Folgendes zu tun: Aktivieren Sie den Bearbeitungsmodus und wechseln Sie dann in die Anzeigeoption #{image_tag("icons/setting_cc_SimpleIcons.svg", class: "inner-text-icon-sm", alt: "Einstellungen")}. Über den Aktionsbutton
+            button.btn.btn-xs.btn-primary.help-text.disabled Seite zur Veröffentlichung vorschlagen
+            | können Sie die Seite publizieren.
+
+      h4#seite-loeschen.faq-item Seite löschen
+      .row.clearfix
+        .col-md-12.col-sm-12.faq-text
+          p Als registrierte_r Benutzer_in dürfen Sie jederzeit eine neue Seite erstellen und diese als Berechtigte_r auch im Detail bearbeiten. Möchten Sie jedoch eine Seite löschen, müssen Sie dies über #{mail_to "support@wissenschaftliche-sammlungen.de", "support@wissenschaftliche-sammlungen.de", encode:"hex"} bei den Mitarbeiter_innen der Koordinierungsstelle beantragen. Als Manager_innen des Portals prüfen diese Ihr Anliegen und werden die entsprechende Seite gegebenenfalls aus dem Portal entfernen.
+
+      h4#abmelden.faq-item Abmelden
+      .row.clearfix
+        .col-md-7.col-sm-12.screen
+          img alt=("Menü --> Abmelden") src="/quickguide/abmelden.png"
+        .col-md-5.col-sm-12.faq-text
+          p
+            | Um sich abzumelden, wählen Sie im Hauptmenü unter
+            span.inner-text-button2 Mehr ▾
+            | die Option "Abmelden". Anschließend werden Sie als öffentliche_r Besucher_in auf die Startseite des Portals weitergeleitet.
+
+      h4#fragen-support.faq-item Weitere Fragen & Support
+      .row.clearfix
+        .col-md-12.col-sm-12.faq-text
+          p Haben Sie weitere ungeklärte Fragen oder benötigen Sie besondere Hilfe, dann kontaktieren Sie uns unter #{mail_to "support@wissenschaftliche-sammlungen.de", "support@wissenschaftliche-sammlungen.de", encode:"hex"}. Wir helfen Ihnen gerne weiter.

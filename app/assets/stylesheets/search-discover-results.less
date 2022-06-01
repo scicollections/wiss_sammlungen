@@ -1,0 +1,89 @@
+@import "twitter/bootstrap/variables";
+@import "custom_bootstrap/variables.less";
+
+// Ergebnisse
+.container-discover {
+  .extended-search {
+    margin-top: 26px;
+    a {color: @darkblue;}
+    a:hover {text-decoration: none;}
+
+    .results {
+      min-height: 750px;
+
+      .result-types-selection {
+        display: inline-block;
+        width: 100%;
+        border-bottom: 1px solid #cccccc;
+        padding-top: 4px;
+
+        .result-types {
+          clear: both;
+          float: left;
+          cursor: pointer;
+
+          a {display: inline-block;}
+
+          .type {
+            font-size: 16px;
+            background: #efefef;
+            margin: 0 4px 0 0;
+            padding: 2px 15px;
+            line-height: 1.44em;
+          }
+
+          .type-count {
+            color: darkslategray;
+            font-size: 13px;
+            margin-left: 5px;
+          }
+
+          .type:hover, .active {background: #dde0e5;}
+
+        }
+      }
+
+      .item {
+        margin: 15px 0px;
+        display: block;
+
+        a:hover {color: @standard-link-color;}
+
+        .left {margin: 0 0 10px -15px;}
+
+        .s-title {font-size: 24px;}
+
+        .subtitle {
+          font-size: 16px;
+          margin: 0 0 5px 0;
+        }
+
+
+        // Preview-Box for Images (originally used for Individual-Objects)
+        .preview-image {
+          display: block;
+          width: 150px;
+          height: 150px;
+          float: right;
+          margin: 0 5px;
+          padding: 3px 2px;
+          border: 2px solid white;
+
+          img {
+            max-height: 100%;
+            max-width: 150px;
+            display: inherit;
+            margin: auto;
+          }
+        }
+
+      }
+
+    }
+  }
+}
+
+
+.highlight {
+  background-color: #FFFF88;
+}

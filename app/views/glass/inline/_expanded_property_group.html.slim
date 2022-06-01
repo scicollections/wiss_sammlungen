@@ -1,0 +1,9 @@
+- properties = individual.sorted_visible_properties(predicate, current_user)
+- if local_assigns[:hierarchical]
+  - klass = properties.first.objekt.class
+  - props_hierarchical = klass.broader_property_hierarchy(properties)
+  - props_hierarchical[10..-1].each do |prop, level|
+    = @glass.inline_property prop, locals: local_assigns.merge({ level: level })
+- else
+  - properties[10..-1].each do |prop|
+    = @glass.inline_property prop, locals: local_assigns

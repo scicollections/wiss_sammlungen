@@ -1,0 +1,41 @@
+.container.container-survey-clarify data-campaign_slug=@campaign.slug
+  h3 = "Sie sind nicht #{current_user.to_s}?"
+  
+  p 
+    | Der Link, mit dessen Hilfe Sie diese Umfrage aufgerufen haben, ist ein persönlicher 
+    | Zugang für 
+    = current_user.to_s
+    | . Sollten Sie nicht 
+    = current_user.to_s
+    |  sein, so können Sie  
+    
+  ul
+    li stellvertretend die Umfrage ausfüllen, oder
+    li 
+       | uns mitteilen, dass Sie neue_r Ansprechpartner_in für die Sammlung(en) sind. In diesem 
+       | Falle würden wir Sie separat registrieren und einladen.
+       
+  p
+    | In jedem Fall möchten wir Sie bitten, Name und E-Mail anzugeben, sowie gegebenenfalls die 
+    | Situation näher zu erläutern:
+  
+  div.alert
+    =form_tag  "/survey/clarify", method:"POST"
+      div.form-group
+        label for="name" Name
+        input.form-control type="text" id="name" name="name"
+        label for="email" Email
+        input.form-control type="email" id="email" name="email"
+        label for="message" Weitere Informationen
+        textarea.form-control type="text" id="message" name="text"
+        input type="hidden" name="user_id" value= current_user.id
+        br
+        div.row
+          button.btn.btn-primary type="submit" name="surrogat_mode" value="commissioned"
+            = "Ich handle im Auftrag von #{current_user.to_s}"
+          |  
+          button.btn.btn-primary type="submit" name="surrogat_mode" value="new_responsibilityr"
+            | Ich bin neue_r Anprechpartner_in
+          |  
+          = link_to "Zurück ohne besondere Nachricht", "/survey/home", class: "btn btn-default"
+            

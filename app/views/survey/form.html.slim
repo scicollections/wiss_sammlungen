@@ -1,0 +1,14 @@
+.container.container-survey-form data-id=@record.id data-class=@record.type data-campaign=(current_user.at_least?(:manager) ? "" : @campaign.slug)
+  .row
+    .collection-name.col-md-12
+      h2 = @record.inline_label
+      p 
+        | Einige der zu erfassenden Merkmale werden nicht veröffentlicht, sondern nur in aggregierter Form für Statistiken und 
+        a href="/kennzahlen" target="_blank" Kennzahlen
+        |  ausgewertet. Diese Merkmale sind mit dem Schlosssymbol 
+        = image_tag "icons/locked.svg", {class: "lock_locked"}
+        |  markiert.
+      = render 'survey/'+@campaign.slug+'/survey_forms/'+@record.class.to_s.downcase
+  .row
+    .survey-complete-button
+      = link_to "Speichern und zurück", "/survey/home", class: "btn btn-success center-block"

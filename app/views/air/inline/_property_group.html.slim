@@ -1,0 +1,42 @@
+- type = individual.type_of(predicate)
+- weak = individual.predicates[predicate][:range].constantize.weak? if individual.predicates[predicate][:range]
+/- value = !property.value.nil? ? property.value : property.default_value
+- predicate_question = predicate_info_by_tag(predicate, individual_or_class: individual, info_tag: "survey_question")
+- predicate_visibility = predicate_info_by_tag(predicate, individual_or_class: individual, info_tag: "survey_visibility")
+- additional_infos = predicate_info_by_tag(predicate, individual_or_class: individual, info_tag: "survey_additional_info_link")
+
+div.inline-predicate data-predicate=predicate class=(type == :objekt && weak ? "weak-table":"")
+  h4
+    = controller_name == "survey" && predicate_visibility == "internal" ? (image_tag "icons/locked.svg", {class: "lock_locked"}) : ""
+    = controller_name == "survey" && !predicate_question.blank? ? predicate_question : t(predicate)
+  p 
+    = predicate_info_by_tag predicate, individual_or_class: individual, info_tag: "survey"
+    - unless additional_infos.blank?
+      |   
+      small = link_to "Mehr Informationen", additional_infos, target: "_blank"
+  - if type == :objekt && weak
+    - className = individual.predicates[predicate][:range].downcase
+    - tableconfig = YAML.load_file('app/views/air/table/'+className+'.yml')
+    div
+      table.table.table-striped.table-condensed
+        tr
+          - tableconfig[className].each do |table_predicate|
+            - if table_predicate.is_a?(Hash)
+              - opts = table_predicate.values.first.reduce({}, :merge)
+              - table_predicate =t able_predicate.keys[0]
+            td
+              = t table_predicate
+        = @glass.edit individual, predicate, locals: {as_table: true}
+      button type="button" class="btn btn-primary add-property-btn" 
+        span.glyphicon.glyphicon-plus
+  - else
+    = @glass.edit individual, predicate
+    - if individual.cardinality_of(predicate) == 1 && individual.type_of(predicate) == :objekt
+      button type="button" class="btn btn-primary add-property-btn" Ersetzen
+    - elsif individual.type_of(predicate) == :objekt
+      button type="button" class="btn btn-primary add-property-btn" Hinzufügen
+  p = predicate_info_by_tag predicate, individual_or_class: individual, info_tag: "survey_suffix"
+  
+  span.glyphicon.glyphicon-ok.form-control-feedback
+  span.glyphicon.glyphicon-warning-sign.form-control-feedback
+  span.glyphicon.glyphicon-remove.form-control-feedback

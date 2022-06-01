@@ -1,0 +1,61 @@
+- two_columns = @individual.type_of(@predicate) == :objekt
+- @info_text = edit_info @predicate, individual_or_class: @individual if respond_to? :edit_info
+- @additional_info_link = predicate_info_by_tag(@predicate, individual_or_class: @individual, info_tag: "additional_info_link")
+- @survey_additional_info_link = predicate_info_by_tag(@predicate, individual_or_class: @individual, info_tag: "survey_additional_info_link")
+- @survey_info = predicate_info_by_tag @predicate, individual_or_class: @individual, info_tag: "survey"
+
+div[class = (["modal", "edit-modal", "fade", two_columns ? "wide" : nil].compact.join(" "))
+    id              = "modalName"
+    tabindex        = "-1"
+    role            = "dialog"
+    aria-labelledby = "myModalLabel"
+    aria-hidden     = "true"
+    data-predicate               = (@predicate || "")
+    data-individual-class        = (@individual.class || "")
+    data-range-predicate         = (@range_predicate || "")
+    data-weak-type               = (@weak_range ? @individual.singular_range_of(@predicate) : "")
+    data-select-option-type      = (@individual.type_of(@predicate) == :select_option).to_s
+    data-cardinality-one         = (@individual.cardinality_of(@predicate) == 1 ? "true" : "false") ]
+
+  .modal-dialog
+    .modal-content
+      .modal-header
+        / X zum schließen vorerst rausgenommen
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        h4.modal-title#myModalLabel
+          = @glass.humanize(@individual, @predicate)
+          - if @info_text.present? || @survey_info.present?
+            a.info-helper-modal title="Hilfe anzeigen"
+      - if @info_text.present?
+        .info-text-modal.js-info-text-modal 
+          = @info_text.html_safe
+          - unless @additional_info_link.blank?
+            |   
+            small = link_to "Mehr Informationen", @additional_info_link, target: "_blank"
+      - elsif @survey_info.present?
+        .info-text-modal.js-info-text-modal 
+          = @survey_info.html_safe
+          - unless @survey_additional_info_link.blank?
+            |   
+            small = link_to "Mehr Informationen", @survey_additional_info_link, target: "_blank"
+
+      .modal-body.modal-edit
+        - if two_columns
+          .row
+            .col-md-4.left-column
+              / Vorhandene anzeigen
+              .properties = @glass.edit @individual, @predicate
+              button type="button" class="btn btn-primary add-property-btn" Hinzufügen
+              button type="button" class="btn btn-primary replace-property-btn" Entfernen &amp; neu auswählen
+
+            .col-md-8.right-column
+        - else
+          .properties = @glass.edit @individual, @predicate
+          - if @individual.cardinality_of(@predicate) != 1 && @individual.predicates[@predicate.to_s][:options].blank?
+            = @glass.new @individual, @predicate
+
+      .modal-footer
+        .revision-message
+        button type="button" class="btn btn-default" data-dismiss="modal" Fenster schließen
+
+

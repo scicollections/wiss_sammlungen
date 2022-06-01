@@ -1,0 +1,15 @@
+.pull-right.quicksearch-box
+  input#quicksearch.typeahead.form-control autocomplete="off" placeholder="Schnellsuche" spellcheck="false" type="text" /
+
+.pull-right.btn-group.public-menu-dropdown
+  a.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" type="button"
+    | Mehr
+    span.caret
+  ul.dropdown-menu.drop-public
+    - if current_user.public?
+      li= link_to "Anmelden", "/users/sign_in"
+    - elsif current_user.at_least? :member
+      li= link_to "Abmelden", destroy_user_session_path, method: :delete
+    li= link_to "Über uns", "/info"
+    li= link_to "Mitwirkende", "/credits"
+    li= link_to "Lizenzen", "/lizenzen"

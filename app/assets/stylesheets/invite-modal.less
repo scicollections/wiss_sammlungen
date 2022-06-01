@@ -1,0 +1,28 @@
+@import "twitter/bootstrap/variables";
+@import "custom_bootstrap/variables.less";
+
+// INVITE MODAL
+// used when inviting a person as new user
+
+.modal-invite {
+  // warning message at the top of modals
+  .invite-alert {
+    border-radius: 0;
+    border-color: none;
+    margin-bottom: 15px;
+
+    a {color: @darkblue;}
+  }
+
+  input {margin: 2px 0;}
+
+  form .modal-body textarea {
+      height: 480px;
+      max-width: 100%;
+      margin: 2px 0px 10px;
+  }
+
+  form .modal-body tr {
+    height: 38px;
+  }
+}

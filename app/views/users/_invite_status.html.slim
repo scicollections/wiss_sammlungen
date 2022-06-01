@@ -1,0 +1,43 @@
+- invite_allowed = @record.email_value.present? && @record.visibility != :manager
+.invite-status-info.js-invite-status-info data-tab="settings"
+  / if at least one *unique* associated email-address exists, show invite button
+     otherwise display info-message that explains why invitation is not possible
+  / this button is enabled via javascript, when an email address is added and vice-versa
+  - if !@record.user.present? || @record.user.role == :survey_participant
+    - if @record.user && @record.user.role == :survey_participant
+      span
+        | Registriert mit #{mail_to @record.user.email, @record.user.email, encode: "hex"} als "#{@record.user.role}"
+    .invite-action
+      - if invite_allowed
+        a.btn.btn-sm.btn-primary.invite-user href="#"
+          | Einladung schicken
+      - else
+        / else show disabled invite button + instruction
+        a.btn.btn-sm.btn-primary.invite-user.disabled href="#"
+          | Einladung schicken
+        - if !@record.email_value.present?
+          span.invite-status-detail.label.label-danger
+            | Um diese Person einzuladen, bitte zuerst eine E-Mail-Adresse hinzufügen.
+        - if @record.visibility == :manager
+          span.invite-status-detail.label.label-danger
+            | Die Person muss für die Öffentlichkeit oder für Mitglieder sichtbar sein.
+
+  - elsif !@record.user.registration_complete? && @record.user.invitation_date
+    - user = @record.user
+    div
+      - if invite_allowed 
+        / enable re-send invitation button, if enough time has passed since last invite
+        a.btn.btn-sm.btn-primary.invite-user href="#"  Einladung erneut schicken
+        span.invite-status-detail
+          | Letzte Einladung vor #{(Date.today - user.invitation_date.to_date).to_i} Tagen verschickt
+          - if user.invitation_date.present?
+          |  |  Link angeklickt:
+          b=< user.clicked_invitation_link? ? t("yes") : t("no")
+
+    div
+      a.btn.btn-sm.btn-info.recent-invite.js-show-recent-invite
+        | Letzte Einladung anzeigen
+
+  - elsif @record.user.registration_complete?
+    span
+      | Registriert mit #{mail_to @record.user.email, @record.user.email, encode: "hex"} als "#{@record.user.role}"

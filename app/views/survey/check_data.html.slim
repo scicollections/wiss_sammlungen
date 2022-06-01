@@ -1,0 +1,45 @@
+.container.container-survey-checkdata data-campaign_slug=@campaign.slug
+  .row
+    .col-md-12
+      - if @campaign.at_most_status? current_user, :done
+        .row 
+          .col-md-12
+            
+            // 2. Daten überprüfen
+            h2 2. Daten überprüfen
+            p Hier sind alle Seiten aufgelistet (Sammlungen, Aktivitäten, Personen etc.), mit denen Sie verknüpft sind. Sie können jede einzelne Seite anwählen und die vorhandenen Daten überprüfen und aktualisieren.
+            p 
+              | Zu diesem Überblick kommen Sie zurück, indem Sie oben links auf "Umfrage 2019" klicken. Einige Hinweise dazu, wie Sie Daten bearbeiten können, finden Sie 
+              = link_to "in unserem Quickguide", "/users/quickguide#wie-bearbeite-ich-seiten"
+              | .
+            ul.checkdata-list
+               - current_user.person.editable_individuals.each do |individual|
+                 li 
+                   a href="/#{individual.class}/#{individual.id}?mode=edit" = individual.inline_label
+            
+            // Support
+            p 
+              | Bei Rückfragen wenden Sie sich bitte an 
+              = @inviter_name
+              |  unter 
+              = link_to @inviter_email, "mailto:#{@inviter_email}"
+              | .
+            
+            // Ciao!
+            p 
+              br
+              b Herzlichen Dank für Ihre Teilnahme!
+            p Wir hätten einige Ideen, wie Sie mit uns in Verbindung bleiben können:
+      
+      .row 
+      
+      
+        / Display Account creation / transformation not for members
+        - if current_user.changed? or !current_user.at_least? :member
+          .newsletter-box.col-md-6
+            = render "transform_account", user: current_user
+    
+        .newsletter-box.col-md-5
+          h3 Newsletter
+          p In unserem Newsletter informieren wir in regelmäßigen Abständen über Aktuelles aus dem Umfeld wissenschaftlicher Sammlungen sowie über die Aktivitäten der Koordinierungsstelle.
+          = link_to "Zum Newsletter anmelden", "http://wissenschaftliche-sammlungen.de/de/nachrichten/newsletter-abonnieren", class: "btn btn-default"

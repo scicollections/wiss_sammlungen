@@ -1,0 +1,42 @@
+// check for @search.filter.empty is neccessary as behavior of url_for has changed in rails 5
+- search_url = url_for(controller: "home", action: "revisions", f: @search.filter.empty? ? "" : @search.filter)
+.col-md-3.col-sm-3.col-xs-12.filter
+  - @search.facets.each do |k,v|
+    .criteria id="toggleCriteria_#{k}"
+      /a.facet href="" onclick=("javascript:initializeFilterList('#{k}'); return false")
+      span.facet data-key='#{k}'
+        = v[:name]
+        = image_tag "icons/arrow-right.svg", alt: "Filter auswählen", class: "expand-facet"
+    .criteria-ext
+      .left-container
+        ul
+          - @search.filter[k].nil? || @search.filter[k].each do |f|
+            li
+              - case k
+                - when :type then display = t(f)
+                - when :user then display = User.find(f) rescue "#{k.to_s.capitalize} #{f}"
+                - when :action then display = t(f, scope: "actions", default: f)
+                - when :role then display = t(f)
+                - when :campaign then display = Campaign.get(f).name
+                - else display = t(f, default: f)
+              p= display
+              a href="#{search_url}&rfk=#{k}&rfv=#{f}"
+                = image_tag("icons/close.svg", alt: "Auswahl löschen")
+
+      .right-container.filterbox id="moreCriteria_#{k}"
+        .filterbox-head Filtern
+        - if v[:terms].size == 0
+          .filterbox-range
+            p Keine weiteren Auswahlmöglichkeiten
+        - else
+          .filterbox-search
+            input.form-control.criteria-filter id="filterCriteria_#{k}" type="search" /
+          .filterbox-range
+            - v[:terms].each do |term, display, count|
+              li
+                a.criteria-item href="#{search_url}&afk=#{k}&afv=#{term}"
+                  | #{display} (#{count})
+
+  .revision-filter-actions
+    span.delete-filters
+      = link_to("Alle Filter löschen", { controller: "home", action: "revisions"} )
