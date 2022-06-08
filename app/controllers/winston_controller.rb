@@ -390,8 +390,10 @@ class WinstonController < ApplicationController
   def set_report
     if id = params[:report_id]
       @report = Report.find(id)
+    elsif defined?(DEFAULT_REPORT_DATE)
+      @report = Report.find_by(date: DEFAULT_REPORT_DATE)
     else
-      @report = Report.find_by(date: DEFAULT_REPORT_DATE) || Report.order("date desc").take
+      @report = Report.order("date desc").take
     end
 
     if @report.nil? && params[:action] != "no_report_yet"
